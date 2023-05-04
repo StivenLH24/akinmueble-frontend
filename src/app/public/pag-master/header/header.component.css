@@ -1,0 +1,13 @@
+
+.logo_menu{
+    height: 64px ;
+    padding: 5px; 
+}
+
+nav ul li a {
+    color: #2A556D;
+}
+  
+/* Icon Import */  
+
+@import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css')
