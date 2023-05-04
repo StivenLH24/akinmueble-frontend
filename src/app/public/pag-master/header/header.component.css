@@ -1,11 +1,8 @@
 .logo_menu{
-    height: 64px ;
-    padding: 5px; 
+    height: 50px ;
+    padding: 5px 0px 0px 5px;
 }
 
 nav ul li a {
     color: #2A556D;
 }
-
-/* import icons */
-@import url('https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css')
