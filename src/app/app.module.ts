@@ -8,6 +8,7 @@ import { FooterComponent } from './public/pag-master/footer/footer.component';
 import { LateralMenuComponent } from './public/pag-master/lateral-menu/lateral-menu.component';
 import { PathNotFoundComponent } from './public/error/path-not-found/path-not-found.component';
 import { ServerErrorComponent } from './public/error/server-error/server-error.component';
+import { HomeComponent } from './public/home/home.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ServerErrorComponent } from './public/error/server-error/server-error.c
     FooterComponent,
     LateralMenuComponent,
     PathNotFoundComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
