@@ -1,0 +1,43 @@
+<div id="login-page" class="row">
+    <div class="col s12 z-depth-6 card-panel">
+      <form class="login-form">
+        <div class="row">
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="fi fi-br-envelope"></i>
+            <input formControlName="usuario" class="validate" id="email" type="email">
+            <label for="email" data-error="wrong" data-success="right">Usuario</label>
+            <!-- <div class="show-errors" *ngIf="obtenerFormGroup['usuario'].errors 
+            && (obtenerFormGroup['usuario'].dirty || obtenerFormGroup['usuario'].touched)"> -->
+            <strong>Campo obligatorio (debe tener el formato de correo electrónico)</strong>
+            </div>
+          </div>
+        <!-- </div> -->
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="fi fi-br-lock-alt"></i>
+            <input formControlName="clave" id="password" type="password">
+            <label for="password">Contraseña</label>
+            <!-- <div class="show-errors" *ngIf="obtenerFormGroup['clave'].errors 
+            && (obtenerFormGroup['clave'].dirty || obtenerFormGroup['clave'].touched)"> -->
+            <strong>Campo obligatorio</strong>
+            </div>
+          </div>
+        <!-- </div> -->
+        <div class="row">
+          <div class="input-field col s12">
+<!--             <button (click)="IdentificarUsuario()" class="btn waves-effect waves-light col s12">Identificar</button>
+ -->          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6 m6 l6">
+            <p class="margin medium-small waves-effect waves-light btn"><a routerLink="/security/register-form">Registrarse</a></p>
+          </div>
+          <div class="input-field col s6 m6 l6">
+              <p class="margin right-align medium-small"><a routerLink="/security/recover-password">Olvide mi contraseña</a></p>
+          </div>          
+        </div>
+      </form>
+    </div>
+  </div>

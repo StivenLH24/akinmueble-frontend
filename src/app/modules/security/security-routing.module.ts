@@ -4,6 +4,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
 import { IdentifyUserComponent } from './identify-user/identify-user.component';
+import { RegisterFormComponent } from './register-form/register-form.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: "Sign-out",
     component: SignOutComponent
+  },
+  {
+    path: "register-form",
+    component: 	RegisterFormComponent
   }
 
 ];

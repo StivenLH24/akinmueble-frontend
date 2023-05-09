@@ -24,11 +24,11 @@ import { IdentifyUserComponent } from './identify-user/identify-user.component';
     DeleteUserComponent,
     ListUserComponent,
     SignOutComponent,
-    IdentifyUserComponent
+    IdentifyUserComponent,
   ],
   imports: [
     CommonModule,
-    SecurityRoutingModule
+    SecurityRoutingModule,
   ]
 })
 export class SecurityModule { }

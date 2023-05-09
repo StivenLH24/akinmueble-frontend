@@ -1,0 +1,43 @@
+<form>
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+          <form>
+            <label>
+              ¿Eres cliente o asesor?
+              <div>
+                <button (click)="selectedOption = 'cliente'" [class.active]="selectedOption === 'cliente'" class="waves-effect waves-light">Cliente</button>
+                <button (click)="selectedOption = 'asesor'" [class.active]="selectedOption === 'asesor'" class="waves-effect waves-light">Asesor</button>
+              </div>      
+              <p>La opción seleccionada es: {{selectedOption}}</p>
+            </label>
+      
+            <div *ngIf="selectedOption === 'cliente'">
+              <div class="input-field">
+                <input type="text" [(ngModel)]="cliente.nombre" name="nombre">
+                <label>Nombre:</label>
+              </div>
+              <div class="input-field">
+                <input type="password" [(ngModel)]="cliente.contrasena" name="contrasena">
+                <label>Contraseña:</label>
+              </div>
+            </div>
+      
+            <div *ngIf="selectedOption === 'asesor'">
+              <div class="input-field">
+                <input type="text" [(ngModel)]="asesor.nombre" name="nombre">
+                <label>Nombre:</label>
+              </div>
+              <div class="input-field">
+                <input type="email" [(ngModel)]="asesor.correo" name="correo">
+                <label>Correo:</label>
+              </div>
+            </div>
+      
+            <button type="submit" class="waves-effect waves-light btn">Enviar</button>
+          </form>
+        </div>
+      </div>
+      
+  </form>
+
+  

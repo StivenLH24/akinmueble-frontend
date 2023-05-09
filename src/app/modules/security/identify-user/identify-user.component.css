@@ -1,4 +1,24 @@
-input[type=text], input[type=password], input[type=email], label {
-    color: black;
-  }
-  
+#login-page {
+  width: 500px;
+}
+
+.card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.show-errors {
+  color: red;
+}
+
+.btn a {
+  color: white;
+}
+
+@import url("https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css");
