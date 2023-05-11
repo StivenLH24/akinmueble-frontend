@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { SecurityRoutingModule } from './security-routing.module';
 import { VerifyTwofaComponent } from './verify-twofa/verify-twofa.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
@@ -11,6 +10,8 @@ import { DeleteUserComponent } from './user/delete-user/delete-user.component';
 import { ListUserComponent } from './user/list-user/list-user.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
 import { IdentifyUserComponent } from './identify-user/identify-user.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { IdentifyUserComponent } from './identify-user/identify-user.component';
   imports: [
     CommonModule,
     SecurityRoutingModule,
+    ReactiveFormsModule,
   ]
 })
 export class SecurityModule { }

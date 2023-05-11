@@ -5,6 +5,7 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
 import { SignOutComponent } from './sign-out/sign-out.component';
 import { IdentifyUserComponent } from './identify-user/identify-user.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
+import { VerifyTwofaComponent } from './verify-twofa/verify-twofa.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: "register-form",
     component: 	RegisterFormComponent
+  },
+  {
+    path: "2fa",
+    component: VerifyTwofaComponent
   }
 
 ];

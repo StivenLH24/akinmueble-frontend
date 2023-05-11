@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FormGroup, Validators } from '@angular/forms';
+import { SecurityService } from 'src/app/services/security.service';
+
 
 @Component({
   selector: 'app-verify-twofa',
@@ -6,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./verify-twofa.component.css']
 })
 export class VerifyTwofaComponent {
-
+  
 }
