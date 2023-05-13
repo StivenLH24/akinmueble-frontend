@@ -33,6 +33,35 @@ export class IdentifyUserComponent {
     });
   }
 
+  IdentyUser2() {
+    if (this.fGroup.invalid) {
+      console.log(this.fGroup.value);
+      alert("Datos incompletos");
+    } else {
+      let user = this.getFormGroup['user'].value;
+      let password = this.getFormGroup['password'].value;
+      let encryptedPassword = MD5(password).toString();
+      this.securityService.identifyUser(user, encryptedPassword).subscribe({
+        next: (response: any) => {
+          if (response.ok !== true) {
+            alert("Credenciales incorrectas o falta la validación del correo electrónico.");
+          } else {
+            const data = response.data;
+            console.log(data);
+            this.router.navigate(["/security/2fa"]);
+            if (this.securityService.storeIdentifiedUserData(data)) {
+              
+            }
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    }
+  }
+  
+
   IdentyUser() {
     if (this.fGroup.invalid) {
       console.log(this.fGroup.value);
@@ -47,8 +76,9 @@ export class IdentifyUserComponent {
             alert("Credenciales incorrectas o falta la validación del correo electrónico.");
           } else {
             console.log(data);
+            this.router.navigate(["/security/2fa"]);
             if (this.securityService.storeIdentifiedUserData(data)) {
-              this.router.navigate(["/security/2fa"]);
+              
             }
           }
         },
