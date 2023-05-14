@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserModel } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { configurationRoutesBackend } from '../config/configuration.routes.backend';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { userValidatedModel } from '../models/user.validated.model';
 
 @Injectable({
@@ -13,7 +13,9 @@ import { userValidatedModel } from '../models/user.validated.model';
 export class SecurityService {
 
   urlBase: string = configurationRoutesBackend.urlSecurity;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.validateSesion();
+   }
 
   /**
    * Identificar usuario
@@ -83,6 +85,27 @@ export class SecurityService {
       localStorage.setItem("data-user-validated", dataString);
       return true;
     }
+  }
+
+  /**
+   * administracion de la sesion del user
+   */
+  dataUserValidated = new BehaviorSubject<userValidatedModel>(new userValidatedModel());
+
+  getDataSesion(): Observable<userValidatedModel> {
+    return this.dataUserValidated.asObservable();
+  }
+
+  validateSesion(){
+    let dataLS = localStorage.getItem("data-user-validated");
+    if (dataLS) {
+      let obUserValidated = JSON.parse(dataLS);
+      this.updateBehaviorUser(obUserValidated);
+    }
+  }
+
+  updateBehaviorUser(data: userValidatedModel){
+    return this.dataUserValidated.next(data)
   }
   
 }

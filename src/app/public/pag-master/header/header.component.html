@@ -10,7 +10,9 @@
       <li><a href="#">Misíon</a></li>
       <li><a href="#">Vision</a></li>
       <li><a href="#">Contactenos</a></li>
-      <li><a href="/security/identify-user"><i class="fi fi-br-user"></i></a></li>
+      <li><a *ngIf="!sesionActive" href="/security/identify-user"><i class="fi fi-br-user"></i></a></li>
+      <li><a *ngIf="sesionActive" href="#">cambiar clave</a></li>
+      <li><a *ngIf="sesionActive" href="#">cerrar sesion</a></li>
     </ul>
     <a
       href="#"
@@ -37,4 +39,10 @@
   <li><a href="#">Opción 3.2</a></li>
   <li><a href="#">Opción 3.3</a></li>
 </ul>
+
+<div *ngIf="sesionActive">
+  <app-lateral-menu>
+
+  </app-lateral-menu>
+</div>
 

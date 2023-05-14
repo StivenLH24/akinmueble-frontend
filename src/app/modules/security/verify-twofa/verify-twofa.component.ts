@@ -48,6 +48,7 @@ export class VerifyTwofaComponent {
       console.log(code2fa, this.userId);      
       this.securityService.validateCode2FA(this.userId, code2fa).subscribe({
         next: (response: any) => {
+          console.log(response);
           if(response.ok) {
             const userData = response.data;
             this.securityService.storeValidatedUserData(userData);

@@ -4,5 +4,5 @@ export class userValidatedModel {
     ok?: number;
     message?: string;
     data?: UserModel;
-    token?: string;
+    token?: string = "";
 }
