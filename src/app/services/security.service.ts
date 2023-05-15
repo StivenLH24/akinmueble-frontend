@@ -84,6 +84,7 @@ export class SecurityService {
     } else {
       let dataString = JSON.stringify(data);
       localStorage.setItem('data-user-validated', dataString);
+      this.updateBehaviorUser(data);
       return true;
     }
   }
@@ -125,4 +126,19 @@ export class SecurityService {
     return this.http.post<UserModel>(`${this.urlLogic}advisors-register`, data);
   }
   
+
+  /**
+   * cerrando sesion
+   */
+  removerDatosUsuarioValidado(){
+    let datosUser =localStorage.getItem("data-user");
+    let datosUserValidate =localStorage.getItem("data-user-validated");
+    if(datosUser){
+      localStorage.removeItem("data-user");
+    }
+    if(datosUserValidate){
+      localStorage.removeItem("data-user-validated");
+    }
+  this.updateBehaviorUser(new userValidatedModel());
+  }
 }

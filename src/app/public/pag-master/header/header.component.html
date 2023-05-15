@@ -10,9 +10,13 @@
       <li><a href="#">Misíon</a></li>
       <li><a href="#">Vision</a></li>
       <li><a href="#">Contactenos</a></li>
-      <li><a *ngIf="!sesionActive" href="/security/identify-user"><i class="fi fi-br-user"></i></a></li>
+      <li>
+        <a *ngIf="!sesionActive" href="/security/identify-user"
+          ><i class="fi fi-br-user"></i
+        ></a>
+      </li>
       <li><a *ngIf="sesionActive" href="#">cambiar clave</a></li>
-      <li><a *ngIf="sesionActive" href="#">cerrar sesion</a></li>
+      <li><a *ngIf="sesionActive" href="/security/sign-out">cerrar sesion</a></li>
     </ul>
     <a
       href="#"
@@ -25,13 +29,17 @@
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
-  <li><a href="#">Opción 1</a></li>
-  <li><a href="#">Opción 2</a></li>
   <li>
-    <a href="#" class="dropdown-trigger" data-target="opcion-desplegables"
-      >Opción 3<i class="fi fi-br-angle-small-down right"></i
+    <a *ngIf="!sesionActive" href="/security/identify-user"
+      ><i class="fi fi-br-user"></i
     ></a>
   </li>
+  <li><a *ngIf="sesionActive" href="#">cambiar clave</a></li>
+  <li><a *ngIf="sesionActive" href="#">cerrar sesion</a></li>
+  <li><a href="#">Misíon</a></li>
+  <li><a href="#">Vision</a></li>
+  <li><a href="#">Contactenos</a></li>
+  
 </ul>
 
 <ul id="opcion-desplegables" class="dropdown-content">
@@ -41,8 +49,5 @@
 </ul>
 
 <div *ngIf="sesionActive">
-  <app-lateral-menu>
-
-  </app-lateral-menu>
+  <app-lateral-menu> </app-lateral-menu>
 </div>
-
