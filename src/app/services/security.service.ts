@@ -13,6 +13,7 @@ import { userValidatedModel } from '../models/user.validated.model';
 export class SecurityService {
 
   urlBase: string = configurationRoutesBackend.urlSecurity;
+  urlLogic: string = configurationRoutesBackend.urlLogic;
   constructor(private http: HttpClient) {
     this.validateSesion();
    }
@@ -106,6 +107,14 @@ export class SecurityService {
 
   updateBehaviorUser(data: userValidatedModel){
     return this.dataUserValidated.next(data)
+  }
+
+  registerCustomer(data: any): Observable<UserModel>{
+    return this.http.post<UserModel>(`${this.urlLogic}customers-register`, data);
+  }
+
+  registerAdvisor(data: any): Observable<UserModel>{
+    return this.http.post<UserModel>(`${this.urlLogic}advisors-register`, data);
   }
   
 }

@@ -1,5 +1,27 @@
-select {
-    background-color: black;
-    color: white;
+* {
+  color: black;
 }
-  
+
+form {
+  padding: 20px;
+}
+
+.custom-button-send {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-button {
+  background-color: #66b5e0;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 10px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.custom-button.active {
+  background-color: #3498db;
+}
