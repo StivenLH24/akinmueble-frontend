@@ -1,6 +1,6 @@
 <nav class="white">
   <div class="nav-wrapper">
-    <a href="/home" class="brand-logo"
+    <a routerLink="/home" class="brand-logo"
       ><img
         class="responsive-img logo_menu"
         src="../assets/images/logo_akinmueble.png"
@@ -8,18 +8,18 @@
     /></a>
     <ul class="right hide-on-med-and-down">
       <li><a href="#">Misíon</a></li>
-      <li><a href="#">Vision</a></li>
-      <li><a href="#">Contactenos</a></li>
+      <li><a routerLink="#">Vision</a></li>
+      <li><a routerLink="#">Contactenos</a></li>
       <li>
-        <a *ngIf="!sesionActive" href="/security/identify-user"
+        <a *ngIf="!sesionActive" routerLink="/security/identify-user"
           ><i class="fi fi-br-user"></i
         ></a>
       </li>
-      <li><a *ngIf="sesionActive" href="/security/change-password">cambiar clave</a></li>
-      <li><a *ngIf="sesionActive" href="/security/sign-out">cerrar sesion</a></li>
+      <li><a *ngIf="sesionActive" routerLink="/security/change-password">cambiar clave</a></li>
+      <li><a *ngIf="sesionActive" routerLink="/security/sign-out">cerrar sesion</a></li>
     </ul>
     <a
-      href="#"
+    href="#"
       data-target="mobile-demo"
       class="sidenav-trigger"
       style="color: black"
@@ -30,22 +30,22 @@
 
 <ul class="sidenav" id="mobile-demo">
   <li>
-    <a *ngIf="!sesionActive" href="/security/identify-user"
+    <a *ngIf="!sesionActive" routerLink="/security/identify-user"
       ><i class="fi fi-br-user"></i
     ></a>
   </li>
-  <li><a *ngIf="sesionActive" href="/security/change-password">cambiar clave</a></li>
-  <li><a *ngIf="sesionActive" href="/security/sign-out">cerrar sesion</a></li>
-  <li><a href="#">Misíon</a></li>
-  <li><a href="#">Vision</a></li>
-  <li><a href="#">Contactenos</a></li>
+  <li><a *ngIf="sesionActive" routerLink="/security/change-password">cambiar clave</a></li>
+  <li><a *ngIf="sesionActive" routerLink="/security/sign-out">cerrar sesion</a></li>
+  <li><a routerLink="#">Misíon</a></li>
+  <li><a routerLink="#">Vision</a></li>
+  <li><a routerLink="#">Contactenos</a></li>
   
 </ul>
 
 <ul id="opcion-desplegables" class="dropdown-content">
-  <li><a href="#">Opción 3.1</a></li>
-  <li><a href="#">Opción 3.2</a></li>
-  <li><a href="#">Opción 3.3</a></li>
+  <li><a routerLink="#">Opción 3.1</a></li>
+  <li><a routerLink="#">Opción 3.2</a></li>
+  <li><a routerLink="#">Opción 3.3</a></li>
 </ul>
 
 <div *ngIf="sesionActive">
