@@ -6,28 +6,25 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { userValidatedModel } from '../models/user.validated.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
-
 export class SecurityService {
-
   urlBase: string = configurationRoutesBackend.urlSecurity;
   urlLogic: string = configurationRoutesBackend.urlLogic;
   constructor(private http: HttpClient) {
     this.validateSesion();
-   }
+  }
 
   /**
    * Identificar usuario
-   * @param usuario 
-   * @param clave 
+   * @param usuario
+   * @param clave
    * @returns datos del usuario validado
    */
   identifyUser(user: string, password: string): Observable<UserModel> {
     return this.http.post<UserModel>(`${this.urlBase}identify-user`, {
       email: user,
-      password: password
+      password: password,
     });
   }
 
@@ -35,40 +32,43 @@ export class SecurityService {
    * Almacena los datos del usuario
    * @param datos datos del usuario
    */
-  storeIdentifiedUserData(data: UserModel): boolean{
+  storeIdentifiedUserData(data: UserModel): boolean {
     let cadena = JSON.stringify(data);
-    let dataLS = localStorage.getItem("data-user");
+    let dataLS = localStorage.getItem('data-user');
     if (dataLS) {
       return false;
     } else {
-      localStorage.setItem("data-user", cadena);
+      localStorage.setItem('data-user', cadena);
       return true;
     }
   }
 
   /**
    * Busca los datos en localstorage de un user
-   * @returns 
+   * @returns
    */
-  getStoredIdentifiedUserData(): UserModel | null{
-    let dataLS = localStorage.getItem("data-user");
+  getStoredIdentifiedUserData(): UserModel | null {
+    let dataLS = localStorage.getItem('data-user');
     if (dataLS) {
       return JSON.parse(dataLS);
-    }else {
+    } else {
       return null;
     }
   }
 
   /**
    * validar codigo 2fa
-   * @param idusuario 
+   * @param idusuario
    * @param codigo
-   * @returns 
+   * @returns
    */
-  validateCode2FA(userId: string, code2fa: string): Observable<userValidatedModel> {
+  validateCode2FA(
+    userId: string,
+    code2fa: string
+  ): Observable<userValidatedModel> {
     return this.http.post<userValidatedModel>(`${this.urlBase}verify-2fa`, {
       userId: userId,
-      code2fa: code2fa
+      code2fa: code2fa,
     });
   }
 
@@ -77,36 +77,45 @@ export class SecurityService {
    * @param data del user validado
    * @returns respuesta
    */
-  storeValidatedUserData(data: userValidatedModel): boolean{
-    let dataLS = localStorage.getItem("data-user-validated");
+  storeValidatedUserData(data: userValidatedModel): boolean {
+    let dataLS = localStorage.getItem('data-user-validated');
     if (dataLS != null) {
       return false;
-    }else{
+    } else {
       let dataString = JSON.stringify(data);
-      localStorage.setItem("data-user-validated", dataString);
+      localStorage.setItem('data-user-validated', dataString);
+      this.updateBehaviorUser(data);
       return true;
     }
+  }
+
+  RecuperarClavePorUsuario(user: string): Observable<UserModel> {
+    return this.http.post<UserModel>(`${this.urlBase}recovery-password`, {
+      email: user,
+    });
   }
 
   /**
    * administracion de la sesion del user
    */
-  dataUserValidated = new BehaviorSubject<userValidatedModel>(new userValidatedModel());
+  dataUserValidated = new BehaviorSubject<userValidatedModel>(
+    new userValidatedModel()
+  );
 
   getDataSesion(): Observable<userValidatedModel> {
     return this.dataUserValidated.asObservable();
   }
 
-  validateSesion(){
-    let dataLS = localStorage.getItem("data-user-validated");
+  validateSesion() {
+    let dataLS = localStorage.getItem('data-user-validated');
     if (dataLS) {
       let obUserValidated = JSON.parse(dataLS);
       this.updateBehaviorUser(obUserValidated);
     }
   }
 
-  updateBehaviorUser(data: userValidatedModel){
-    return this.dataUserValidated.next(data)
+  updateBehaviorUser(data: userValidatedModel) {
+    return this.dataUserValidated.next(data);
   }
 
   registerCustomer(data: any): Observable<UserModel>{
@@ -117,4 +126,19 @@ export class SecurityService {
     return this.http.post<UserModel>(`${this.urlLogic}advisors-register`, data);
   }
   
+
+  /**
+   * cerrando sesion
+   */
+  removerDatosUsuarioValidado(){
+    let datosUser =localStorage.getItem("data-user");
+    let datosUserValidate =localStorage.getItem("data-user-validated");
+    if(datosUser){
+      localStorage.removeItem("data-user");
+    }
+    if(datosUserValidate){
+      localStorage.removeItem("data-user-validated");
+    }
+  this.updateBehaviorUser(new userValidatedModel());
+  }
 }

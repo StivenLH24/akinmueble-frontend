@@ -53,6 +53,8 @@ export class VerifyTwofaComponent {
             const userData = response.data;
             this.securityService.storeValidatedUserData(userData);
             console.log("Validación del código 2fa exitosa");
+            this.router.navigate(['']);
+            
             
           } else {
             console.log(response);

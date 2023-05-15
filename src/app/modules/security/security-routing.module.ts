@@ -21,7 +21,7 @@ const routes: Routes = [
     component: RecoverPasswordComponent
   },
   {
-    path: "Sign-out",
+    path: "sign-out",
     component: SignOutComponent
   },
   {
