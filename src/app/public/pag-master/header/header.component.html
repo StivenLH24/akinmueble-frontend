@@ -7,7 +7,8 @@
         alt="Logo"
     /></a>
     <ul class="right hide-on-med-and-down">
-      <li><a routerLink="/parameters/mision">Misíon</a></li>
+
+      <li><a routerLink="/parameters/mision">Misión</a></li>
       <li><a routerLink="/parameters/vision">Vision</a></li>
       <li><a routerLink="#">Contactenos</a></li>
       <li>
@@ -19,7 +20,7 @@
       <li><a *ngIf="sesionActive" routerLink="/security/sign-out">cerrar sesion</a></li>
     </ul>
     <a
-      href="#"
+    href="#"
       data-target="mobile-demo"
       class="sidenav-trigger"
       style="color: black"
@@ -36,6 +37,7 @@
   </li>
   <li><a *ngIf="sesionActive" routerLink="/security/change-password">cambiar clave</a></li>
   <li><a *ngIf="sesionActive" routerLink="/security/sign-out">cerrar sesion</a></li>
+
   <li><a routerLink="/parameters/mision">Misíon</a></li>
   <li><a routerLink="/parameters/vision">Vision</a></li>
   <li><a routerLink="#">Contactenos</a></li>
