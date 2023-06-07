@@ -25,3 +25,22 @@ form {
 .custom-button.active {
   background-color: #3498db;
 }
+
+.message-modal {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}

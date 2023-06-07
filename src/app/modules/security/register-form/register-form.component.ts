@@ -3,6 +3,11 @@ import { FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { SecurityService } from 'src/app/services/security.service';
 
+interface Message {
+  type: 'success' | 'error';
+  content: string;
+}
+
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
@@ -12,6 +17,7 @@ export class RegisterFormComponent {
   clienteForm: FormGroup;
   asesorForm: FormGroup;
   selectedOption: string = '';
+  messages: Message[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -43,60 +49,62 @@ export class RegisterFormComponent {
   }
 
   /**
-  * Función de registro de cliente
-  */
+   * Función de registro de cliente
+   */
   registerCliente() {
     if (this.clienteForm.valid) {
       const cliente = this.clienteForm.value;
       this.securityService.registerCustomer(cliente).subscribe({
         next: (response: any) => {
           // Lógica de manejo de respuesta exitosa
-          console.log('Registro exitoso cliente');
+          this.showMessage('Registro exitoso', 'success');
           console.log(response);
         },
         error: (err: any) => {
           // Lógica de manejo de error
-          console.log('Registro fallido cliente', err);
+          this.showMessage('Registro fallido', 'error');
+          console.log(err);
           console.log(cliente);
         },
       });
     } else {
       // Lógica de manejo de formulario inválido
+      this.showMessage('Formulario inválido', 'error');
       console.log(this.clienteForm);
-      console.log('Formulario inválido');
       console.log(this.clienteForm.value);
     }
   }
 
   /**
-  * Función de registro de asesor
-  */
+   * Función de registro de asesor
+   */
   registerAsesor() {
     if (this.asesorForm.valid) {
       const asesor = this.asesorForm.value;
       this.securityService.registerAdvisor(asesor).subscribe({
         next: (response: any) => {
           // Lógica de manejo de respuesta exitosa
-          console.log('Registro exitoso asesor');
+          this.showMessage('Registro exitoso', 'success');
           console.log(response);
         },
         error: (err: any) => {
           // Lógica de manejo de error
-          console.log('Registro fallido asesor', err);
+          this.showMessage('Registro fallido', 'error');
+          console.log(err);
           console.log(asesor);
         },
       });
     } else {
       // Lógica de manejo de formulario inválido
+      this.showMessage('Formulario inválido', 'error');
       console.log(this.asesorForm);
-      console.log('Formulario inválido');
       console.log(this.asesorForm.value);
     }
   }
 
   /**
-  * Función de registro público
-  */
+   * Función de registro público
+   */
   register() {
     if (this.selectedOption === 'Cliente') {
       this.registerCliente();
@@ -104,4 +112,25 @@ export class RegisterFormComponent {
       this.registerAsesor();
     }
   }
+
+  /**
+   * Mostrar mensaje en la interfaz
+   * @param content Contenido del mensaje
+   * @param type Tipo de mensaje (success, error)
+   */
+  showMessage(content: string, type: 'success' | 'error') {
+    this.messages.push({ content, type });
+    setTimeout(() => {
+      this.removeMessage(this.messages.length - 1);
+    }, 3000);
+  }
+
+  /**
+   * Eliminar mensaje de la interfaz
+   * @param index Índice del mensaje a eliminar
+   */
+  removeMessage(index: number) {
+    this.messages.splice(index, 1);
+  }
 }
+
