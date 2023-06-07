@@ -24,6 +24,7 @@ export class IdentifyUserComponent {
 
   ngOnInit() {
     this.buildForm();
+    console.log(this.fGroup)
   }
 
   buildForm() {
@@ -60,6 +61,7 @@ export class IdentifyUserComponent {
 
 
   get getFormGroup() {
+    console.log("controls-> ", this.fGroup.controls)
     return this.fGroup.controls;
   }
 }
