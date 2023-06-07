@@ -6,10 +6,12 @@ import { DeleteCustomerComponent } from './customer/delete-customer/delete-custo
 import { EditCustomerComponent } from './customer/edit-customer/edit-customer.component';
 import { CreateCustomerComponent } from './customer/create-customer/create-customer.component';
 import { ListCustomerComponent } from './customer/list-customer/list-customer.component';
+import { MisionComponent } from './mision/mision.component';
 import { ListProductComponent } from './product/list-product/list-product.component';
 import { CreateProductComponent } from './product/create-product/create-product.component';
 import { DeleteProductComponent } from './product/delete-product/delete-product.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
+import { VisionComponent } from './vision/vision.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { EditProductComponent } from './product/edit-product/edit-product.compon
     ListProductComponent,
     CreateProductComponent,
     DeleteProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    MisionComponent,
+    VisionComponent
   ],
   imports: [
     CommonModule,

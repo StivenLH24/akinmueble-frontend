@@ -7,8 +7,13 @@
         alt="Logo"
     /></a>
     <ul class="right hide-on-med-and-down">
+<<<<<<< HEAD
       <li><a href="#">Misíon</a></li>
       <li><a routerLink="#">Vision</a></li>
+=======
+      <li><a routerLink="/parameters/mision">Misíon</a></li>
+      <li><a routerLink="/parameters/vision">Vision</a></li>
+>>>>>>> 15c6cfd1c9cc9f49b5fd2389f889c5f12e39d76a
       <li><a routerLink="#">Contactenos</a></li>
       <li>
         <a *ngIf="!sesionActive" routerLink="/security/identify-user"
@@ -36,8 +41,9 @@
   </li>
   <li><a *ngIf="sesionActive" routerLink="/security/change-password">cambiar clave</a></li>
   <li><a *ngIf="sesionActive" routerLink="/security/sign-out">cerrar sesion</a></li>
-  <li><a routerLink="#">Misíon</a></li>
-  <li><a routerLink="#">Vision</a></li>
+
+  <li><a routerLink="/parameters/mision">Misíon</a></li>
+  <li><a routerLink="/parameters/vision">Vision</a></li>
   <li><a routerLink="#">Contactenos</a></li>
   
 </ul>
