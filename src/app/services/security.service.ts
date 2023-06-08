@@ -35,7 +35,8 @@ export class SecurityService {
   storeIdentifiedUserData(data: UserModel): boolean {
     let cadena = JSON.stringify(data);
     let dataLS = localStorage.getItem('data-user');
-    if (dataLS) {
+    let dataValidatedLS = localStorage.getItem('data-user-validated');
+    if (dataLS && dataValidatedLS) {
       return false;
     } else {
       localStorage.setItem('data-user', cadena);
