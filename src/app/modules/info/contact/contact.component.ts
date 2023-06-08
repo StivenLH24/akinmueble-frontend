@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { SecurityService } from 'src/app/services/security.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class ContactComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private securityService: SecurityService
+    private securityService: SecurityService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -33,10 +35,10 @@ export class ContactComponent implements OnInit {
     if (this.contactForm.invalid) {
       return;
     }
-console.log(this.contactForm)
     const data = this.contactForm.value;
 
     this.securityService.enviarDatos(data).subscribe(response => {
+      this.router.navigate(['/home'])
     },
     error => {
       console.log(data)
