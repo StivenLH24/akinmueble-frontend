@@ -125,7 +125,7 @@ export class RegisterFormComponent {
     }, 3000);
   }
 
-  /**
+  /*
    * Eliminar mensaje de la interfaz
    * @param index Índice del mensaje a eliminar
    */

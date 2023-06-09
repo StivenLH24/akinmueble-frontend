@@ -99,7 +99,7 @@
 
   <div class="message-modal" *ngFor="let message of messages; let i = index" [ngClass]="{'success': message.type === 'success', 'error': message.type === 'error'}">
     {{ message.content }}
-    <button (click)="removeMessage(i)">Cerrar</button>
+    <!-- <button (click)="removeMessage(i)">Cerrar</button> -->
   </div>
   
 
