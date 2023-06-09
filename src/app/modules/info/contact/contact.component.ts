@@ -33,12 +33,13 @@ export class ContactComponent implements OnInit {
 
   submitForm() {
     if (this.contactForm.invalid) {
+      alert('debes ingresar todos los campos requeridos')
       return;
     }
     const data = this.contactForm.value;
 
     this.securityService.enviarDatos(data).subscribe(response => {
-      this.router.navigate(['/home'])
+      this.router.navigate(["/info/RedirectContact"])
     },
     error => {
       console.log(data)
