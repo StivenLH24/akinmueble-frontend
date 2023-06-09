@@ -28,6 +28,10 @@ const routes: Routes = [
   {
     path: "reports",
     loadChildren: () => import("./modules/reports/reports.module").then(m => m.ReportsModule)
+  }, 
+  {
+    path: "info",
+    loadChildren: () => import("./modules/info/info.module").then(m => m.InfoModule)
   },
   {
     //siempre debe ser la última ruta

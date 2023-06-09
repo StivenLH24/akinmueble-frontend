@@ -1,0 +1,40 @@
+<div class="row">
+  <form class="col s12" [formGroup]="contactForm" (ngSubmit)="submitForm()" (ngFormSubmit)="contactForm.valid && submitForm()">
+    <div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="first_name" type="text" class="validate" formControlName="name" required>
+          <label for="first_name">Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="phone" type="text" class="validate" formControlName="phone" pattern="[0-9]{10}" required>
+          <label for="phone">Phone number</label>
+          <div class="invalid-feedback">Por favor ingresa un numero de telefono movil valido de 10 digitos.</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate" formControlName="email" required>
+          <label for="email">Email</label>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="typeMessage" type="text" class="validate" formControlName="typeMessage" required>
+          <label for="typeMessage">Tipo de consulta</label>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="message" class="materialize-textarea" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; resize: vertical; height: 100px;" formControlName="message" required></textarea>
+          <label for="message" style="margin-left: 5px;">Message</label>
+        </div>
+      </div>
+      <div style=" padding-bottom: 50px;">
+        <button class="btn waves-effect waves-light" type="submit" name="action" [disabled]="!contactForm.valid">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
