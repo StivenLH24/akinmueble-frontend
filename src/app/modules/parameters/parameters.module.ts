@@ -11,6 +11,7 @@ import { ListProductComponent } from './product/list-product/list-product.compon
 import { CreateProductComponent } from './product/create-product/create-product.component';
 import { DeleteProductComponent } from './product/delete-product/delete-product.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
+import { AdvisorListComponent } from './advisor-list/advisor-list.component';
 import { VisionComponent } from './vision/vision.component';
 
 
@@ -25,7 +26,8 @@ import { VisionComponent } from './vision/vision.component';
     DeleteProductComponent,
     EditProductComponent,
     MisionComponent,
-    VisionComponent
+    VisionComponent,
+    AdvisorListComponent
   ],
   imports: [
     CommonModule,
