@@ -128,6 +128,11 @@ export class SecurityService {
   }
   
 
+  enviarDatos(data: any): Observable<any> {
+    return this.http.post(`${this.urlLogic}send-message-form-contact`, data);
+  }
+
+
   /**
    * cerrando sesion
    */
