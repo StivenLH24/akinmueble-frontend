@@ -142,4 +142,10 @@ export class SecurityService {
     }
   this.updateBehaviorUser(new userValidatedModel());
   }
+
+  validateHashUser(hash: string) {
+    return this.http.post<boolean>(`${this.urlBase}validar-hash-user`, {
+      codehash: hash,
+    });
+  }
 }
