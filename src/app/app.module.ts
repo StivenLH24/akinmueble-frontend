@@ -10,8 +10,9 @@ import { PathNotFoundComponent } from './public/error/path-not-found/path-not-fo
 import { ServerErrorComponent } from './public/error/server-error/server-error.component';
 import { RegisterFormComponent } from './modules/security/register-form/register-form.component';
 import { HomeComponent } from './public/home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

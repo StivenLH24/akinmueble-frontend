@@ -34,7 +34,7 @@ const routes: Routes = [
     loadChildren: () => import("./modules/info/info.module").then(m => m.InfoModule)
   },
   {
-    path: "advisor",
+    path: "",
     loadChildren: () => import("./modules/parameters/parameters.module").then(m => m.ParametersModule)
   },
   {

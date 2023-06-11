@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MisionComponent } from './mision/mision.component';
 import { VisionComponent } from './vision/vision.component';
 import { AdvisorListComponent } from './advisor/advisor-list/advisor-list.component';
+import { RequestsListComponent } from './request/requests-list/requests-list.component';
 
 const routes: Routes = [
   {
@@ -14,9 +15,13 @@ const routes: Routes = [
     component: VisionComponent
   },
   {
-    path: "list",
+    path: "advisor/list",
     component: AdvisorListComponent
-  }
+  },
+  {
+    path: "request/list",
+    component: RequestsListComponent
+  },
 ];
 
 @NgModule({

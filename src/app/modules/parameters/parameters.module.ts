@@ -14,6 +14,7 @@ import { EditProductComponent } from './product/edit-product/edit-product.compon
 import { AdvisorListComponent } from './advisor/advisor-list/advisor-list.component';
 import { VisionComponent } from './vision/vision.component';
 import { ShareModule } from '../share/share.module';
+import { RequestsListComponent } from './request/requests-list/requests-list.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ShareModule } from '../share/share.module';
     EditProductComponent,
     MisionComponent,
     VisionComponent,
-    AdvisorListComponent
+    AdvisorListComponent,
+    RequestsListComponent
   ],
   imports: [
     CommonModule,
