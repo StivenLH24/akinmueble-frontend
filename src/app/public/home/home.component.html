@@ -1,4 +1,72 @@
+<div style="padding-top: 35px;">
+    <div style="padding-left: 30px;">
+      <mat-form-field appearance="fill">
+        <mat-label>Select offer type</mat-label>
+        <mat-select [(value)]="offerType">
+            <mat-option value="0">No aplica</mat-option>
+          <mat-option value="1">Renta</mat-option>
+          <mat-option value="2">Venta</mat-option>
+          <mat-option value="3">Renta Venta</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div style="padding-left: 30px;">
+      <mat-form-field appearance="fill">
+        <mat-label>Select property type</mat-label>
+        <mat-select [(value)]="propertyType">
+            <mat-option value="0">No aplica</mat-option>
+          <mat-option value="1">Casa</mat-option>
+          <mat-option value="2">Local Comercial</mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+
+      <div style="padding-left: 30px; padding-bottom: 20px;">
+      <button (click)="filtrarPropiedades()" class="waves-effect waves-light btn custom-button-send">Submit</button>
+    </div>
+      
+    </div> 
+
+<div style="padding-bottom: 75px; padding-top: 40;">
+    <div class="row">
+        <div class="col s12 m6" *ngFor="let propiedad of propiedades">
+          <div class="card">
+            <div style="margin: 25px;">
+            <span class="card-title">Propiedad # {{propiedad.id}}</span>
+            <div class="card-image">
+              <img src="img" />
+              
+            </div>
+            <div class="card-content">
+              <p>precio: {{ propiedad.price }}</p>
+              <p>direccion: {{ propiedad.address }}</p>
+              <p>tipo de oferta: {{ propiedad.offerTypeId }}</p>
+            </div>
+            <div class="card-action">
+              <a href="#" class="waves-effect waves-light btn">Botón</a>
+            </div>
+
+        </div>
+          </div>
+        </div>
+      </div>
+     
+<!-- 
+      <mat-form-field appearance="fill">
+        <mat-label>Select an option</mat-label>
+        <mat-select [(value)]="selected">
+          <mat-option>None</mat-option>
+          <mat-option value="option1">Option 1</mat-option>
+          <mat-option value="option2">Option 2</mat-option>
+          <mat-option value="option3">Option 3</mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <p>You selected: {{selected}}</p> -->
+
+
+    <div style="padding-left: 30px;">
 <button type="submit" (click)="Ventas()" class="waves-effect waves-light btn custom-button-send">Ventas</button>
+</div> 
 
-
-
+</div>

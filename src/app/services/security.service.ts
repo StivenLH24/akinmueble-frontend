@@ -133,6 +133,19 @@ export class SecurityService {
   }
 
 
+  obtenerPropiedades(offerType: string, propertyType: string) {
+    return this.http.get<any>(`${this.urlLogic}properties?filter={"where":{"offerTypeId":"${offerType}", "propertyTypeId":"${propertyType}"}}`);
+  }
+  obtenerPropOfer(offerType: string) {
+    return this.http.get<any>(`${this.urlLogic}properties?filter={"where":{"offerTypeId":"${offerType}"}}`);
+  }
+
+  obtenerPropType(propertyType: string) {
+    return this.http.get<any>(`${this.urlLogic}properties?filter={"where":{"propertyTypeId":"${propertyType}"}}`);
+  }
+  obtenerPropiedadesSinFiltros() {
+    return this.http.get<any>(`${this.urlLogic}properties`);
+  }
   /**
    * cerrando sesion
    */
