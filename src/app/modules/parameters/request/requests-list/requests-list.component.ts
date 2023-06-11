@@ -21,13 +21,13 @@ export class RequestsListComponent {
 
   buildTable() {
     this.table.columnNames = [
-      "Código",
+      "Código solicitud",
+      "Asesor",
       "Departamento",
       "Ciudad",
       "Dirección",
       "Tipo propiedad",
       "Estado",
-      "Contrato",
       "Acciones",
     ];
     this.listRequests();
@@ -46,17 +46,16 @@ export class RequestsListComponent {
 
   downLoadContract(contractSource: string) {
     this.requestService.downloadContract(contractSource).subscribe({
-      next: (response: HttpResponse<Blob>) => {
-        console.log(response)
-        if (!response || !response.body) {
+      next: (body: Blob) => {
+        if (!body) {
           console.log("Es null")
+          /**TODO: Tratar este caso */
           return;
         }
-        console.log("pasó")
-        const blob = new Blob([response.body], { type: "application/pdf" });
+        const blob = new Blob([body], { type: "application/pdf" });
         const downloadLink = document.createElement("a");
         downloadLink.href = window.URL.createObjectURL(blob);
-        downloadLink.download = "archivo.pdf";
+        downloadLink.download = `${contractSource}.pdf`;
         downloadLink.click();
       },
       error: (err) => {
