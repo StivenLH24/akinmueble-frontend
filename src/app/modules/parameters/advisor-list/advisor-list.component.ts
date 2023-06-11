@@ -42,8 +42,25 @@ export class AdvisorListComponent {
     });
   }
 
-
-  approve(id:number){
-    console.log(id)
+  approve(advisorId:number){
+    this.advisorService.changeStatus(advisorId, 1).subscribe({
+      next: (data) => {
+        this.listAdvisors();
+      },
+      error: (err) => {
+        alert("Error leyendo la información.");
+      },
+    })
+  }
+  
+  reject(advisorId:number){
+    this.advisorService.changeStatus(advisorId, 3).subscribe({
+      next: (data) => {
+        this.listAdvisors();
+      },
+      error: (err) => {
+        alert("Error leyendo la información.");
+      },
+    })
   }
 }

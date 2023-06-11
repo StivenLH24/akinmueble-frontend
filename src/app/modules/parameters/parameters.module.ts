@@ -13,6 +13,7 @@ import { DeleteProductComponent } from './product/delete-product/delete-product.
 import { EditProductComponent } from './product/edit-product/edit-product.component';
 import { AdvisorListComponent } from './advisor-list/advisor-list.component';
 import { VisionComponent } from './vision/vision.component';
+import { ShareModule } from '../share/share.module';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { VisionComponent } from './vision/vision.component';
   ],
   imports: [
     CommonModule,
-    ParametersRoutingModule
+    ParametersRoutingModule,
+    ShareModule
   ]
 })
 export class ParametersModule { }

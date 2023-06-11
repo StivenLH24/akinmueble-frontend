@@ -25,6 +25,7 @@
           <i
             *ngIf="row.advisorStatusId == 2"
             class="action-button fa-regular fa-circle-xmark"
+            (click)="reject(row.id)"
           ></i>
           <i class="action-button fa-regular fa-pen-to-square"></i>
           <i class="action-button fa-regular fa-eye"></i>
@@ -35,3 +36,6 @@
 </div>
 
 <ng-template #elseBlock>No hay asesores para listar</ng-template>
+
+
+<app-confirm-modal></app-confirm-modal>

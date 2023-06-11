@@ -2,11 +2,15 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 import { ShareRoutingModule } from "./share-routing.module";
-import { TableComponent } from "./table/table.component";
+import { ShareComponent } from './share.component';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ShareComponent,
+    ConfirmModalComponent
+  ],
   imports: [CommonModule, ShareRoutingModule],
-  exports: [],
+  exports: [ConfirmModalComponent],
 })
 export class ShareModule {}
