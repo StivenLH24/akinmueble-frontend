@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
   propertyType: string = '';
   urlLogic: string = configurationRoutesBackend.urlLogic;
 
-
   Ventas() {
     alert('Ventas');
   }
@@ -31,13 +30,7 @@ export class HomeComponent implements OnInit {
     console.log('prueba de arranque');
   }
 
-
-
-
-
   filtrarPropiedades() {
-
-    
     console.log('offertype value ', this.offerType);
     console.log('propertytype value', this.propertyType);
 
@@ -105,20 +98,19 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
-
   getFirstImageUrl(propiedad: Property): string {
-    console.log(propiedad.propertyPictures)
-    console.log(propiedad.propertyPictures?.length)
+    console.log(propiedad.propertyPictures);
+    console.log(propiedad.propertyPictures?.length);
     if (propiedad.propertyPictures && propiedad.propertyPictures.length > 0) {
-      console.log('ingresa a la condicion de tener foto ', propiedad.id)
+      console.log('ingresa a la condicion de tener foto ', propiedad.id);
       const firstPicture = propiedad.propertyPictures[0];
-      const firstSourcePicture= firstPicture && firstPicture.pictureSource ? firstPicture.pictureSource : '/assets/images/default.png';
+      const firstSourcePicture =
+        firstPicture && firstPicture.pictureSource
+          ? firstPicture.pictureSource
+          : '/assets/images/default.png';
 
-      return `${this.urlLogic}downloadFile/1/${firstSourcePicture}`
+      return `${this.urlLogic}downloadFile/1/${firstSourcePicture}`;
     }
     return '/assets/images/default.png';
   }
-  
-  
 }
