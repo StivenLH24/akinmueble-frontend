@@ -28,6 +28,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ServerErrorComponent,
     HomeComponent,
     RegisterFormComponent,
+    
   ],
   imports: [
     BrowserModule,

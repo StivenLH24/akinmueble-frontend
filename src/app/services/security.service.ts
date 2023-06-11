@@ -2,8 +2,9 @@ import { Injectable } from "@angular/core";
 import { UserModel } from "../models/user.model";
 import { HttpClient } from "@angular/common/http";
 import { configurationRoutesBackend } from "../config/configuration.routes.backend";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, map } from "rxjs";
 import { userValidatedModel } from "../models/user.validated.model";
+import { Property } from "../models/property.model";
 
 @Injectable({
   providedIn: "root",
@@ -136,17 +137,25 @@ export class SecurityService {
 
 
   obtenerPropiedades(offerType: string, propertyType: string) {
-    return this.http.get<any>(`${this.urlLogic}properties?filter={"where":{"offerTypeId":"${offerType}", "propertyTypeId":"${propertyType}"}}`);
+    return this.http.get<any>(`${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}], "where":{"offerTypeId":"${offerType}", "propertyTypeId":"${propertyType}"}}`).pipe(
+      map(data=> data as Property[])
+    );
   }
   obtenerPropOfer(offerType: string) {
-    return this.http.get<any>(`${this.urlLogic}properties?filter={"where":{"offerTypeId":"${offerType}"}}`);
+    return this.http.get<any>(`${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}],"where":{"offerTypeId":"${offerType}"}}`).pipe(
+      map(data=> data as Property[])
+    );
   }
 
   obtenerPropType(propertyType: string) {
-    return this.http.get<any>(`${this.urlLogic}properties?filter={"where":{"propertyTypeId":"${propertyType}"}}`);
+    return this.http.get<any>(`${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}],"where":{"propertyTypeId":"${propertyType}"}}`).pipe(
+      map(data=> data as Property[])
+    );
   }
   obtenerPropiedadesSinFiltros() {
-    return this.http.get<any>(`${this.urlLogic}properties`);
+    return this.http.get<any>(`${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}]}`).pipe(
+      map(data=> data as Property[])
+    );
   }
   /**
    * cerrando sesion
