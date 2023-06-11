@@ -8,20 +8,31 @@
     <tbody>
       <tr *ngFor="let row of table.rows" class="row">
         <td>{{ row.id }}</td>
+        <td>
+          {{ row.advisor.firstName }} {{ row.advisor.firtsLastName }} <br />
+          C.C.{{ row.advisor.documentNumber }}
+        </td>
         <td>{{ row.property.city.department.departmentName }}</td>
-        <td>{{ row.property.city.cityName}}</td>
+        <td>{{ row.property.city.cityName }}</td>
         <td>{{ row.property.address }}</td>
         <td>{{ row.property.propertyType.typeName }}</td>
         <td>{{ row.requestStatus.statusName }}</td>
         <td class="actions">
-          <i class="action-button fa-regular fa-pen-to-square"></i>
-          <i class="action-button fa-regular fa-eye"></i>
-          <i class="action-button fa-regular fa-eye" (click)="downLoadContract(row.contractSource)"></i>
+          <i class="action-button fa-regular fa-eye"
+                (click)="viewPropertyDetails()"
+          ></i>
+          <i
+            *ngIf="row.contractSource && row.contractSource != ''"
+            class="action-button fa-regular fa-circle-down"
+            (click)="downLoadContract(row.contractSource)"
+          ></i>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<app-confirm-modal></app-confirm-modal>
 
 <ng-template #elseBlock>
   <div class="no-data">
@@ -29,4 +40,3 @@
   </div>
 </ng-template>
 
-<!-- <app-confirm-modal></app-confirm-modal> -->

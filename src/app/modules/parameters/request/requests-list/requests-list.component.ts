@@ -1,14 +1,14 @@
-import { HttpResponse } from "@angular/common/http";
-import { Component } from "@angular/core";
+import { AfterViewInit, Component } from "@angular/core";
 import { Table } from "src/app/models/interfaces/table.interface";
 import { RequestService } from "src/app/services/parameters/request.service";
+import * as M from 'materialize-css';
 
 @Component({
   selector: "app-requests-list",
   templateUrl: "./requests-list.component.html",
   styleUrls: ["./requests-list.component.css"],
 })
-export class RequestsListComponent {
+export class RequestsListComponent implements AfterViewInit {
   constructor(private requestService: RequestService) {}
   table: Table = {
     columnNames: [],
@@ -21,13 +21,13 @@ export class RequestsListComponent {
 
   buildTable() {
     this.table.columnNames = [
-      "Código",
+      "Código solicitud",
+      "Asesor",
       "Departamento",
       "Ciudad",
       "Dirección",
       "Tipo propiedad",
       "Estado",
-      "Contrato",
       "Acciones",
     ];
     this.listRequests();
@@ -46,22 +46,32 @@ export class RequestsListComponent {
 
   downLoadContract(contractSource: string) {
     this.requestService.downloadContract(contractSource).subscribe({
-      next: (response: HttpResponse<Blob>) => {
-        console.log(response)
-        if (!response || !response.body) {
+      next: (body: Blob) => {
+        if (!body) {
           console.log("Es null")
+          /**TODO: Tratar este caso */
           return;
         }
-        console.log("pasó")
-        const blob = new Blob([response.body], { type: "application/pdf" });
+        const blob = new Blob([body], { type: "application/pdf" });
         const downloadLink = document.createElement("a");
         downloadLink.href = window.URL.createObjectURL(blob);
-        downloadLink.download = "archivo.pdf";
+        downloadLink.download = `${contractSource}.pdf`;
         downloadLink.click();
       },
       error: (err) => {
         alert("Error leyendo la información.");
       },
     });
+  }
+
+
+  viewPropertyDetails(){
+
+    console.log("Ver detalles propiedad")
+  }
+  
+  ngAfterViewInit() {
+    const modals = document.querySelectorAll('.modal');
+    M.Modal.init(modals);
   }
 }
