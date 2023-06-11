@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MisionComponent } from './mision/mision.component';
 import { VisionComponent } from './vision/vision.component';
-import { AdvisorListComponent } from './advisor-list/advisor-list.component';
+import { AdvisorListComponent } from './advisor/advisor-list/advisor-list.component';
 
 const routes: Routes = [
   {
