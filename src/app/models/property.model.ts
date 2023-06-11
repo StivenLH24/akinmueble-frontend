@@ -1,5 +1,6 @@
 import { City } from "./city.model";
 import { PropertyType } from "./propertyType.model";
+import {PropertyPicture } from "./propertypicture.model";
 
 export class Property {
   id?: number;
@@ -14,6 +15,7 @@ export class Property {
   propertyManagerId?: number;
   propertyTypeId?: number;
   city?:City;
-  propertyType?:PropertyType
+  propertyType?:PropertyType;
+  propertyPictures?: PropertyPicture[]; 
 
 }

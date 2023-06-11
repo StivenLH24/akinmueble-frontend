@@ -12,6 +12,10 @@ import { RegisterFormComponent } from './modules/security/register-form/register
 import { HomeComponent } from './public/home/home.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
@@ -24,12 +28,18 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ServerErrorComponent,
     HomeComponent,
     RegisterFormComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatSelectModule,
     ReactiveFormsModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],

@@ -1,12 +1,13 @@
-import { Injectable } from "@angular/core";
-import { UserModel } from "../models/user.model";
-import { HttpClient } from "@angular/common/http";
-import { configurationRoutesBackend } from "../config/configuration.routes.backend";
-import { BehaviorSubject, Observable } from "rxjs";
-import { userValidatedModel } from "../models/user.validated.model";
+import { Injectable } from '@angular/core';
+import { UserModel } from '../models/user.model';
+import { HttpClient } from '@angular/common/http';
+import { configurationRoutesBackend } from '../config/configuration.routes.backend';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { userValidatedModel } from '../models/user.validated.model';
+import { Property } from '../models/property.model';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class SecurityService {
   urlBase: string = configurationRoutesBackend.urlSecurity;
@@ -34,12 +35,12 @@ export class SecurityService {
    */
   storeIdentifiedUserData(data: UserModel): boolean {
     let cadena = JSON.stringify(data);
-    let dataLS = localStorage.getItem("data-user");
-    let dataValidatedLS = localStorage.getItem("data-user-validated");
+    let dataLS = localStorage.getItem('data-user');
+    let dataValidatedLS = localStorage.getItem('data-user-validated');
     if (dataLS && dataValidatedLS) {
       return false;
     } else {
-      localStorage.setItem("data-user", cadena);
+      localStorage.setItem('data-user', cadena);
       return true;
     }
   }
@@ -49,7 +50,7 @@ export class SecurityService {
    * @returns
    */
   getStoredIdentifiedUserData(): UserModel | null {
-    let dataLS = localStorage.getItem("data-user");
+    let dataLS = localStorage.getItem('data-user');
     if (dataLS) {
       return JSON.parse(dataLS);
     } else {
@@ -79,12 +80,12 @@ export class SecurityService {
    * @returns respuesta
    */
   storeValidatedUserData(data: userValidatedModel): boolean {
-    let dataLS = localStorage.getItem("data-user-validated");
+    let dataLS = localStorage.getItem('data-user-validated');
     if (dataLS != null) {
       return false;
     } else {
       let dataString = JSON.stringify(data);
-      localStorage.setItem("data-user-validated", dataString);
+      localStorage.setItem('data-user-validated', dataString);
       this.updateBehaviorUser(data);
       return true;
     }
@@ -108,7 +109,7 @@ export class SecurityService {
   }
 
   validateSesion() {
-    let dataLS = localStorage.getItem("data-user-validated");
+    let dataLS = localStorage.getItem('data-user-validated');
     if (dataLS) {
       let obUserValidated = JSON.parse(dataLS);
       this.updateBehaviorUser(obUserValidated);
@@ -134,28 +135,57 @@ export class SecurityService {
     return this.http.post(`${this.urlLogic}send-message-form-contact`, data);
   }
 
+  obtenerPropiedades(offerType: string, propertyType: string) {
+    return this.http
+      .get<any>(
+        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}], "where":{"offerTypeId":"${offerType}", "propertyTypeId":"${propertyType}"}}`
+      )
+      .pipe(map((data) => data as Property[]));
+  }
+  obtenerPropOfer(offerType: string) {
+    return this.http
+      .get<any>(
+        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}],"where":{"offerTypeId":"${offerType}"}}`
+      )
+      .pipe(map((data) => data as Property[]));
+  }
+
+  obtenerPropType(propertyType: string) {
+    return this.http
+      .get<any>(
+        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}],"where":{"propertyTypeId":"${propertyType}"}}`
+      )
+      .pipe(map((data) => data as Property[]));
+  }
+  obtenerPropiedadesSinFiltros() {
+    return this.http
+      .get<any>(
+        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}]}`
+      )
+      .pipe(map((data) => data as Property[]));
+  }
   /**
    * cerrando sesion
    */
   removerDatosUsuarioValidado() {
-    let datosUser = localStorage.getItem("data-user");
-    let datosUserValidate = localStorage.getItem("data-user-validated");
+    let datosUser = localStorage.getItem('data-user');
+    let datosUserValidate = localStorage.getItem('data-user-validated');
     if (datosUser) {
-      localStorage.removeItem("data-user");
+      localStorage.removeItem('data-user');
     }
     if (datosUserValidate) {
-      localStorage.removeItem("data-user-validated");
+      localStorage.removeItem('data-user-validated');
     }
     this.updateBehaviorUser(new userValidatedModel());
   }
 
   getTokenLocalStorage(): string {
-    let ls = localStorage.getItem("data-user-validated");
+    let ls = localStorage.getItem('data-user-validated');
     if (ls) {
       let user: userValidatedModel = JSON.parse(ls);
       return user.token!;
     } else {
-      return "";
+      return '';
     }
   }
 
