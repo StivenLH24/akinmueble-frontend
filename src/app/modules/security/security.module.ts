@@ -11,6 +11,7 @@ import { ListUserComponent } from './user/list-user/list-user.component';
 import { SignOutComponent } from './sign-out/sign-out.component';
 import { IdentifyUserComponent } from './identify-user/identify-user.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ValidateHashUserComponent } from './validate-hash-user/validate-hash-user.component';
 
 
 
@@ -26,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ListUserComponent,
     SignOutComponent,
     IdentifyUserComponent,
+    ValidateHashUserComponent,
   ],
   imports: [
     CommonModule,

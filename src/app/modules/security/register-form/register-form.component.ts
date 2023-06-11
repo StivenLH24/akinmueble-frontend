@@ -57,7 +57,7 @@ export class RegisterFormComponent {
       this.securityService.registerCustomer(cliente).subscribe({
         next: (response: any) => {
           // Lógica de manejo de respuesta exitosa
-          this.showMessage('Registro exitoso', 'success');
+          this.showMessage('Registro exitoso verifica tu correo para confirmar el correo', 'success');
           console.log(response);
         },
         error: (err: any) => {
@@ -84,7 +84,7 @@ export class RegisterFormComponent {
       this.securityService.registerAdvisor(asesor).subscribe({
         next: (response: any) => {
           // Lógica de manejo de respuesta exitosa
-          this.showMessage('Registro exitoso', 'success');
+          this.showMessage('Registro exitoso espere confirmacion de email del administrador para continuar', 'success');
           console.log(response);
         },
         error: (err: any) => {
@@ -122,7 +122,7 @@ export class RegisterFormComponent {
     this.messages.push({ content, type });
     setTimeout(() => {
       this.removeMessage(this.messages.length - 1);
-    }, 3000);
+    }, 6000);
   }
 
   /*

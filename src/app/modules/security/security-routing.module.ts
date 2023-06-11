@@ -6,6 +6,7 @@ import { SignOutComponent } from './sign-out/sign-out.component';
 import { IdentifyUserComponent } from './identify-user/identify-user.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { VerifyTwofaComponent } from './verify-twofa/verify-twofa.component';
+import { ValidateHashUserComponent } from './validate-hash-user/validate-hash-user.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: "2fa",
     component: VerifyTwofaComponent
+  },
+  {
+    path: "validar-hash-user/:hash",
+    component: ValidateHashUserComponent
   }
 
 ];

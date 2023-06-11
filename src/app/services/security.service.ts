@@ -158,4 +158,10 @@ export class SecurityService {
       return "";
     }
   }
+
+  validateHashUser(hash: string) {
+    return this.http.post<boolean>(`${this.urlBase}validar-hash-user`, {
+      codehash: hash,
+    });
+  }
 }
