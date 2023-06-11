@@ -10,12 +10,14 @@ import { PathNotFoundComponent } from './public/error/path-not-found/path-not-fo
 import { ServerErrorComponent } from './public/error/server-error/server-error.component';
 import { RegisterFormComponent } from './modules/security/register-form/register-form.component';
 import { HomeComponent } from './public/home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,9 +38,10 @@ import { MatSelectModule } from '@angular/material/select';
     BrowserAnimationsModule,
     CommonModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

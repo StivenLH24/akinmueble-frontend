@@ -34,6 +34,10 @@ const routes: Routes = [
     loadChildren: () => import("./modules/info/info.module").then(m => m.InfoModule)
   },
   {
+    path: "",
+    loadChildren: () => import("./modules/parameters/parameters.module").then(m => m.ParametersModule)
+  },
+  {
     //siempre debe ser la última ruta
     path: "**",
     component: PathNotFoundComponent

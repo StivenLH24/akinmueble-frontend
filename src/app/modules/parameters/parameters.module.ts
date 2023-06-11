@@ -11,7 +11,10 @@ import { ListProductComponent } from './product/list-product/list-product.compon
 import { CreateProductComponent } from './product/create-product/create-product.component';
 import { DeleteProductComponent } from './product/delete-product/delete-product.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
+import { AdvisorListComponent } from './advisor/advisor-list/advisor-list.component';
 import { VisionComponent } from './vision/vision.component';
+import { ShareModule } from '../share/share.module';
+import { RequestsListComponent } from './request/requests-list/requests-list.component';
 
 
 @NgModule({
@@ -25,11 +28,14 @@ import { VisionComponent } from './vision/vision.component';
     DeleteProductComponent,
     EditProductComponent,
     MisionComponent,
-    VisionComponent
+    VisionComponent,
+    AdvisorListComponent,
+    RequestsListComponent
   ],
   imports: [
     CommonModule,
-    ParametersRoutingModule
+    ParametersRoutingModule,
+    ShareModule
   ]
 })
 export class ParametersModule { }

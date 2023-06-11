@@ -1,0 +1,44 @@
+<div class="table-wraper">
+  <table *ngIf="table.rows.length > 0; else elseBlock" class="striped table">
+    <thead>
+      <tr class="tr-head">
+        <th *ngFor="let col of table.columnNames">{{ col }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of table.rows" class="row">
+        <td>{{ row.documentNumber }}</td>
+        <td>
+          {{ row.firstName }} {{ row.secondName }} {{ row.firstLastName }}
+        </td>
+        <td>{{ row.email }}</td>
+        <td *ngIf="row.advisorStatusId == 1">{{ status.uno }}</td>
+        <td *ngIf="row.advisorStatusId == 2">{{ status.dos }}</td>
+        <td *ngIf="row.advisorStatusId == 3">{{ status.tres }}</td>
+
+        <td class="actions">
+          <i
+            *ngIf="row.advisorStatusId == 2"
+            class="action-button fa-regular fa-circle-check"
+            (click)="approve(row.id)"
+          ></i>
+          <i
+            *ngIf="row.advisorStatusId == 2"
+            class="action-button fa-regular fa-circle-xmark"
+            (click)="reject(row.id)"
+          ></i>
+          <i class="action-button fa-regular fa-pen-to-square"></i>
+          <i class="action-button fa-regular fa-eye"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #elseBlock>
+  <div class="no-data">
+    <span> No hay asesores para listar </span>
+  </div>
+</ng-template>
+
+<!-- <app-confirm-modal></app-confirm-modal> -->
