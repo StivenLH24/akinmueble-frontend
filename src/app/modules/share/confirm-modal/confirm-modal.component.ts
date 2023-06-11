@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-confirm-modal',
@@ -7,6 +7,14 @@ import { Component } from '@angular/core';
 })
 export class ConfirmModalComponent {
 
+  @Input()
+  title!:string;
+
+  @Input()
+  description!:string;
+
+  @Output()
+  response = new EventEmitter<boolean>();
 
   cancel() {
     console.log("")
@@ -14,5 +22,9 @@ export class ConfirmModalComponent {
 
   accept() {
     console.log("")
+  }
+
+  notifyParent(value: boolean){
+    this.response.emit(value);
   }
 }

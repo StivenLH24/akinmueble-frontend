@@ -1,14 +1,14 @@
-import { HttpResponse } from "@angular/common/http";
-import { Component } from "@angular/core";
+import { AfterViewInit, Component } from "@angular/core";
 import { Table } from "src/app/models/interfaces/table.interface";
 import { RequestService } from "src/app/services/parameters/request.service";
+import * as M from 'materialize-css';
 
 @Component({
   selector: "app-requests-list",
   templateUrl: "./requests-list.component.html",
   styleUrls: ["./requests-list.component.css"],
 })
-export class RequestsListComponent {
+export class RequestsListComponent implements AfterViewInit {
   constructor(private requestService: RequestService) {}
   table: Table = {
     columnNames: [],
@@ -62,5 +62,16 @@ export class RequestsListComponent {
         alert("Error leyendo la información.");
       },
     });
+  }
+
+
+  viewPropertyDetails(){
+
+    console.log("Ver detalles propiedad")
+  }
+  
+  ngAfterViewInit() {
+    const modals = document.querySelectorAll('.modal');
+    M.Modal.init(modals);
   }
 }

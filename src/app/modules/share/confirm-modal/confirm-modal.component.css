@@ -1,0 +1,15 @@
+.cancel-btn:hover{
+    background-color: rgb(244, 72, 72);
+}
+
+.modal-footer{
+    /* background-color: rgb(12, 164, 164); */
+    display: flex;
+    justify-content: flex-end;
+}
+
+.butons-wraper{
+    width: 40%;
+    display: flex;
+    justify-content: space-around;
+}

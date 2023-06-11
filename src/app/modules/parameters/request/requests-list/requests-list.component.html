@@ -18,7 +18,9 @@
         <td>{{ row.property.propertyType.typeName }}</td>
         <td>{{ row.requestStatus.statusName }}</td>
         <td class="actions">
-          <i class="action-button fa-regular fa-eye"></i>
+          <i class="action-button fa-regular fa-eye"
+                (click)="viewPropertyDetails()"
+          ></i>
           <i
             *ngIf="row.contractSource && row.contractSource != ''"
             class="action-button fa-regular fa-circle-down"
@@ -30,10 +32,11 @@
   </table>
 </div>
 
+<app-confirm-modal></app-confirm-modal>
+
 <ng-template #elseBlock>
   <div class="no-data">
     <span> No hay solicitudes para listar </span>
   </div>
 </ng-template>
 
-<!-- <app-confirm-modal></app-confirm-modal> -->

@@ -18,16 +18,18 @@
 
         <td class="actions">
           <i
+            data-target="modal1"
             *ngIf="row.advisorStatusId == 2"
-            class="action-button fa-regular fa-circle-check"
-            (click)="approve(row.id)"
+            class="action-button fa-regular fa-circle-check  modal-trigger"
+            (click)="changeSelectActionId(row.id, true)"
           ></i>
           <i
-            *ngIf="row.advisorStatusId == 2"
-            class="action-button fa-regular fa-circle-xmark"
-            (click)="reject(row.id)"
+          data-target="modal1"
+          *ngIf="row.advisorStatusId == 2"
+          class="action-button fa-regular fa-circle-xmark  modal-trigger"
+          (click)="changeSelectActionId(row.id, false)"
           ></i>
-          <i class="action-button fa-regular fa-pen-to-square"></i>
+          <i class="action-button fa-regular fa-pen-to-square  modal-trigger"></i>
           <i class="action-button fa-regular fa-eye"></i>
         </td>
       </tr>
@@ -41,4 +43,4 @@
   </div>
 </ng-template>
 
-<!-- <app-confirm-modal></app-confirm-modal> -->
+<app-confirm-modal [title]="confirmModalTitle" [description]="descriptionConfirmModal"  (response)="responseModal($event)"></app-confirm-modal>
