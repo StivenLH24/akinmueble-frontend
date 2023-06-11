@@ -29,11 +29,30 @@
 
 .action-button:hover {
   transform: scale(1.5, 1.5);
+  transition: transform 300ms;
+}
+
+.action-button:active {
+  transform: scale(1.2, 1.2);
 }
 
 thead tr th:last-child {
   display: flex;
   justify-content: center;
+}
+
+
+.no-data{
+  margin: auto;
+  color: rgb(192, 189, 189);
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  margin-top: 5rem;
+}
+
+.no-data span {
+  text-align: center;
 }
 
 .red {

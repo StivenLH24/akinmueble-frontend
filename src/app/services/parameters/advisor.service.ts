@@ -18,6 +18,6 @@ export class AdvisorService {
   }
   
   changeStatus(advisorId: number, statusId:number){
-    return this.http.patch<AdvisorModel[]>(`http://localhost:3001/advisor/${advisorId}/adisorstatus/${statusId}`,{});    
+    return this.http.patch<AdvisorModel[]>(`http://localhost:3001/advisor/${advisorId}/advisor_status/${statusId}`,{});    
   }
 }

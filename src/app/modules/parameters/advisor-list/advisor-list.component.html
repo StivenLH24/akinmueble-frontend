@@ -6,7 +6,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of table.rows" class="row">        
+      <tr *ngFor="let row of table.rows" class="row">
         <td>{{ row.documentNumber }}</td>
         <td>
           {{ row.firstName }} {{ row.secondName }} {{ row.firstLastName }}
@@ -35,7 +35,10 @@
   </table>
 </div>
 
-<ng-template #elseBlock>No hay asesores para listar</ng-template>
+<ng-template #elseBlock>
+  <div class="no-data">
+    <span> No hay asesores para listar </span>
+  </div>
+</ng-template>
 
-
-<app-confirm-modal></app-confirm-modal>
+<!-- <app-confirm-modal></app-confirm-modal> -->
