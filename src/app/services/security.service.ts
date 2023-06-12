@@ -101,6 +101,7 @@ export class SecurityService {
     let dataValidatedLS = localStorage.getItem('data-user-validated');
     if (dataValidatedLS) {
       let dataValidated = JSON.parse(dataValidatedLS)
+      console.log(dataValidated.user.roleId);
       return dataValidated.user.roleId;
     }
     return null;
@@ -125,12 +126,14 @@ export class SecurityService {
     return this.dataUserValidated.asObservable();
   }
 
-  validateSesion() {
+  validateSesion(): userValidatedModel | null {
     let dataLS = localStorage.getItem('data-user-validated');
     if (dataLS) {
       let obUserValidated = JSON.parse(dataLS);
       this.updateBehaviorUser(obUserValidated);
+      return obUserValidated;
     }
+    return null;
   }
 
   updateBehaviorUser(data: userValidatedModel) {
@@ -210,5 +213,21 @@ export class SecurityService {
     return this.http.post<boolean>(`${this.urlBase}validar-hash-user`, {
       codehash: hash,
     });
+  }
+
+  getIdUserValidated(): string | null {
+    let dataValidatedLS = localStorage.getItem('data-user-validated');
+    if (dataValidatedLS) {
+      let dataValidated = JSON.parse(dataValidatedLS)
+      console.log(dataValidated.user._id);
+      return dataValidated.user._id;
+    }
+    return null;
+  }
+
+  getContrato(idcontrato: string): Observable<any> {
+    /* http://localhost:3001/customer/1/download-document/4 */
+    let idcustomer = this.getIdUserValidated();
+    return this.http.get<any>(`${this.urlLogic}customer${idcustomer}download-document/${idcontrato}`);
   }
 }

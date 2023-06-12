@@ -1,3 +1,5 @@
+@import url("https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css");
+
 #login-page {
   width: 500px;
 }
@@ -21,19 +23,16 @@
   color: white;
 }
 
-#login-page {
-  width: 500px;
+.notification {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 9999;
+  background-color: #66b5e0;
+  padding: 10px;
+  border-radius: 5px;
 }
 
-.card {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -moz-transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+.error {
+  background-color: #ff5050;
 }
-
-@import url("https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css");
