@@ -5,6 +5,7 @@ import { configurationRoutesBackend } from '../config/configuration.routes.backe
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { userValidatedModel } from '../models/user.validated.model';
 import { Property } from '../models/property.model';
+import { RouteConfigLoadEnd } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +38,7 @@ export class SecurityService {
     let cadena = JSON.stringify(data);
     let dataLS = localStorage.getItem('data-user');
     let dataValidatedLS = localStorage.getItem('data-user-validated');
+    
     if (dataLS && dataValidatedLS) {
       return false;
     } else {
@@ -90,6 +92,21 @@ export class SecurityService {
       return true;
     }
   }
+
+  /**
+   * Obtiene el rol del usuario validado almacenado en el localStorage
+   * @returns Rol del usuario validado o null si no se encuentra
+   */
+  getRolUserValidated(): string | null {
+    let dataValidatedLS = localStorage.getItem('data-user-validated');
+    if (dataValidatedLS) {
+      let dataValidated = JSON.parse(dataValidatedLS)
+      return dataValidated.user.roleId;
+    }
+    return null;
+  }
+
+  
 
   RecuperarClavePorUsuario(user: string): Observable<UserModel> {
     return this.http.post<UserModel>(`${this.urlBase}recovery-password`, {

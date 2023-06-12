@@ -62,7 +62,6 @@ export class IdentifyUserComponent {
 
 
   get getFormGroup() {
-    console.log("controls-> ", this.fGroup.controls)
     return this.fGroup.controls;
   }
 }
