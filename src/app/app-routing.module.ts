@@ -34,8 +34,8 @@ const routes: Routes = [
     loadChildren: () => import("./modules/info/info.module").then(m => m.InfoModule)
   },
   {
-    path: "",
-    loadChildren: () => import("./modules/parameters/parameters.module").then(m => m.ParametersModule)
+    path: "share",
+    loadChildren: () => import("./modules/share/share.module").then(m => m.ShareModule)
   },
   {
     //siempre debe ser la última ruta
