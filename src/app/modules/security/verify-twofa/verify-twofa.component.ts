@@ -14,7 +14,7 @@ export class VerifyTwofaComponent {
   
   fGroup: FormGroup = new FormGroup({});
   userId: string = "";
-
+  showError: boolean = false;
 
   constructor(
     private securityService: SecurityService,
@@ -58,6 +58,10 @@ export class VerifyTwofaComponent {
             
           } else {
             console.log(response);
+            this.showError = true; // Mostrar la notificación de error
+          setTimeout(() => {
+            this.showError = false; // Ocultar la notificación de error después de 6 segundos
+          }, 6000);
             console.log("Error en la validación del código 2fa");
             console.log(response.ok);
             
@@ -66,6 +70,10 @@ export class VerifyTwofaComponent {
           }
         },
         error: (err) => {
+          this.showError = true; // Mostrar la notificación de error
+          setTimeout(() => {
+            this.showError = false; // Ocultar la notificación de error después de 6 segundos
+          }, 6000);
           console.log(err);
           //manejar el caso de que haya ocurrido un error en la petición
         },
