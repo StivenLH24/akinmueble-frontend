@@ -35,18 +35,23 @@ export class IdentifyUserComponent {
     });
   }
 
-  IdentyUser() {
-    if (this.fGroup.invalid) {
-      alert("Debe ingresar el codigo");
-    } else {
-      let user = this.getFormGroup['user'].value;
-      let password = this.getFormGroup['password'].value;
-      let encryptedPassword = MD5(password).toString();
-      this.securityService.identifyUser(user, encryptedPassword).subscribe({
-        next: (response: any) => {
-          if (response.ok !== true) {
-            alert("Credenciales incorrectas o falta la validación del correo electrónico.");
-          } else {
+  showError: boolean = false;
+
+IdentyUser() {
+  if (this.fGroup.invalid) {
+    alert("Debe ingresar el código");
+  } else {
+    let user = this.getFormGroup['user'].value;
+    let password = this.getFormGroup['password'].value;
+    let encryptedPassword = MD5(password).toString();
+    this.securityService.identifyUser(user, encryptedPassword).subscribe({
+      next: (response: any) => {
+        if (response.ok !== true) {
+          this.showError = true; // Mostrar la notificación de error
+          setTimeout(() => {
+            this.showError = false; // Ocultar la notificación de error después de 6 segundos
+          }, 6000);
+        } else {
             const data = response.data;
             if (this.securityService.storeIdentifiedUserData(data)) {
               this.router.navigate(["/security/2fa"]);
@@ -54,6 +59,10 @@ export class IdentifyUserComponent {
           }
         },
         error: (err) => {
+          this.showError = true; // Mostrar la notificación de error
+          setTimeout(() => {
+            this.showError = false; // Ocultar la notificación de error después de 6 segundos
+          }, 6000);
           console.log(err);
         }
       });
