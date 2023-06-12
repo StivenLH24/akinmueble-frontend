@@ -16,6 +16,7 @@ import { VisionComponent } from './vision/vision.component';
 import { ShareModule } from '../share/share.module';
 import { RequestsListComponent } from './request/requests-list/requests-list.component';
 import { ContratoComponent } from './customer/contrato/contrato.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ContratoComponent } from './customer/contrato/contrato.component';
   imports: [
     CommonModule,
     ParametersRoutingModule,
-    ShareModule
+    ShareModule,
+    FormsModule
   ]
 })
 export class ParametersModule { }
