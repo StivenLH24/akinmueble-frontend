@@ -125,12 +125,14 @@ export class SecurityService {
     return this.dataUserValidated.asObservable();
   }
 
-  validateSesion() {
+  validateSesion(): userValidatedModel | null {
     let dataLS = localStorage.getItem('data-user-validated');
     if (dataLS) {
       let obUserValidated = JSON.parse(dataLS);
       this.updateBehaviorUser(obUserValidated);
+      return obUserValidated;
     }
+    return null;
   }
 
   updateBehaviorUser(data: userValidatedModel) {
