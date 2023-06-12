@@ -15,10 +15,6 @@ export class HomeComponent implements OnInit {
   propertyType: string = '';
   urlLogic: string = configurationRoutesBackend.urlLogic;
 
-  Ventas() {
-    alert('Ventas');
-  }
-
   constructor(private servicioSeguridad: SecurityService) {}
 
   ngOnInit() {

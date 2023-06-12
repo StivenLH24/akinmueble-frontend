@@ -1,18 +1,39 @@
-<ul id="slide-out" class="sidenav">
-    <li><div class="user-view">
-      <div class="background blue">
-        <!--<img src="https://www.construyehogar.com/wp-content/uploads/2016/01/Casa-moderna-un-piso-560x371.jpg"> -->
-      </div>
-      <a href="#user"><img class="circle" src="https://cdn.pixabay.com/photo/2017/02/25/22/04/user-icon-2098873_640.png"></a>
-      <a href="#name"><span class="white-text name">John Doe</span></a>
-      <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
-    </div></li>
-    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-    <li><a href="#!">Second Link</a></li>
-    <li><div class="divider"></div></li>
-    <li><a class="subheader">Subheader</a></li>
-    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-  </ul>
 
-  <a href="#" data-target="slide-out" class="sidenav-trigger hide-on-med-and-down"><i class="material-icons">menu</i></a>
+<ul id="slide-out" class="sidenav" *ngIf="rolUsuario === '642d9eb902e1597baa66e447'">
+  <!-- Contenido del menú para el rol 'cliente' -->
+  <div class="background blue">
+    <h5 class="white-text center-align">CLIENTE</h5>
+  </div>
+  <li><a routerLink="/parameters/solicitudes">solicitudes</a></li>
+  <li><a routerLink="/parameters/contratos">contratos</a></li>
+</ul>
+
+<ul id="slide-out" class="sidenav" *ngIf="rolUsuario === '64225720d8b31f3e70717387'">
+  <!-- Contenido del menú para el rol 'administrador' -->
+  <div class="background blue">
+    <h5 class="white-text center-align">ADMINISTRADOR</h5>
+  </div>
+  <li><a routerLink="/parameters/asesores">asesores</a></li>
+  <li><a routerLink="/parameters/reportes">reportes</a></li>
+  <li><a routerLink="/parameters/inmuebles">inmuebles</a></li>
+  <li><a routerLink="/parameters/solicitudes">solicitudes</a></li>
+</ul>
+
+<ul id="slide-out" class="sidenav" *ngIf="rolUsuario === '642d9ecb02e1597baa66e448'">
+  <!-- Contenido del menú para el rol 'asesor' -->
+  <div class="background blue">
+    <h5 class="white-text center-align">ASESOR</h5>
+  </div>
+  <li><a routerLink="/parameters/solicitudes">solicitudes</a></li>
+  <li><a routerLink="/parameters/reportes">reportes</a></li>
+  <li><a routerLink="/parameters/inmuebles">inmuebles</a></li>
+</ul>
+
+<div class="blue lighten-2 p-2 d-inline-block btn">
+  <a href="#" data-target="slide-out" class="sidenav-trigger p-2 white-text">
+    <i class="fi fi-br-menu-burger"></i>
+  </a>
+</div>
+
+
         
