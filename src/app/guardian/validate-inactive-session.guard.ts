@@ -15,6 +15,6 @@ export const ValidateInactiveSessionGuard = () => {
         router.navigate(['/home']);
         return false;
       }
-      return false;
+      return true;
   
 }
