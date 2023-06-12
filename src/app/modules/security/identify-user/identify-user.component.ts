@@ -66,7 +66,6 @@ IdentyUser() {
           setTimeout(() => {
             this.showError = false; // Ocultar la notificación de error después de 6 segundos
           }, 6000);
-          console.log(err);
         }
       });
     }

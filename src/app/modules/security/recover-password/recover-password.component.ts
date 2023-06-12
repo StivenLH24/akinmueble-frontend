@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SecurityService } from 'src/app/services/security.service';
 
 @Component({
@@ -9,7 +10,10 @@ import { SecurityService } from 'src/app/services/security.service';
 })
 export class RecoverPasswordComponent {
   fGroup: FormGroup = new FormGroup({});
+  showError: boolean = false;
+  textError:string='';
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private servicioSeguridad: SecurityService
   ) {}
@@ -25,15 +29,23 @@ export class RecoverPasswordComponent {
 
   recuperarClave() {
     if (this.fGroup.invalid) {
-      alert('debe ingresar un correo valido');
+      this.textError= "debe ingresar un correo valido";
+      this.showError = true; // Mostrar la notificación de error
+      // setTimeout(() => {
+      //   this.showError = false; // Ocultar la notificación de error después de 6 segundos
+      // }, 6000);
     } else {
       let usuario = this.getFormGroup['user'].value;
       this.servicioSeguridad.RecuperarClavePorUsuario(usuario).subscribe({
-        next: (data) => {
-          alert('se ha enviado una nueva contraseña a su metodo de contacto');
+        next: () => {
+          this.router.navigate(["/security/redirect-recovery-password"])
         },
         error: (err) => {
-          alert('ha ocurrido un error enviando la contraseña');
+          this.textError= "ha ocurrido un error enviando la contraseña";
+          this.showError = true; // Mostrar la notificación de error
+          setTimeout(() => {
+            this.showError = false; // Ocultar la notificación de error después de 6 segundos
+          }, 6000);
         },
       });
     }
