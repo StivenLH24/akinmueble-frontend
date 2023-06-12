@@ -14,6 +14,9 @@
             <button (click)="ValidateCod2fa()" class="btn waves-effect waves-light col s12">Validar</button>
           </div>
         </div>
+        <div *ngIf="showError" class="notification error">
+          codigo 2fa incorrecto o expirado, por favor intente de nuevo. 
+        </div>
       </form>
     </div>
   </div>
