@@ -9,7 +9,7 @@
       <tr *ngFor="let row of table.rows" class="row">
         <td>{{ row.documentNumber }}</td>
         <td>
-          {{ row.firstName }} {{ row.secondName }} {{ row.firstLastName }}
+          {{ row.firstName }} {{ row.firtsLastName }}
         </td>
         <td>{{ row.email }}</td>
         <td *ngIf="row.advisorStatusId == 1">{{ status.uno }}</td>
@@ -18,13 +18,13 @@
 
         <td class="actions">
           <i
-            data-target="modal1"
+            data-target="confirm-modal"
             *ngIf="row.advisorStatusId == 2"
             class="action-button fa-regular fa-circle-check  modal-trigger"
             (click)="changeSelectActionId(row.id, true)"
           ></i>
           <i
-          data-target="modal1"
+          data-target="confirm-modal"
           *ngIf="row.advisorStatusId == 2"
           class="action-button fa-regular fa-circle-xmark  modal-trigger"
           (click)="changeSelectActionId(row.id, false)"

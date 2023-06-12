@@ -1,7 +1,8 @@
-import { AfterViewInit, Component } from "@angular/core";
+import { AfterViewInit, Component, ViewChild } from "@angular/core";
 import { Table } from "src/app/models/interfaces/table.interface";
 import { RequestService } from "src/app/services/parameters/request.service";
 import * as M from 'materialize-css';
+import { RequestDetailComponent } from "../request-detail/request-detail.component";
 
 @Component({
   selector: "app-requests-list",
@@ -14,6 +15,11 @@ export class RequestsListComponent implements AfterViewInit {
     columnNames: [],
     rows: [],
   };
+
+  propertyId!:number;
+
+  @ViewChild('requestDetail')
+  requestDetail!: RequestDetailComponent
 
   ngOnInit() {
     this.buildTable();
@@ -65,13 +71,15 @@ export class RequestsListComponent implements AfterViewInit {
   }
 
 
-  viewPropertyDetails(){
-
+  viewPropertyDetails(propertyId:number){
+    this.requestDetail.getData(propertyId);
+    this.propertyId= propertyId;
     console.log("Ver detalles propiedad")
   }
   
   ngAfterViewInit() {
     const modals = document.querySelectorAll('.modal');
-    M.Modal.init(modals);
+    M.Modal.init(modals);    
+    console.log(modals)
   }
 }

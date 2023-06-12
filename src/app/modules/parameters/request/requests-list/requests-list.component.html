@@ -18,8 +18,10 @@
         <td>{{ row.property.propertyType.typeName }}</td>
         <td>{{ row.requestStatus.statusName }}</td>
         <td class="actions">
-          <i class="action-button fa-regular fa-eye"
-                (click)="viewPropertyDetails()"
+          <i
+            data-target="projector-modal"
+            class="action-button fa-regular fa-eye modal-trigger"
+            (click)="viewPropertyDetails(row.propertyId)"
           ></i>
           <i
             *ngIf="row.contractSource && row.contractSource != ''"
@@ -32,11 +34,17 @@
   </table>
 </div>
 
-<app-confirm-modal></app-confirm-modal>
-
 <ng-template #elseBlock>
   <div class="no-data">
     <span> No hay solicitudes para listar </span>
   </div>
 </ng-template>
 
+<app-projector-modal
+  [title]="'Detalles de la solicitud'"
+  [description]="''"
+>
+  <div>
+    <app-request-detail #requestDetail></app-request-detail>
+  </div>
+</app-projector-modal>
