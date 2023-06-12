@@ -56,11 +56,17 @@
           </button>
         </div>
       </div>
+      <div class="row" *ngIf="showError">
+        <div class="input-field col s12">
+          <div class="notification error">
+            <p [innerHTML]="textError">
+            </p>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="input-field col s6 m6 l6">
-          <button
-            class="margin medium-small waves-effect waves-light btn"
-          >
+          <button class="margin medium-small waves-effect waves-light btn">
             <a routerLink="/security/register-form">Registrarse</a>
           </button>
         </div>
@@ -69,9 +75,6 @@
             <a routerLink="/security/recover-password">Olvide mi contraseña</a>
           </button>
         </div>
-      </div>
-      <div *ngIf="showError" class="notification error">
-        Credenciales incorrectas o falta la validación del correo electrónico.
       </div>
     </form>
   </div>

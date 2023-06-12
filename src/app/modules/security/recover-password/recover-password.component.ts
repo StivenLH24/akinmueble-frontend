@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { SecurityService } from 'src/app/services/security.service';
 
 @Component({
@@ -11,7 +10,6 @@ import { SecurityService } from 'src/app/services/security.service';
 export class RecoverPasswordComponent {
   fGroup: FormGroup = new FormGroup({});
   constructor(
-    private router: Router,
     private fb: FormBuilder,
     private servicioSeguridad: SecurityService
   ) {}
@@ -31,8 +29,8 @@ export class RecoverPasswordComponent {
     } else {
       let usuario = this.getFormGroup['user'].value;
       this.servicioSeguridad.RecuperarClavePorUsuario(usuario).subscribe({
-        next: () => {
-          this.router.navigate(["/security/redirect-recovery-password"])
+        next: (data) => {
+          alert('se ha enviado una nueva contraseña a su metodo de contacto');
         },
         error: (err) => {
           alert('ha ocurrido un error enviando la contraseña');
