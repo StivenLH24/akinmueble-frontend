@@ -7,6 +7,7 @@ import { IdentifyUserComponent } from './identify-user/identify-user.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { VerifyTwofaComponent } from './verify-twofa/verify-twofa.component';
 import { ValidateHashUserComponent } from './validate-hash-user/validate-hash-user.component';
+import { RedirectRecoveryPasswordComponent } from './redirect-recovery-password/redirect-recovery-password.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,11 @@ const routes: Routes = [
   {
     path: "validar-hash-user/:hash",
     component: ValidateHashUserComponent
+  }
+  ,
+  {
+    path: "redirect-recovery-password",
+    component: RedirectRecoveryPasswordComponent
   }
 
 ];
