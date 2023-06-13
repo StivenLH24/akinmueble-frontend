@@ -44,17 +44,20 @@
 
   <li class="background blue" style="padding-top: 10%"></li>
   
-  <li><a *ngIf="rolUsuario === '642d9eb902e1597baa66e447'" routerLink="/customer/solicitudes">Solicitudes</a></li>
+  <!-- Cliente -->
+  <li><a *ngIf="rolUsuario === '642d9eb902e1597baa66e447'" routerLink="/parameters/request/list">Solicitudes</a></li>
   <li><a *ngIf="rolUsuario === '642d9eb902e1597baa66e447'" routerLink="/customer/contrato">Contratos</a></li>
 
+  <!-- Admin -->
   <li><a *ngIf="rolUsuario === '64225720d8b31f3e70717387'" routerLink="/parameters/advisor/list">Asesores</a></li>
   <li><a *ngIf="rolUsuario === '64225720d8b31f3e70717387'" routerLink="/parameters/reportes">Reportes</a></li>
   <li><a *ngIf="rolUsuario === '64225720d8b31f3e70717387'" routerLink="/parameters/inmuebles">Inmuebles</a></li>
   <li><a *ngIf="rolUsuario === '64225720d8b31f3e70717387'" routerLink="/parameters/request/list">Solicitudes</a></li>
 
-  <li><a *ngIf="rolUsuario === '642d9ecb02e1597baa66e448'" routerLink="/parameters/solicitudes">Solicitudes</a></li>
+  <!-- Asesor -->
+  <li><a *ngIf="rolUsuario === '642d9ecb02e1597baa66e448'" routerLink="/parameters/request/list">Solicitudes</a></li>
   <li><a *ngIf="rolUsuario === '642d9ecb02e1597baa66e448'" routerLink="/parameters/reportes">Reportes</a></li>
-  <li><a *ngIf="rolUsuario === '642d9ecb02e1597baa66e448'" routerLink="/parameters/inmuebles">Inmuebles</a></li>
+  <li><a *ngIf="rolUsuario === '642d9ecb02e1597baa66e448'" routerLink="/parameters/advisor/property/list">Inmuebles</a></li>
 </ul>
 
 <div *ngIf="sesionActive">

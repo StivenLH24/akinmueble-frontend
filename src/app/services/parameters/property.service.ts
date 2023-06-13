@@ -17,10 +17,10 @@ export class PropertyService {
     );
   }
 
-  getpropertiesByAdvisor(advisorId:number):Observable<Property[]> {
+  getpropertiesByAdvisor(advisorId:string):Observable<Property[]> {
     return this.http
       .get<Property[]>(
-        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}]}`
+        `${this.urlLogic}advisors/${advisorId}/properties?filter={"include":[{"relation":"city"},{"relation":"propertyStatus"}]}`
       )
   }
 }
