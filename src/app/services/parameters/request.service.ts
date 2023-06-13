@@ -1,6 +1,7 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { configurationRoutesBackend } from "src/app/config/configuration.routes.backend";
 // import { SecurityService } from "../security.service";
 import { RequestModel } from "src/app/models/request.model";
 
@@ -15,6 +16,7 @@ export class RequestService {
   ) {
     // this.token = this.securityService.getTokenLocalStorage();
   }
+  urlLogic: string = configurationRoutesBackend.urlLogic;
 
   listRequests(): Observable<RequestModel[]> {
     return this.http.get<RequestModel[]>(
@@ -39,5 +41,35 @@ export class RequestService {
       `http://localhost:3001/downloadFile/2/${encodedFileName}`,
       options
     );
+  }
+
+  getRequestByAdvisor(advisorId:string):Observable<RequestModel[]> {
+    return this.http
+      .get<RequestModel[]>(
+        `${this.urlLogic}advisors/${advisorId}/requests?filter=
+        {"fields":["id",  "creationDate", "closeDate", "propertyId", 
+        "requestStatusId","requestTypeId", "customerId", "contractSource", "advisorId"],
+         "include":[{"relation": "requestType", 
+         "scope": {"fields":["requestTypeName"]}}, 
+         {"relation":"requestStatus"},{"relation":"advisor"}, {"relation":"property",  
+         "scope": {"include":[{"relation":"propertyPictures"}, 
+         {"relation":"propertyType"} ,  {"relation":"city", 
+         "scope":{  "include":[ {"relation": "department"}]}}]}}]}`
+      )
+  }
+
+  getRequestByCustomer(customerId:string):Observable<RequestModel[]> {
+    return this.http
+      .get<RequestModel[]>(
+        `${this.urlLogic}customers/${customerId}/requests_with_filter?filter=
+        {"fields":["id",  "creationDate", "closeDate", "propertyId", 
+        "requestStatusId","requestTypeId", "customerId", "contractSource", "advisorId"],
+         "include":[{"relation": "requestType", 
+         "scope": {"fields":["requestTypeName"]}}, 
+         {"relation":"requestStatus"},{"relation":"advisor"}, {"relation":"property",  
+         "scope": {"include":[{"relation":"propertyPictures"}, 
+         {"relation":"propertyType"} ,  {"relation":"city", 
+         "scope":{  "include":[ {"relation": "department"}]}}]}}]}`
+      )
   }
 }

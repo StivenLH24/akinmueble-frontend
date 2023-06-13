@@ -4,6 +4,9 @@ import { RequestService } from "src/app/services/parameters/request.service";
 import * as M from "materialize-css";
 import { RequestDetailComponent } from "../request-detail/request-detail.component";
 import { modalsConfig } from "src/helpers/modals-config";
+import { SecurityService } from "src/app/services/security.service";
+import { configurationRoles } from "src/app/config/general.config";
+
 
 @Component({
   selector: "app-requests-list",
@@ -11,7 +14,10 @@ import { modalsConfig } from "src/helpers/modals-config";
   styleUrls: ["./requests-list.component.css"],
 })
 export class RequestsListComponent implements AfterViewInit {
-  constructor(private requestService: RequestService) {}
+  constructor(
+    private requestService: RequestService,
+    private securityService: SecurityService
+  ) {}
   table: Table = {
     columnNames: [],
     rows: [],
@@ -20,20 +26,16 @@ export class RequestsListComponent implements AfterViewInit {
   propertyId!: number;
   idProjectModalViewDetails!: string;
   idProjectChangeAdvisor!: string;
-
-  advisors: string[]=["1","2"];
-  advisorSelected:string="1";
+  userRole: string = "";
+  isAdmin: boolean = false;
 
   @ViewChild("requestDetail")
   requestDetail!: RequestDetailComponent;
 
   ngOnInit() {
-    this,this.advisors=["1","2"];
-    this.advisorSelected = "1";
     this.idProjectModalViewDetails =
       modalsConfig.projectorModal.modalUno.modalId;
-    this.idProjectChangeAdvisor =
-      modalsConfig.projectorModal.modalDos.modalId;
+    this.idProjectChangeAdvisor = modalsConfig.projectorModal.modalDos.modalId;
     this.buildTable();
   }
 
@@ -52,21 +54,58 @@ export class RequestsListComponent implements AfterViewInit {
   }
 
   listRequests() {
-    this.requestService.listRequests().subscribe({
-      next: (data) => {
-        this.table.rows = data;
-      },
-      error: (err) => {
-        alert("Error leyendo la información.");
-      },
-    });
+    const role = this.securityService.getRolUserValidated();
+    if(!role) return;
+
+    if(role == configurationRoles.adminRole){
+      this.userRole = configurationRoles.adminRole;
+      this.isAdmin = true;
+      this.requestService.listRequests().subscribe({
+        next: (data) => {
+          this.table.rows = data;
+        },
+        error: (err) => {
+          alert("Error leyendo la información.");
+        },
+      });
+      return;      
+    }
+
+    if(role == configurationRoles.advisorRole){
+      this.userRole = configurationRoles.advisorRole;
+      const advisorId = this.securityService.getIdUserPkValidated();
+      if (!advisorId) return;      
+      this.requestService.getRequestByAdvisor(advisorId).subscribe({
+        next: (data) => {
+          this.table.rows = data;
+        },
+        error: (err) => {
+          alert("Error leyendo la información.");
+        },
+      });
+      return;
+    }
+
+    if(role == configurationRoles.customerRole){
+      this.userRole = configurationRoles.customerRole;
+      const customerId = this.securityService.getIdUserPkValidated();
+      if (!customerId) return;
+      this.requestService.getRequestByCustomer(customerId).subscribe({
+        next: (data) => {
+          this.table.rows = data;
+        },
+        error: (err) => {
+          alert("Error leyendo la información.");
+        },
+      });
+      return;  
+    }
   }
 
   downLoadContract(contractSource: string) {
     this.requestService.downloadContract(contractSource).subscribe({
       next: (body: Blob) => {
         if (!body) {
-          console.log("Es null");
           /**TODO: Tratar este caso */
           return;
         }
@@ -90,6 +129,5 @@ export class RequestsListComponent implements AfterViewInit {
   ngAfterViewInit() {
     const modals = document.querySelectorAll(".modal");
     M.Modal.init(modals);
-    console.log(modals);
   }
 }

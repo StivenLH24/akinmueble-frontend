@@ -27,8 +27,9 @@
             *ngIf="row.contractSource && row.contractSource != ''"
             class="action-button fa-regular fa-circle-down"
             (click)="downLoadContract(row.contractSource)"
-          ></i>
-          <i
+            ></i>
+            <i
+            *ngIf="isAdmin"
             attr.data-target="{{ idProjectChangeAdvisor }}"
             class="action-button fa-solid fa-people-arrows modal-trigger"
           ></i>

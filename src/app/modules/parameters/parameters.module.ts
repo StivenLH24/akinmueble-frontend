@@ -18,6 +18,7 @@ import { RequestsListComponent } from './request/requests-list/requests-list.com
 import { ContratoComponent } from './customer/contrato/contrato.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RequestDetailComponent } from './request/request-detail/request-detail.component';
+import { PropertyListComponent } from './property/property-list/property-list.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { RequestDetailComponent } from './request/request-detail/request-detail.
     AdvisorListComponent,
     RequestsListComponent,
     ContratoComponent,
-    RequestDetailComponent
+    RequestDetailComponent,
+    PropertyListComponent
   ],
   imports: [
     CommonModule,
