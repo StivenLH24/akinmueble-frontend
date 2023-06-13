@@ -35,21 +35,29 @@
       ><i class="fi fi-br-user"></i
     ></a>
   </li>
-  <li><a *ngIf="sesionActive" routerLink="/security/change-password">cambiar clave</a></li>
-  <li><a *ngIf="sesionActive" routerLink="/security/sign-out">cerrar sesion</a></li>
+  <li><a *ngIf="sesionActive" routerLink="/security/change-password">Cambiar clave</a></li>
+  <li><a *ngIf="sesionActive" routerLink="/security/sign-out">Cerrar sesion</a></li>
 
   <li><a routerLink="/parameters/mision">Misíon</a></li>
   <li><a routerLink="/parameters/vision">Vision</a></li>
   <li><a routerLink="/info/contact">Contactenos</a></li>
-  
-</ul>
 
-<ul id="opcion-desplegables" class="dropdown-content">
-  <li><a routerLink="#">Opción 3.1</a></li>
-  <li><a routerLink="#">Opción 3.2</a></li>
-  <li><a routerLink="#">Opción 3.3</a></li>
+  <li class="background blue" style="padding-top: 10%"></li>
+  
+  <li><a *ngIf="rolUsuario === '642d9eb902e1597baa66e447'" routerLink="/customer/solicitudes">Solicitudes</a></li>
+  <li><a *ngIf="rolUsuario === '642d9eb902e1597baa66e447'" routerLink="/customer/contrato">Contratos</a></li>
+
+  <li><a *ngIf="rolUsuario === '64225720d8b31f3e70717387'" routerLink="/parameters/advisor/list">Asesores</a></li>
+  <li><a *ngIf="rolUsuario === '64225720d8b31f3e70717387'" routerLink="/parameters/reportes">Reportes</a></li>
+  <li><a *ngIf="rolUsuario === '64225720d8b31f3e70717387'" routerLink="/parameters/inmuebles">Inmuebles</a></li>
+  <li><a *ngIf="rolUsuario === '64225720d8b31f3e70717387'" routerLink="/parameters/request/list">Solicitudes</a></li>
+
+  <li><a *ngIf="rolUsuario === '642d9ecb02e1597baa66e448'" routerLink="/parameters/solicitudes">Solicitudes</a></li>
+  <li><a *ngIf="rolUsuario === '642d9ecb02e1597baa66e448'" routerLink="/parameters/reportes">Reportes</a></li>
+  <li><a *ngIf="rolUsuario === '642d9ecb02e1597baa66e448'" routerLink="/parameters/inmuebles">Inmuebles</a></li>
 </ul>
 
 <div *ngIf="sesionActive">
   <app-lateral-menu> </app-lateral-menu>
 </div>
+

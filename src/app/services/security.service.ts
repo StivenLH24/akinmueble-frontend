@@ -101,7 +101,6 @@ export class SecurityService {
     let dataValidatedLS = localStorage.getItem('data-user-validated');
     if (dataValidatedLS) {
       let dataValidated = JSON.parse(dataValidatedLS)
-      console.log(dataValidated.user.roleId);
       return dataValidated.user.roleId;
     }
     return null;

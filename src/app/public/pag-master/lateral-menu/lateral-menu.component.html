@@ -1,39 +1,51 @@
+<div class="menu-container">
+  <ul
+    id="slide-out"
+    class="sidenav"
+    *ngIf="rolUsuario === '642d9eb902e1597baa66e447'"
+  >
+    <!-- Contenido del menú para el rol 'cliente' -->
+    <div class="background blue" style="padding-top: 10%">
+      <h5 class="white-text center-align">CLIENTE</h5>
+    </div>
+    <li><a routerLink="/customer/solicitudes">solicitudes</a></li>
+    <li><a routerLink="/customer/contrato">contratos</a></li>
+  </ul>
 
-<ul id="slide-out" class="sidenav" *ngIf="rolUsuario === '642d9eb902e1597baa66e447'">
-  <!-- Contenido del menú para el rol 'cliente' -->
-  <div class="background blue" style="padding-top: 10%;">
-    <h5 class="white-text center-align">CLIENTE</h5>
+  <ul
+    id="slide-out"
+    class="sidenav"
+    *ngIf="rolUsuario === '64225720d8b31f3e70717387'"
+  >
+    <!-- Contenido del menú para el rol 'administrador' -->
+    <div class="background blue" style="padding-top: 10%">
+      <h5 class="white-text center-align">ADMINISTRADOR</h5>
+    </div>
+    <li><a routerLink="/parameters/advisor/list">asesores</a></li>
+    <li><a routerLink="/parameters/reportes">reportes</a></li>
+    <li><a routerLink="/parameters/inmuebles">inmuebles</a></li>
+    <li><a routerLink="/parameters/request/list">solicitudes</a></li>
+  </ul>
+
+  <ul
+    id="slide-out"
+    class="sidenav"
+    *ngIf="rolUsuario === '642d9ecb02e1597baa66e448'"
+  >
+    <!-- Contenido del menú para el rol 'asesor' -->
+    <div class="background blue" style="padding-top: 10%">
+      <h5 class="white-text center-align">ASESOR</h5>
+    </div>
+    <li><a routerLink="/parameters/solicitudes">solicitudes</a></li>
+    <li><a routerLink="/parameters/reportes">reportes</a></li>
+    <li><a routerLink="/parameters/inmuebles">inmuebles</a></li>
+  </ul>
+
+  <div class="blue lighten-2 p-2 d-inline-block btn">
+    <a href="#" data-target="slide-out" class="sidenav-trigger p-2 white-text">
+      <i class="fi fi-br-menu-burger"></i>
+    </a>
   </div>
-  <li><a routerLink="/customer/solicitudes">solicitudes</a></li>
-  <li><a routerLink="/customer/contrato">contratos</a></li>
-</ul>
-
-<ul id="slide-out" class="sidenav" *ngIf="rolUsuario === '64225720d8b31f3e70717387'">
-  <!-- Contenido del menú para el rol 'administrador' -->
-  <div class="background blue" style="padding-top: 10%;">
-    <h5 class="white-text center-align">ADMINISTRADOR</h5>
-  </div>
-  <li><a routerLink="/parameters/advisor/list">asesores</a></li>
-  <li><a routerLink="/parameters/reportes">reportes</a></li>
-  <li><a routerLink="/parameters/inmuebles">inmuebles</a></li>
-  <li><a routerLink="/parameters/request/list">solicitudes</a></li>
-</ul>
-
-<ul id="slide-out" class="sidenav" *ngIf="rolUsuario === '642d9ecb02e1597baa66e448'">
-  <!-- Contenido del menú para el rol 'asesor' -->
-  <div class="background blue" style="padding-top: 10%;">
-    <h5 class="white-text center-align">ASESOR</h5>
-  </div>
-  <li><a routerLink="/parameters/solicitudes">solicitudes</a></li>
-  <li><a routerLink="/parameters/reportes">reportes</a></li>
-  <li><a routerLink="/parameters/inmuebles">inmuebles</a></li>
-</ul>
-
-<div class="blue lighten-2 p-2 d-inline-block btn">
-  <a href="#" data-target="slide-out" class="sidenav-trigger p-2 white-text">
-    <i class="fi fi-br-menu-burger"></i>
-  </a>
 </div>
 
 
-        
