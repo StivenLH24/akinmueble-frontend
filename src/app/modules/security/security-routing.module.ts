@@ -9,6 +9,7 @@ import { VerifyTwofaComponent } from './verify-twofa/verify-twofa.component';
 import { ValidateHashUserComponent } from './validate-hash-user/validate-hash-user.component';
 import { ValidateActiveSessionGuard } from 'src/app/guardian/validate-active-session.guard';
 import { ValidateInactiveSessionGuard } from 'src/app/guardian/validate-inactive-session.guard';
+import { RedirectRecoveryPasswordComponent } from './redirect-recovery-password/redirect-recovery-password.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,11 @@ const routes: Routes = [
   {
     path: "validar-hash-user/:hash",
     component: ValidateHashUserComponent
+  }
+  ,
+  {
+    path: "redirect-recovery-password",
+    component: RedirectRecoveryPasswordComponent
   }
 
 ];

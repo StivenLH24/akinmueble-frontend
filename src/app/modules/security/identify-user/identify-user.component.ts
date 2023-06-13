@@ -14,7 +14,8 @@ import { Router } from '@angular/router';
 
 export class IdentifyUserComponent {
   fGroup: FormGroup = new FormGroup({});
-
+  showPasswordError: boolean = false;
+textError:string='';
   constructor(
     private fb: FormBuilder,
     private securityService: SecurityService,
@@ -46,7 +47,8 @@ IdentyUser() {
     let encryptedPassword = MD5(password).toString();
     this.securityService.identifyUser(user, encryptedPassword).subscribe({
       next: (response: any) => {
-        if (response.ok !== true) {
+        if (response.ok !== true && response.message === "El correo no ha sido validado") {
+          this.textError = "Falta validación del correo electrónico. <br/> Por favor ve a tu bandeja de entrada <br/> y haz click en el enlace.";
           this.showError = true; // Mostrar la notificación de error
           setTimeout(() => {
             this.showError = false; // Ocultar la notificación de error después de 6 segundos
@@ -59,11 +61,11 @@ IdentyUser() {
           }
         },
         error: (err) => {
+          this.textError="Credenciales incorrectas. <br/> verifica las credenciales que haz ingresado"
           this.showError = true; // Mostrar la notificación de error
           setTimeout(() => {
             this.showError = false; // Ocultar la notificación de error después de 6 segundos
           }, 6000);
-          console.log(err);
         }
       });
     }

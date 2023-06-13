@@ -24,13 +24,13 @@
 }
 
 .notification {
-  position: fixed;
   top: 20px;
   left: 20px;
-  z-index: 9999;
   background-color: #66b5e0;
   padding: 10px;
   border-radius: 5px;
+  border: 1px solid #000;
+  text-align: center;
 }
 
 .error {

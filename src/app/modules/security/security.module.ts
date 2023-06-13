@@ -12,6 +12,7 @@ import { SignOutComponent } from './sign-out/sign-out.component';
 import { IdentifyUserComponent } from './identify-user/identify-user.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ValidateHashUserComponent } from './validate-hash-user/validate-hash-user.component';
+import { RedirectRecoveryPasswordComponent } from './redirect-recovery-password/redirect-recovery-password.component';
 
 
 
@@ -28,6 +29,7 @@ import { ValidateHashUserComponent } from './validate-hash-user/validate-hash-us
     SignOutComponent,
     IdentifyUserComponent,
     ValidateHashUserComponent,
+    RedirectRecoveryPasswordComponent,
   ],
   imports: [
     CommonModule,
