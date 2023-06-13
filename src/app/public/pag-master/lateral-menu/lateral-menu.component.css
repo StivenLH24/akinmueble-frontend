@@ -16,3 +16,10 @@
 .btn a {
   color: white;
 }
+
+@media (max-width: 992px) {
+  .menu-container {
+    display: none;
+  }
+}
+
