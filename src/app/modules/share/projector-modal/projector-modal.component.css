@@ -1,0 +1,30 @@
+.cancel-btn:hover {
+  background-color: rgb(244, 72, 72);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.butons-wraper {
+  width: 40%;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+
+/*Estilosv para móviles*/
+@media (max-width: 576px) {
+  .butons-wraper {
+    width: 100%;
+  }
+}
+
+/* Estilos para dispositivos móviles más grandes */
+@media (min-width: 576px) and (max-width: 767px) {
+}
+
+/* Estilos para tablets y dispositivos en modo paisaje */
+@media (min-width: 768px) and (max-width: 991px) {
+}

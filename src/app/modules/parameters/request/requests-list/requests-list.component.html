@@ -1,0 +1,69 @@
+<div class="table-wraper">
+  <table *ngIf="table.rows.length > 0; else elseBlock" class="striped table">
+    <thead>
+      <tr class="tr-head">
+        <th *ngFor="let col of table.columnNames">{{ col }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of table.rows" class="row">
+        <td>{{ row.id }}</td>
+        <td>
+          {{ row.advisor.firstName }} {{ row.advisor.firtsLastName }} <br />
+          C.C.{{ row.advisor.documentNumber }}
+        </td>
+        <td>{{ row.property.city.department.departmentName }}</td>
+        <td>{{ row.property.city.cityName }}</td>
+        <td>{{ row.property.address }}</td>
+        <td>{{ row.property.propertyType.typeName }}</td>
+        <td>{{ row.requestStatus.statusName }}</td>
+        <td class="actions">
+          <i
+            attr.data-target="{{ idProjectModalViewDetails }}"
+            class="action-button fa-regular fa-eye modal-trigger"
+            (click)="viewPropertyDetails(row.propertyId)"
+          ></i>
+          <i
+            *ngIf="row.contractSource && row.contractSource != ''"
+            class="action-button fa-regular fa-circle-down"
+            (click)="downLoadContract(row.contractSource)"
+            ></i>
+            <i
+            *ngIf="isAdmin"
+            attr.data-target="{{ idProjectChangeAdvisor }}"
+            class="action-button fa-solid fa-people-arrows modal-trigger"
+          ></i>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #elseBlock>
+  <div class="no-data">
+    <span> No hay solicitudes para listar </span>
+  </div>
+</ng-template>
+
+<app-projector-modal
+  [idModal]="idProjectModalViewDetails"
+  [title]="'Detalles de la solicitud'"
+  [description]="''"
+>
+  <div>
+    <app-request-detail #requestDetail></app-request-detail>
+  </div>
+</app-projector-modal>
+
+
+<!-- TODO: Cambiar esto por un confirm modal -->
+<app-projector-modal
+  [idModal]="idProjectChangeAdvisor"
+  [title]="'advisor'"
+  [description]="''"
+>
+  <div>Este es el del advisor</div>
+</app-projector-modal>
+
+<!-- <option value="" disabled selected>Choose your option</option> -->

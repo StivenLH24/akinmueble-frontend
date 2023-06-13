@@ -1,0 +1,66 @@
+<nav class="white">
+  <div class="nav-wrapper">
+    <a routerLink="/home" class="brand-logo"
+      ><img
+        class="responsive-img logo_menu"
+        src="../assets/images/logo_akinmueble.png"
+        alt="Logo"
+    /></a>
+    <ul class="right hide-on-med-and-down">
+
+      <li><a routerLink="/parameters/mision">Misión</a></li>
+      <li><a routerLink="/parameters/vision">Vision</a></li>
+      <li><a routerLink="/info/contact">Contactenos</a></li>
+      <li>
+        <a *ngIf="!sesionActive" routerLink="/security/identify-user"
+          ><i class="fi fi-br-user"></i
+        ></a>
+      </li>
+      <li><a *ngIf="sesionActive" routerLink="/security/change-password">cambiar clave</a></li>
+      <li><a *ngIf="sesionActive" routerLink="/security/sign-out">cerrar sesion</a></li>
+    </ul>
+    <a
+    href="#"
+      data-target="mobile-demo"
+      class="sidenav-trigger"
+      style="color: black"
+      ><i class="fi fi-br-menu-burger"></i
+    ></a>
+  </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+  <li>
+    <a *ngIf="!sesionActive" routerLink="/security/identify-user"
+      ><i class="fi fi-br-user"></i
+    ></a>
+  </li>
+  <li><a *ngIf="sesionActive" routerLink="/security/change-password">Cambiar clave</a></li>
+  <li><a *ngIf="sesionActive" routerLink="/security/sign-out">Cerrar sesion</a></li>
+
+  <li><a routerLink="/parameters/mision">Misíon</a></li>
+  <li><a routerLink="/parameters/vision">Vision</a></li>
+  <li><a routerLink="/info/contact">Contactenos</a></li>
+
+  <li class="background blue" style="padding-top: 10%"></li>
+  
+  <!-- Cliente -->
+  <li><a *ngIf="rolUsuario === '642d9eb902e1597baa66e447'" routerLink="/parameters/request/list">Solicitudes</a></li>
+  <li><a *ngIf="rolUsuario === '642d9eb902e1597baa66e447'" routerLink="/customer/contrato">Contratos</a></li>
+
+  <!-- Admin -->
+  <li><a *ngIf="rolUsuario === '64225720d8b31f3e70717387'" routerLink="/parameters/advisor/list">Asesores</a></li>
+  <li><a *ngIf="rolUsuario === '64225720d8b31f3e70717387'" routerLink="/parameters/reportes">Reportes</a></li>
+  <li><a *ngIf="rolUsuario === '64225720d8b31f3e70717387'" routerLink="/parameters/inmuebles">Inmuebles</a></li>
+  <li><a *ngIf="rolUsuario === '64225720d8b31f3e70717387'" routerLink="/parameters/request/list">Solicitudes</a></li>
+
+  <!-- Asesor -->
+  <li><a *ngIf="rolUsuario === '642d9ecb02e1597baa66e448'" routerLink="/parameters/request/list">Solicitudes</a></li>
+  <li><a *ngIf="rolUsuario === '642d9ecb02e1597baa66e448'" routerLink="/parameters/reportes">Reportes</a></li>
+  <li><a *ngIf="rolUsuario === '642d9ecb02e1597baa66e448'" routerLink="/parameters/advisor/property/list">Inmuebles</a></li>
+</ul>
+
+<div *ngIf="sesionActive">
+  <app-lateral-menu> </app-lateral-menu>
+</div>
+

@@ -1,0 +1,89 @@
+.table-wraper {
+  width: 90vw;
+  max-width: 100vw;
+  overflow-x: auto;
+  scroll-behavior: auto;
+  margin: auto;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 150px;
+  min-height: 100%;
+  margin-left: 5%;
+}
+
+.actions i {
+  margin-right: 0.5rem;
+}
+
+.row:last-child .actions {
+  margin-top: 5px;
+}
+
+.actions {
+  cursor: pointer;
+}
+
+.action-button:hover {
+  transform: scale(1.5, 1.5);
+  transition: transform 300ms;
+}
+
+.action-button:active {
+  transform: scale(1.2, 1.2);
+}
+
+thead tr th:last-child {
+  display: flex;
+  justify-content: center;
+}
+
+
+.no-data{
+  margin: auto;
+  color: rgb(192, 189, 189);
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  margin-top: 5rem;
+}
+
+.no-data span {
+  text-align: center;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: rgb(32, 225, 32);
+}
+
+.yellow {
+  color: yellow;
+}
+
+/*Estilosv para móviles*/
+@media (max-width: 576px) {
+  .row:last-child .actions {
+    margin-top: 15px;
+  }
+}
+
+/* Estilos para dispositivos móviles más grandes */
+@media (min-width: 576px) and (max-width: 767px) {
+  .row:last-child .actions {
+    margin-top: 15px;
+  }
+}
+
+/* Estilos para tablets y dispositivos en modo paisaje */
+@media (min-width: 768px) and (max-width: 991px) {
+  .row:last-child .actions {
+    margin-top: 5px;
+  }
+}

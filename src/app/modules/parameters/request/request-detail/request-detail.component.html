@@ -1,0 +1,22 @@
+<div>
+  <div class="item">
+    <label class="label-item" for="">Ciudad:</label>
+    <span class="value-item">{{ property?.city?.cityName }}</span>
+  </div>
+  <div class="item">
+    <label class="label-item" for="">Dirección:</label>
+    <span class="value-item">{{ property?.address }}</span>
+  </div>
+  <div class="item">
+    <label class="label-item" for="">Precio:</label>
+    <span class="value-item">${{ property?.price }}</span>
+  </div>
+  <div class="item">
+    <label class="label-item" for="">Tipo de oferta:</label>
+    <span class="value-item">{{ property?.offerType?.offerTypeName }}</span>
+  </div>
+  <div class="item">
+    <label class="label-item" for="">Tipo de propiedad:</label>
+    <span class="value-item">{{ property?.propertyType?.typeName }}</span>
+  </div>
+</div>

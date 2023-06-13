@@ -1,0 +1,105 @@
+<form>
+  <div class="row">
+      <div class="col s12 m6 offset-m3">
+          <div style="border: 1px solid black; padding: 40px;">
+            <label>
+              <h5>¿Eres cliente o asesor?</h5>
+              <div>
+                <button (click)="selectedOption = 'Cliente'" [class.active]="selectedOption === 'Cliente'" class="waves-effect waves-light custom-button">Cliente</button>
+                <button (click)="selectedOption = 'Asesor'" [class.active]="selectedOption === 'Asesor'" class="waves-effect waves-light custom-button">Asesor</button>
+              </div>      
+              <h6>La opción seleccionada es: {{selectedOption}}</h6>
+            </label>
+      
+            <div [formGroup]="clienteForm" *ngIf="selectedOption === 'Cliente'">
+              <div class="input-field">
+                <input type="text" formControlName="firstName" required>
+                <label>Primer Nombre:</label>
+              </div>
+              <div class="input-field">
+                <input type="text" formControlName="secondName">
+                <label>Segundo Nombre:</label>
+              </div>
+              <div class="input-field">
+                <input type="text" formControlName="firstLastName" required>
+                <label>Primer Apellido:</label>
+              </div>
+              <div class="input-field">
+                <input type="text" formControlName="secondLastName">
+                <label>Segundo Apellido:</label>
+              </div>
+              <div class="input-field">
+                <input type="email" formControlName="email" required>
+                <label>Correo:</label>
+              </div>
+              <div class="input-field">
+                <input type="text" formControlName="password">
+                <label>Contraseña:</label>
+              </div>
+              <div class="input-field">
+                <input type="text" formControlName="documentNumber" required>
+                <label>Documento de Identidad:</label>
+              </div>
+              <div class="input-field">
+                <input type="text" formControlName="phone" required>
+                <label>Teléfono:</label>
+              </div>
+              <div class="input-field">
+                <input type="text" formControlName="address">
+                <label>Dirección:</label>
+              </div>
+            </div>
+            
+      
+            <div [formGroup]="asesorForm" *ngIf="selectedOption === 'Asesor'">
+              <div class="input-field">
+                <input type="text" formControlName="firstName" required>
+                <label>Primer Nombre:</label>
+              </div>
+              <div class="input-field">
+                <input type="text" formControlName="secondName">
+                <label>Segundo Nombre:</label>
+              </div>
+              <div class="input-field">
+                <input type="text" formControlName="firtsLastName" required>
+                <label>Primer Apellido:</label>
+              </div>
+              <div class="input-field">
+                <input type="text" formControlName="secondLastName">
+                <label>Segundo Apellido:</label>
+              </div>
+              <div class="input-field">
+                <input type="email" formControlName="email" required>
+                <label>Correo:</label>
+              </div>
+              <div class="input-field">
+                <input type="text" formControlName="documentNumber" required>
+                <label>Documento de Identidad:</label>
+              </div>
+              <div class="input-field">
+                <input type="text" formControlName="phone" required>
+                <label>Teléfono:</label>
+              </div>
+              <div class="input-field">
+                <input type="text" formControlName="address">
+                <label>Dirección:</label>
+              </div>
+              <div class="input-field">
+                <input type="date" formControlName="dateOfBirth">
+                <label>Fecha de cumpleaños:</label>
+            </div>
+          </div>
+            
+            <button *ngIf="selectedOption === 'Cliente' || selectedOption === 'Asesor'" type="submit" (click)="register()" class="waves-effect waves-light btn custom-button-send">Registrarse</button>
+        </div>
+      </div>
+  </div>
+  
+  </form>
+
+  <div class="message-modal" *ngFor="let message of messages; let i = index" [ngClass]="{'success': message.type === 'success', 'error': message.type === 'error'}">
+    {{ message.content }}
+  </div>
+  
+
+  
