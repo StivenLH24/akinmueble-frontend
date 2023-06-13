@@ -2,7 +2,7 @@ export class AdvisorModel{
     id?: number;
     firstName?: string;
     secondName?: string;
-    firstLastName?: string;
+    firtsLastName?: string;
     secondLastName?: string;
     documentNumber?: string;
     email?: string;

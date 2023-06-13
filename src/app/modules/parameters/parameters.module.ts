@@ -16,7 +16,8 @@ import { VisionComponent } from './vision/vision.component';
 import { ShareModule } from '../share/share.module';
 import { RequestsListComponent } from './request/requests-list/requests-list.component';
 import { ContratoComponent } from './customer/contrato/contrato.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RequestDetailComponent } from './request/request-detail/request-detail.component';
 
 
 @NgModule({
@@ -33,13 +34,15 @@ import { FormsModule } from '@angular/forms';
     VisionComponent,
     AdvisorListComponent,
     RequestsListComponent,
-    ContratoComponent
+    ContratoComponent,
+    RequestDetailComponent
   ],
   imports: [
     CommonModule,
     ParametersRoutingModule,
     ShareModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ParametersModule { }
