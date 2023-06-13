@@ -13,4 +13,7 @@ export class ProjectorModalComponent {
   @Input()
   description!:string;
 
+  @Input()
+  idModal:string ="";
+
 }
