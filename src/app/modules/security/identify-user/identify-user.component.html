@@ -48,7 +48,7 @@
       <div class="row">
         <div class="input-field col s12">
           <button
-            [disabled]="!fGroup.valid"
+            [disabled]="!fGroup.valid || !bandera"
             (click)="IdentyUser()"
             class="btn waves-effect waves-light col s12"
           >
@@ -64,7 +64,7 @@
           </div>
         </div>
       </div>
-      <div class="g-recaptcha" data-sitekey="6LdBGZMmAAAAADxxgxDl1IKFV9DjiFZ1CRpgcn1X"></div>
+      <div id="respon" class="g-recaptcha" data-sitekey="6LdBGZMmAAAAADxxgxDl1IKFV9DjiFZ1CRpgcn1X" required></div>
 
       <div class="row">
         <div class="input-field col s6 m6 l6">
