@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { ShareModule } from './modules/share/share.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     CommonModule,
     MatFormFieldModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ShareModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],
   bootstrap: [AppComponent]

@@ -7,6 +7,7 @@ import { RequestsListComponent } from './request/requests-list/requests-list.com
 import { ContratoComponent } from './customer/contrato/contrato.component';
 import { Component } from 'materialize-css';
 import { ValidateActiveSessionGuard } from 'src/app/guardian/validate-active-session.guard';
+import { PropertyListComponent } from './property/property-list/property-list.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: "request/list",
     component: RequestsListComponent
+  },
+  {
+    path: "advisor/property/list",
+    component: PropertyListComponent
   },
   {
     path: "customer/contrato",
