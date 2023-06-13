@@ -21,7 +21,7 @@ export class RequestService {
   listRequests(): Observable<RequestModel[]> {
     return this.http.get<RequestModel[]>(
       `http://localhost:3001//requests_with_filter?filter=
-      {"fields":["id",  "creationDate", "closeDate", "propertyId", 
+      {"fields":["id",  "creationDate", "closeDate", "codeptorDocumentsSource", "propertyId", 
       "requestStatusId","requestTypeId", "customerId", "contractSource", "advisorId"],
        "include":[{"relation": "requestType", 
        "scope": {"fields":["requestTypeName"]}}, 
@@ -38,16 +38,19 @@ export class RequestService {
       responseType: "blob" as "json", // Especifica el tipo de respuesta como blob
     };
     return this.http.get<Blob>(
-      `http://localhost:3001/downloadFile/2/${encodedFileName}`,
+      `${this.urlLogic}/downloadFile/2/${encodedFileName}`,
       options
     );
   }
 
-  getRequestByAdvisor(advisorId:string):Observable<RequestModel[]> {
-    return this.http
-      .get<RequestModel[]>(
-        `${this.urlLogic}advisors/${advisorId}/requests?filter=
-        {"fields":["id",  "creationDate", "closeDate", "propertyId", 
+  // downloadCodeptorDocuments(): Observable<Blob> {
+    
+  // }
+
+  getRequestByAdvisor(advisorId: string): Observable<RequestModel[]> {
+    return this.http.get<RequestModel[]>(
+      `${this.urlLogic}advisors/${advisorId}/requests?filter=
+        {"fields":["id",  "creationDate", "closeDate", "codeptorDocumentsSource", "propertyId", 
         "requestStatusId","requestTypeId", "customerId", "contractSource", "advisorId"],
          "include":[{"relation": "requestType", 
          "scope": {"fields":["requestTypeName"]}}, 
@@ -55,14 +58,13 @@ export class RequestService {
          "scope": {"include":[{"relation":"propertyPictures"}, 
          {"relation":"propertyType"} ,  {"relation":"city", 
          "scope":{  "include":[ {"relation": "department"}]}}]}}]}`
-      )
+    );
   }
 
-  getRequestByCustomer(customerId:string):Observable<RequestModel[]> {
-    return this.http
-      .get<RequestModel[]>(
-        `${this.urlLogic}customers/${customerId}/requests_with_filter?filter=
-        {"fields":["id",  "creationDate", "closeDate", "propertyId", 
+  getRequestByCustomer(customerId: string): Observable<RequestModel[]> {
+    return this.http.get<RequestModel[]>(
+      `${this.urlLogic}customers/${customerId}/requests_with_filter?filter=
+        {"fields":["id",  "creationDate", "closeDate", "codeptorDocumentsSource", "propertyId",
         "requestStatusId","requestTypeId", "customerId", "contractSource", "advisorId"],
          "include":[{"relation": "requestType", 
          "scope": {"fields":["requestTypeName"]}}, 
@@ -70,6 +72,20 @@ export class RequestService {
          "scope": {"include":[{"relation":"propertyPictures"}, 
          {"relation":"propertyType"} ,  {"relation":"city", 
          "scope":{  "include":[ {"relation": "department"}]}}]}}]}`
-      )
+    );
+  }
+
+  changeStatus(
+    advisorId: string,
+    requestId: number,
+    newStatusId: number,
+    commentary: string = "-"
+  ): Observable<RequestModel> {
+    return this.http.patch<RequestModel>(
+      `${this.urlLogic}advisors/${advisorId}/requests/${requestId}/change-status/${newStatusId}`,
+      {
+        commentary: commentary,
+      }
+    );
   }
 }
