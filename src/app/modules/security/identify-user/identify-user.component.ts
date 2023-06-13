@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SecurityService } from 'src/app/services/security.service';
-import { UserModel } from 'src/app/models/user.model';
+
 import { MD5 } from 'crypto-js';
 import { Router } from '@angular/router';
+
+declare const grecaptcha: any; // Declara la variable grecaptcha
 
 @Component({
   selector: 'app-identify-user',
@@ -13,9 +15,13 @@ import { Router } from '@angular/router';
 })
 
 export class IdentifyUserComponent {
+ 
+
+[x: string]: any;
   fGroup: FormGroup = new FormGroup({});
   showPasswordError: boolean = false;
 textError:string='';
+bandera:boolean=false;
   constructor(
     private fb: FormBuilder,
     private securityService: SecurityService,
@@ -26,8 +32,41 @@ textError:string='';
 
   ngOnInit() {
     this.buildForm();
-    console.log(this.fGroup)
+    this.verificarCaptcha()
+
   }
+
+
+
+   verificarCaptcha() {
+    console.log('iniciacion del componente')
+    var response = grecaptcha.getResponse();
+console.log(response)
+
+if (response) {
+
+  this.bandera=true
+  
+}
+    // Envía el valor de response al servidor para verificarlo
+
+    // Ejemplo de solicitud AJAX utilizando jQuery
+    $.ajax({
+      type: "POST",
+      url: "verificar_captcha.php", // Ruta al archivo en el servidor que verifica el reCAPTCHA
+      data: { response: response },
+      success: function(result) {
+        console.log(result); // Imprime la respuesta en la consola del navegador
+        // Realiza las acciones adicionales según el resultado obtenido
+      },
+      error: function() {
+        console.log("Error al verificar el reCAPTCHA");
+      }
+    });
+  }
+
+
+
 
   buildForm() {
     this.fGroup = this.fb.group({
