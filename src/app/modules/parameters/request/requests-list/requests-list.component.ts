@@ -1,7 +1,9 @@
-import { AfterViewInit, Component } from "@angular/core";
+import { AfterViewInit, Component, ViewChild } from "@angular/core";
 import { Table } from "src/app/models/interfaces/table.interface";
 import { RequestService } from "src/app/services/parameters/request.service";
-import * as M from 'materialize-css';
+import * as M from "materialize-css";
+import { RequestDetailComponent } from "../request-detail/request-detail.component";
+import { modalsConfig } from "src/helpers/modals-config";
 
 @Component({
   selector: "app-requests-list",
@@ -15,7 +17,23 @@ export class RequestsListComponent implements AfterViewInit {
     rows: [],
   };
 
+  propertyId!: number;
+  idProjectModalViewDetails!: string;
+  idProjectChangeAdvisor!: string;
+
+  advisors: string[]=["1","2"];
+  advisorSelected:string="1";
+
+  @ViewChild("requestDetail")
+  requestDetail!: RequestDetailComponent;
+
   ngOnInit() {
+    this,this.advisors=["1","2"];
+    this.advisorSelected = "1";
+    this.idProjectModalViewDetails =
+      modalsConfig.projectorModal.modalUno.modalId;
+    this.idProjectChangeAdvisor =
+      modalsConfig.projectorModal.modalDos.modalId;
     this.buildTable();
   }
 
@@ -48,7 +66,7 @@ export class RequestsListComponent implements AfterViewInit {
     this.requestService.downloadContract(contractSource).subscribe({
       next: (body: Blob) => {
         if (!body) {
-          console.log("Es null")
+          console.log("Es null");
           /**TODO: Tratar este caso */
           return;
         }
@@ -64,14 +82,14 @@ export class RequestsListComponent implements AfterViewInit {
     });
   }
 
-
-  viewPropertyDetails(){
-
-    console.log("Ver detalles propiedad")
+  viewPropertyDetails(propertyId: number) {
+    this.requestDetail.getData(propertyId);
+    this.propertyId = propertyId;
   }
-  
+
   ngAfterViewInit() {
-    const modals = document.querySelectorAll('.modal');
+    const modals = document.querySelectorAll(".modal");
     M.Modal.init(modals);
+    console.log(modals);
   }
 }

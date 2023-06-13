@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { Table } from "src/app/models/interfaces/table.interface";
 import { AdvisorService } from "src/app/services/parameters/advisor.service";
 import * as M from "materialize-css";
-
+import { AdvisorModel } from "src/app/models/advisor.model";
 @Component({
   selector: "app-advisor-list",
   templateUrl: "./advisor-list.component.html",
@@ -105,6 +105,6 @@ export class AdvisorListComponent {
   ngAfterViewInit() {
     const modals = document.querySelectorAll(".modal");
     M.Modal.init(modals);
-    console.log(modals);
+    console.log(modals)
   }
 }

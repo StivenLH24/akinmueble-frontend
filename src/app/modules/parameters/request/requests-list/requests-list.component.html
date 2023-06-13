@@ -18,21 +18,26 @@
         <td>{{ row.property.propertyType.typeName }}</td>
         <td>{{ row.requestStatus.statusName }}</td>
         <td class="actions">
-          <i class="action-button fa-regular fa-eye"
-                (click)="viewPropertyDetails()"
+          <i
+            attr.data-target="{{ idProjectModalViewDetails }}"
+            class="action-button fa-regular fa-eye modal-trigger"
+            (click)="viewPropertyDetails(row.propertyId)"
           ></i>
           <i
             *ngIf="row.contractSource && row.contractSource != ''"
             class="action-button fa-regular fa-circle-down"
             (click)="downLoadContract(row.contractSource)"
           ></i>
+          <i
+            attr.data-target="{{ idProjectChangeAdvisor }}"
+            class="action-button fa-solid fa-people-arrows modal-trigger"
+          ></i>
+          
         </td>
       </tr>
     </tbody>
   </table>
 </div>
-
-<app-confirm-modal></app-confirm-modal>
 
 <ng-template #elseBlock>
   <div class="no-data">
@@ -40,3 +45,24 @@
   </div>
 </ng-template>
 
+<app-projector-modal
+  [idModal]="idProjectModalViewDetails"
+  [title]="'Detalles de la solicitud'"
+  [description]="''"
+>
+  <div>
+    <app-request-detail #requestDetail></app-request-detail>
+  </div>
+</app-projector-modal>
+
+
+<!-- TODO: Cambiar esto por un confirm modal -->
+<app-projector-modal
+  [idModal]="idProjectChangeAdvisor"
+  [title]="'advisor'"
+  [description]="''"
+>
+  <div>Este es el del advisor</div>
+</app-projector-modal>
+
+<!-- <option value="" disabled selected>Choose your option</option> -->
