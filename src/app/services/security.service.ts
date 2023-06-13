@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 import { userValidatedModel } from '../models/user.validated.model';
 import { Property } from '../models/property.model';
 import { RouteConfigLoadEnd } from '@angular/router';
+import { RequestModel } from '../models/request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -51,6 +52,12 @@ export class SecurityService {
    * Busca los datos en localstorage de un user
    * @returns
    */
+/**
+ * This function retrieves stored user data from local storage and returns it as a UserModel object or
+ * null.
+ * @returns either a UserModel object or null. If there is data stored in the 'data-user' key in the
+ * localStorage, it will return a parsed UserModel object. Otherwise, it will return null.
+ */
   getStoredIdentifiedUserData(): UserModel | null {
     let dataLS = localStorage.getItem('data-user');
     if (dataLS) {
@@ -158,14 +165,14 @@ export class SecurityService {
   obtenerPropiedades(offerType: string, propertyType: string) {
     return this.http
       .get<any>(
-        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}], "where":{"offerTypeId":"${offerType}", "propertyTypeId":"${propertyType}"}}`
+        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}], "where":{"offerTypeId":"${offerType}", "propertyTypeId":"${propertyType},"propertyStatusId":"1""}}`
       )
       .pipe(map((data) => data as Property[]));
   }
   obtenerPropOfer(offerType: string) {
     return this.http
       .get<any>(
-        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}],"where":{"offerTypeId":"${offerType}"}}`
+        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}],"where":{"offerTypeId":"${offerType},"propertyStatusId":"1""}}`
       )
       .pipe(map((data) => data as Property[]));
   }
@@ -173,14 +180,14 @@ export class SecurityService {
   obtenerPropType(propertyType: string) {
     return this.http
       .get<any>(
-        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}],"where":{"propertyTypeId":"${propertyType}"}}`
+        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}],"where":{"propertyTypeId":"${propertyType},"propertyStatusId":"1""}}`
       )
       .pipe(map((data) => data as Property[]));
   }
   obtenerPropiedadesSinFiltros() {
     return this.http
       .get<any>(
-        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}]}`
+        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}],"where":{"propertyStatusId":"1"}}`
       )
       .pipe(map((data) => data as Property[]));
   }
@@ -219,8 +226,17 @@ export class SecurityService {
     let dataValidatedLS = localStorage.getItem('data-user-validated');
     if (dataValidatedLS) {
       let dataValidated = JSON.parse(dataValidatedLS)
-      console.log(dataValidated.user._id);
       return dataValidated.user._id;
+    }
+    return null;
+  }
+
+  getIdUserPkValidated(): string | null {
+    let dataValidatedLS = localStorage.getItem('data-user-validated');
+    if (dataValidatedLS) {
+      let dataValidated = JSON.parse(dataValidatedLS)
+      
+      return dataValidated.user.pk;
     }
     return null;
   }
@@ -230,4 +246,14 @@ export class SecurityService {
     let idcustomer = this.getIdUserValidated();
     return this.http.get<any>(`${this.urlLogic}customer${idcustomer}download-document/${idcontrato}`);
   }
+  
+  
+  createRequest(newRequest:RequestModel):Observable<RequestModel|null>{
+  return this.http.post<RequestModel>((`${this.urlLogic}customers/${newRequest.customerId}/requests`),newRequest)
+  }
+
+
 }
+
+
+

@@ -7,6 +7,7 @@ export class RequestModel{
     creationDate?: Date;   
     contractSource?: string;
     codeptorDocumentsSource?: string;
+    advisorId?:number;
     propertyId?: number;
     requestTypeId?: number;
     requestStatusId?: number;
