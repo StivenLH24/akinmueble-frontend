@@ -8,9 +8,13 @@ import { SecurityService } from 'src/app/services/security.service';
 })
 export class HeaderComponent {
 
+  rolUsuario: string | null;
+
   constructor(
     private serviceSecurity: SecurityService
-    ){}
+    ){
+      this.rolUsuario = this.serviceSecurity.getRolUserValidated();
+    }
 
   sesionActive: boolean = false;
 
@@ -32,4 +36,5 @@ export class HeaderComponent {
       }
     })
   }
+
 }

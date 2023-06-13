@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { SecurityService } from 'src/app/services/security.service';
 import { Property } from 'src/app/models/property.model';
 import { configurationRoutesBackend } from 'src/app/config/configuration.routes.backend';
+import { DataPropertyService } from 'src/app/services/data-property.service';
+import { Router } from '@angular/router';
+import { UserModel } from 'src/app/models/user.model';
+import { RequestModel } from 'src/app/models/request.model';
 
 @Component({
   selector: 'app-home',
@@ -14,22 +18,74 @@ export class HomeComponent implements OnInit {
   offerType: string = '';
   propertyType: string = '';
   urlLogic: string = configurationRoutesBackend.urlLogic;
+  sesionActive: boolean = false;
+  confirmModalTitle: string = '';
+  descriptionConfirmModal: string = '';
+  peticionRepetida: boolean = false;
+  propRep!: number;
 
-  constructor(private servicioSeguridad: SecurityService) {}
+  userSolicitante: UserModel = new UserModel();
+  newRequest: RequestModel = new RequestModel();
+
+  constructor(
+    private dataPropertyService: DataPropertyService,
+    private servicioSeguridad: SecurityService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.servicioSeguridad.obtenerPropiedadesSinFiltros().subscribe((data) => {
-      console.log(data);
+      this.validateSesion();
       this.propiedades = data;
+      this.servicioSeguridad.getIdUserPkValidated();
     });
+  }
 
-    console.log('prueba de arranque');
+  responseModal(response: boolean) {
+    alert('funciona');
+  }
+  /*
+asumiendo un true en el modal, vamos a seguir con la logica de creacion de la request
+*/
+  createRequest(property: Property) {
+    //primero se llama al responseModal
+    this.newRequest.propertyId = property.id;
+    this.newRequest.advisorId = property.advisorId;
+    this.newRequest.requestTypeId = property.offerTypeId;
+    let pk = this.servicioSeguridad.getIdUserPkValidated();
+    if (pk) {
+      this.newRequest.customerId = parseInt(pk);
+    }
+    this.servicioSeguridad.createRequest(this.newRequest).subscribe({
+      next: (response: RequestModel | null) => {
+        //aqui debe notificar que se ha hecho correctamente la solicitud
+      },
+      error: (error: any) => {
+        if (property.id) {
+          this.propRep = property.id;
+        }
+        this.peticionRepetida = true; // Mostrar la notificación de error
+        setTimeout(() => {
+          this.peticionRepetida = false; // Ocultar la notificación de error después de 6 segundos
+        }, 3000);
+      },
+    });
+  }
+
+  validateSesion() {
+    this.servicioSeguridad.getDataSesion().subscribe({
+      next: (response: any) => {
+        if (response.token != '') {
+          this.sesionActive = true;
+        } else {
+          this.sesionActive = false;
+        }
+      },
+      error: (error: any) => {},
+    });
   }
 
   filtrarPropiedades() {
-    console.log('offertype value ', this.offerType);
-    console.log('propertytype value', this.propertyType);
-
     if (this.offerType === '' && this.propertyType === '') {
       alert('Por favor selecciona filtros validos, gracias.');
     }
@@ -38,11 +94,9 @@ export class HomeComponent implements OnInit {
       (this.propertyType === '0' || this.propertyType === '') &&
       (this.offerType === '0' || this.offerType === '')
     ) {
-      console.log('control 1');
       this.servicioSeguridad
         .obtenerPropiedadesSinFiltros()
         .subscribe((data) => {
-          console.log(data);
           this.propiedades = data;
         });
       return;
@@ -52,12 +106,9 @@ export class HomeComponent implements OnInit {
       this.propertyType !== '' &&
       this.propertyType !== '0'
     ) {
-      console.log('control 2');
-      console.log('propertytype = ', this.propertyType);
       this.servicioSeguridad
         .obtenerPropType(this.propertyType)
         .subscribe((data) => {
-          console.log(data);
           this.propiedades = data;
         });
       return;
@@ -67,12 +118,9 @@ export class HomeComponent implements OnInit {
       this.offerType !== '' &&
       this.offerType !== '0'
     ) {
-      console.log('control 3');
-      console.log('offertype = ', this.offerType);
       this.servicioSeguridad
         .obtenerPropOfer(this.offerType)
         .subscribe((data) => {
-          console.log(data);
           this.propiedades = data;
         });
       return;
@@ -83,11 +131,9 @@ export class HomeComponent implements OnInit {
       this.offerType !== '' &&
       this.propertyType !== ''
     ) {
-      console.log('control 4');
       this.servicioSeguridad
         .obtenerPropiedades(this.offerType, this.propertyType)
         .subscribe((data) => {
-          console.log(data);
           this.propiedades = data;
         });
       return;
@@ -95,10 +141,7 @@ export class HomeComponent implements OnInit {
   }
 
   getFirstImageUrl(propiedad: Property): string {
-    console.log(propiedad.propertyPictures);
-    console.log(propiedad.propertyPictures?.length);
     if (propiedad.propertyPictures && propiedad.propertyPictures.length > 0) {
-      console.log('ingresa a la condicion de tener foto ', propiedad.id);
       const firstPicture = propiedad.propertyPictures[0];
       const firstSourcePicture =
         firstPicture && firstPicture.pictureSource
@@ -108,5 +151,10 @@ export class HomeComponent implements OnInit {
       return `${this.urlLogic}downloadFile/1/${firstSourcePicture}`;
     }
     return '/assets/images/default.png';
+  }
+
+  buttonSolInfo(propiedad: Property) {
+    this.dataPropertyService.setInputValue(propiedad, true);
+    this.router.navigate(['/info/contact']);
   }
 }
