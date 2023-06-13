@@ -5,6 +5,7 @@ import * as M from "materialize-css";
 import { RequestDetailComponent } from "../request-detail/request-detail.component";
 import { modalsConfig } from "src/helpers/modals-config";
 
+
 @Component({
   selector: "app-requests-list",
   templateUrl: "./requests-list.component.html",

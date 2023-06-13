@@ -15,5 +15,8 @@ export namespace modalsConfig {
     modalDos: {
       modalId: "confirm-modal-2",
     },
+    modalTres: {
+      modalId: "confirm-modal-3",
+    },
   };
 }
