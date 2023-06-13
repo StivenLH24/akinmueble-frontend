@@ -1,0 +1,16 @@
+.esp{
+padding-left: 30px;
+
+}
+
+
+.button-row {
+    height: 50px; /* Establece la altura deseada para cada fila de botones */
+    display: flex;
+    align-items: center;
+  }
+  
+
+.button-width{
+    width: 190px;
+ }

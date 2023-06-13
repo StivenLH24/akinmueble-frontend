@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SecurityService } from 'src/app/services/security.service';
 import { Property } from 'src/app/models/property.model';
 import { configurationRoutesBackend } from 'src/app/config/configuration.routes.backend';
+import { DataPropertyService } from 'src/app/services/data-property.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,11 @@ export class HomeComponent implements OnInit {
   propertyType: string = '';
   urlLogic: string = configurationRoutesBackend.urlLogic;
 
-  constructor(private servicioSeguridad: SecurityService) {}
+  constructor(
+    private dataPropertyService:DataPropertyService,
+    private servicioSeguridad: SecurityService,
+    private router: Router
+    ) {}
 
   ngOnInit() {
     this.servicioSeguridad.obtenerPropiedadesSinFiltros().subscribe((data) => {
@@ -108,5 +114,12 @@ export class HomeComponent implements OnInit {
       return `${this.urlLogic}downloadFile/1/${firstSourcePicture}`;
     }
     return '/assets/images/default.png';
+  }
+
+
+
+  buttonSolInfo(propiedad:Property){
+    this.dataPropertyService.setInputValue(propiedad, true);
+    this.router.navigate(["/info/contact"])
   }
 }

@@ -49,6 +49,7 @@
                 <label for="email">Email</label>
               </div>
             </div>
+
             <div class="row">
               <div class="input-field col s12">
                 <input
@@ -56,11 +57,15 @@
                   type="text"
                   class="validate"
                   formControlName="typeMessage"
-                  required
+                  *ngIf="!banderaInteres"
                 />
                 <label for="typeMessage">Tipo de consulta</label>
+                <div *ngIf="banderaInteres" style="margin-top: 35px;">
+                  Interés en la propiedad, con id: {{inputPropiedad.id}}
+                </div>
               </div>
             </div>
+
             <div class="row">
               <div class="input-field col s12">
                 <textarea
@@ -84,7 +89,7 @@
                 class="btn waves-effect waves-light"
                 type="submit"
                 name="action"
-                [disabled]="!contactForm.valid"
+                [disabled]="!contactForm.valid && !banderaInteres"
               >
                 Submit
               </button>
