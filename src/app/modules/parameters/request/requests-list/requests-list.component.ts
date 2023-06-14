@@ -29,10 +29,11 @@ export class RequestsListComponent implements AfterViewInit {
   isAdmin: boolean = false;
   isAdvisor: boolean = false;
   isCustomer: boolean = false;
-
+  
   advisorId!: string;
   requestId!: number;
   newStatusId!: number;
+  withCommentary: boolean = false;
 
   @ViewChild("requestDetail")
   requestDetail!: RequestDetailComponent;
@@ -163,11 +164,13 @@ export class RequestsListComponent implements AfterViewInit {
   changeStatus(
     advisorId: string,
     requestId: number,
-    newStatusId: number
+    newStatusId: number,
+    withComment: boolean
   ){
     this.advisorId = advisorId;
     this.requestId = requestId;
     this.newStatusId = newStatusId;
+    this.withCommentary = withComment;
   }
 
   changeRequestStatus(
@@ -239,7 +242,7 @@ export class RequestsListComponent implements AfterViewInit {
     if(!response || !response.confirm){
       return;
     }
-    if(response.confirm && response.commentary == ""){
+    if(response.confirm && this.withCommentary && response.commentary == ""){
       alert("Debe ingresar un comentario");
       return;
     }

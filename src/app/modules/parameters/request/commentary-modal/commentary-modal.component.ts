@@ -12,6 +12,9 @@ export class CommentaryModalComponent {
   @Input()
   description!:string;
 
+  @Input()
+  withComment!:boolean;
+
   @Output()
   response = new EventEmitter<any>();
 
