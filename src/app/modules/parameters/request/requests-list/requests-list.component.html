@@ -83,11 +83,15 @@
           <!-- Upload codeptor format by advisor-->
           <label
             for="fileInputCodeptor"
-            *ngIf="(row.requestStatus?.id == 2 || row.requestStatus?.id == 12) && isAdvisor"
+            *ngIf="
+              ((row.requestStatus?.id == 2 || row.requestStatus?.id == 12) &&
+                isAdvisor) ||
+              (row.requestStatus?.id == 3 && isCustomer)
+            "
           >
             <i
               class="action-button fa-solid fa-arrow-up-from-bracket"
-              title="Cargar formato codeudor"
+              title="Cargar documento codeudor"
             ></i>
           </label>
           <input
@@ -99,14 +103,23 @@
           <!-- Download documents codeptor -->
           <i
             *ngIf="
-              row.codeptorDocumentsSource &&
-              row.codeptorDocumentsSource != '' &&
-              row.requestStatus?.id == 3 &&
-              isAdvisor
+              (row.codeptorDocumentsSource &&
+                row.codeptorDocumentsSource != '' &&
+                row.requestStatus?.id == 3 &&
+                isAdvisor) ||
+              (row.codeptorDocumentsSource &&
+                row.codeptorDocumentsSource != '' &&
+                row.requestStatus?.id == 3 &&
+                isCustomer)
             "
             class="action-button fa-regular fa-circle-down"
             title="Descargar documentos codeudor"
-            (click)="downLoadCodeptorDocuments(row.codeptorDocumentsSource, row.advisorId, row.id)"
+            (click)="
+              downLoadCodeptorDocuments(
+                row.codeptorDocumentsSource,
+                row.id
+              )
+            "
           ></i>
           <!-- Reassign request -->
           <i
@@ -135,7 +148,7 @@
             "
             class="action-button fa-regular fa-address-book modal-trigger"
             title="Pasar a estudio con codeudor"
-            (click)="changeStatus(row.advisorId, row.id, 3,false)"
+            (click)="changeStatus(row.advisorId, row.id, 3, false)"
           ></i>
           <!-- To pendiente contrato-->
           <i
@@ -165,7 +178,7 @@
             *ngIf="row?.requestStatus?.id == 7 && isAdvisor"
             class="action-button fa-regular fa-circle-check modal-trigger"
             title="Aceptar sin codeudor"
-            (click)="changeStatus(row.advisorId, row.id, 4,true)"
+            (click)="changeStatus(row.advisorId, row.id, 4, true)"
           ></i>
           <!-- To aceptada con codeudor-->
           <i

@@ -43,12 +43,12 @@ export class RequestService {
     );
   }
   
-  downloadCodeptorDocuments(advisorId:string, requestId:number): Observable<Blob> {
+  downloadCodeptorDocuments(advisorId:string, requestId:number, url:string): Observable<Blob> {
     const options = {
       responseType: "blob" as "json", // Especifica el tipo de respuesta como blob
     };
     return this.http.get<Blob>(
-      `${this.urlLogic}advisors/${advisorId}/download-documents-codeptor/${requestId}`,
+      `${this.urlLogic}${url}`,
       options
     );
 

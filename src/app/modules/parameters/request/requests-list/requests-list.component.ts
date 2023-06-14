@@ -153,29 +153,46 @@ export class RequestsListComponent implements AfterViewInit {
     });
   }
 
-  downLoadCodeptorDocuments(codeptorDocumentsSource: string, advisorId:string, requestId:number) {
+  downLoadCodeptorDocuments(codeptorDocumentsSource: string, requestId:number) {
+
     /**TODO:
      * Si el rol(this.userRole) es advisor →
-     * http://localhost:3001/advisors/{advisorId}/download-documents-codeptor/{requestId}
+     * http://localhost:3001/advisors/{userId}/download-documents-codeptor/{requestId}
      * Si el rol(this.userRole) es cliente →
      * http://localhost:3001/customer/{customerId}/download-document/{requestId}
      */
-    this.requestService.downloadCodeptorDocuments(advisorId, requestId).subscribe({
-      next: (body: Blob) => {
-        if (!body) {
-          /**TODO: Tratar este caso */
-          return;
-        }
-        const blob = new Blob([body], { type: "application/pdf" });
-        const downloadLink = document.createElement("a");
-        downloadLink.href = window.URL.createObjectURL(blob);
-        downloadLink.download = `${codeptorDocumentsSource}.pdf`;
-        downloadLink.click();
-      },
-      error: (err) => {
-        alert("Error leyendo la información.");
-      },
-    });
+
+    const userId = this.securityService.getIdUserPkValidated();
+    if(!userId)return;
+    let url = "";
+    if(this.isAdvisor){
+      url = `advisors/${userId}/download-documents-codeptor/${requestId}`;
+    }
+    if(this.isCustomer){
+      url = `/customer/${userId}/download-document/${requestId}`
+    }
+      this.requestService.downloadCodeptorDocuments(userId, requestId, url).subscribe({
+        next: (body: Blob) => {
+          if (!body) {
+            /**TODO: Tratar este caso */
+            return;
+          }
+          const blob = new Blob([body], { type: "application/pdf" });
+          const downloadLink = document.createElement("a");
+          downloadLink.href = window.URL.createObjectURL(blob);
+          downloadLink.download = `${codeptorDocumentsSource}.pdf`;
+          downloadLink.click();
+        },
+        error: (err) => {
+          alert("Error leyendo la información.");
+        },
+      });
+    
+
+    if(this.isCustomer){
+
+    }
+    
   }
 
   changeStatus(
@@ -270,6 +287,20 @@ export class RequestsListComponent implements AfterViewInit {
       })
       return;
     }
+
+    if(this.isCustomer){
+      this.requestService.uploadocumentsByCustomer(file,userId, requestId).subscribe({
+        next:(data)=>{
+          this.listRequests();
+        },
+        error:(err)=>{
+          alert("Error leyendo la información.");
+        }
+      })
+      return;
+    }
+
+
   }
 
   responseModal(response: any){
