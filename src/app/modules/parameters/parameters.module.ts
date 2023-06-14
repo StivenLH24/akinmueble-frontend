@@ -40,7 +40,9 @@ import { CommentaryModalComponent } from './request/commentary-modal/commentary-
     RequestsListComponent,
     ContratoComponent,
     RequestDetailComponent,
-    PropertyListComponent
+    PropertyListComponent,
+    CommentaryModalComponent,
+    CreatePropertyComponent
   ],
   imports: [
     CommonModule,
