@@ -7,7 +7,6 @@ import { modalsConfig } from "src/helpers/modals-config";
 import { SecurityService } from "src/app/services/security.service";
 import { configurationRoles } from "src/app/config/general.config";
 
-
 @Component({
   selector: "app-requests-list",
   templateUrl: "./requests-list.component.html",
@@ -26,17 +25,45 @@ export class RequestsListComponent implements AfterViewInit {
   propertyId!: number;
   idProjectModalViewDetails!: string;
   idProjectChangeAdvisor!: string;
-  userRole: string = "";
+  userRole: string | null = this.securityService.getRolUserValidated();
   isAdmin: boolean = false;
+  isAdvisor: boolean = false;
+  isCustomer: boolean = false;
 
   @ViewChild("requestDetail")
   requestDetail!: RequestDetailComponent;
 
   ngOnInit() {
+    this.defineMaterializeModalsIds();
+    this.setCurrentlyRole();
+    this.buildTable();
+  }
+
+  defineMaterializeModalsIds() {
     this.idProjectModalViewDetails =
       modalsConfig.projectorModal.modalUno.modalId;
     this.idProjectChangeAdvisor = modalsConfig.projectorModal.modalDos.modalId;
-    this.buildTable();
+  }
+
+  setCurrentlyRole() {
+    const role = this.securityService.getRolUserValidated();
+    /**TODO: Analizar y tratar este caso */
+    if (!role) return;
+
+    if (role == configurationRoles.adminRole) {
+      this.isAdmin = true;
+      return;
+    }
+
+    if (role == configurationRoles.advisorRole) {
+      this.isAdvisor = true;
+      return;
+    }
+
+    if (role == configurationRoles.customerRole) {
+      this.isCustomer = true;
+      return;
+    }
   }
 
   buildTable() {
@@ -55,9 +82,9 @@ export class RequestsListComponent implements AfterViewInit {
 
   listRequests() {
     const role = this.securityService.getRolUserValidated();
-    if(!role) return;
+    if (!role) return;
 
-    if(role == configurationRoles.adminRole){
+    if (this.isAdmin) {
       this.userRole = configurationRoles.adminRole;
       this.isAdmin = true;
       this.requestService.listRequests().subscribe({
@@ -68,13 +95,13 @@ export class RequestsListComponent implements AfterViewInit {
           alert("Error leyendo la información.");
         },
       });
-      return;      
+      return;
     }
 
-    if(role == configurationRoles.advisorRole){
+    if (this.isAdvisor) {
       this.userRole = configurationRoles.advisorRole;
       const advisorId = this.securityService.getIdUserPkValidated();
-      if (!advisorId) return;      
+      if (!advisorId) return;
       this.requestService.getRequestByAdvisor(advisorId).subscribe({
         next: (data) => {
           this.table.rows = data;
@@ -86,7 +113,7 @@ export class RequestsListComponent implements AfterViewInit {
       return;
     }
 
-    if(role == configurationRoles.customerRole){
+    if (this.isCustomer) {
       this.userRole = configurationRoles.customerRole;
       const customerId = this.securityService.getIdUserPkValidated();
       if (!customerId) return;
@@ -98,7 +125,7 @@ export class RequestsListComponent implements AfterViewInit {
           alert("Error leyendo la información.");
         },
       });
-      return;  
+      return;
     }
   }
 
@@ -119,6 +146,40 @@ export class RequestsListComponent implements AfterViewInit {
         alert("Error leyendo la información.");
       },
     });
+  }
+
+  downLoadCodeptorDocuments() {
+    /**TODO:
+     * Si el rol(this.userRole) es advisor →
+     * http://localhost:3001/advisors/{advisorId}/download-documents-codeptor/{requestId}
+     * Si el rol(this.userRole) es cliente →
+     * http://localhost:3001/customer/{customerId}/download-document/{requestId}
+     */
+  }
+
+  changeRequestStatus(
+    advisorId: string,
+    requestId: number,
+    newStatusId: number
+  ) {
+    const commentary: string = "";
+    this.requestService
+      .changeStatus(advisorId, requestId, newStatusId, commentary)
+      .subscribe({
+        next: (data) => {
+          console.log("Respuesta ", data);
+          this.listRequests();
+        },
+        error: (err) => {
+          if (err.status == 400) {
+            alert(err.error.error.message);
+            return;
+          }
+          if (err.status == 404) {
+            alert("No se encontrró el registro");
+          }
+        },
+      });
   }
 
   viewPropertyDetails(propertyId: number) {
