@@ -1,24 +1,48 @@
 <div class="row">
-    <form class="col s12" [formGroup]="cargaArchivoFG">
-        <div class="row">
-            <div class="showImage center-align">
-                <img *ngIf="!archivoCargado" src="/assets/img/default.png" class="imagenProducto" />
-                <!-- <img *ngIf="archivoCargado" src="{{BASE_URL}}ObtenerArchivo/1/{{nombreArchivoCargado}}" class="imagenProducto" /> -->
-            </div>
-        </div>
-        <div class="file-field input-field row">
-            <div class="btn col s3">
-                <span>Seleccionar Archivo</span>
-                <input (change)="CuandoSeleccionaArchivo($event)" name="image" type="file">
-            </div>
-            <div class="file-path-wrapper col s9">
-                <input class="file-path validate" type="text">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12">
-                <input type="button" class="btn" value="Subir Archivo" (click)="CargarArchivo()" />
-            </div>
-        </div>
-    </form>
+  <form class="col s12" [formGroup]="cargaArchivoFG">
+    <div class="row">
+      <div class="showImage center-align">
+        <img
+          *ngIf="!archivoCargado"
+          src="/assets/images/default.png"
+          class="imagenProducto"
+        />
+        <img
+          *ngIf="archivoCargado"
+          src="{{ urlLogic }}downloadFile/1/{{ nombreArchivoCargado }}"
+          class="imagenProducto"
+        />
+      </div>
+    </div>
+    <div class="col s12" style="display: flex; justify-content: center">
+      <label for="fileInput" class="btn waves-effect waves-light"
+        >Cargar Imagen</label
+      >
+      <input
+        id="fileInput"
+        style="display: none"
+        type="file"
+        (change)="CuandoSeleccionaArchivo($event)"
+        name="image"
+      />
+    </div>
+
+    <div class="col s12" style="display: flex; justify-content: center; margin-top: 30px;">
+        <label for="fileInput2" class="btn waves-effect waves-light"
+          >confirmar</label
+        >
+        <input
+          id="fileInput2"
+          style="display: none"
+          type="file"
+          (change)="confirmar()"
+          
+        />
+      </div>
+    
+    
+    <div class="file-path-wrapper">
+      {{ nombreArchivoCargado }}
+    </div>
+  </form>
 </div>

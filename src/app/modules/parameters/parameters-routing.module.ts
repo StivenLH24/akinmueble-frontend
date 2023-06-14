@@ -8,6 +8,7 @@ import { ContratoComponent } from './customer/contrato/contrato.component';
 import { ValidateActiveSessionGuard } from 'src/app/guardian/validate-active-session.guard';
 import { PropertyListComponent } from './property/property-list/property-list.component';
 import { CreatePropertyComponent } from './property/create-property/create-property.component';
+import { ChargueImageComponent } from './property/chargue-image/chargue-image.component';
 
 const routes: Routes = [
   {
@@ -39,7 +40,11 @@ const routes: Routes = [
     component: ContratoComponent,
     canActivate: [ValidateActiveSessionGuard]
   },
- 
+  {
+    path: "chargue-image",
+    component: ChargueImageComponent,
+    canActivate: [ValidateActiveSessionGuard]
+  },
 ];
 
 @NgModule({
