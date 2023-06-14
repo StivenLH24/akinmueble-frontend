@@ -5,9 +5,9 @@ import { VisionComponent } from './vision/vision.component';
 import { AdvisorListComponent } from './advisor/advisor-list/advisor-list.component';
 import { RequestsListComponent } from './request/requests-list/requests-list.component';
 import { ContratoComponent } from './customer/contrato/contrato.component';
-import { Component } from 'materialize-css';
 import { ValidateActiveSessionGuard } from 'src/app/guardian/validate-active-session.guard';
 import { PropertyListComponent } from './property/property-list/property-list.component';
+import { CreatePropertyComponent } from './property/create-property/create-property.component';
 
 const routes: Routes = [
   {
@@ -31,10 +31,15 @@ const routes: Routes = [
     component: PropertyListComponent
   },
   {
+    path: "advisor/property/list/create-property",
+    component: CreatePropertyComponent
+  },
+  {
     path: "customer/contrato",
     component: ContratoComponent,
     canActivate: [ValidateActiveSessionGuard]
-  }
+  },
+ 
 ];
 
 @NgModule({
