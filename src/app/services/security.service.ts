@@ -7,6 +7,9 @@ import { userValidatedModel } from '../models/user.validated.model';
 import { Property } from '../models/property.model';
 import { RouteConfigLoadEnd } from '@angular/router';
 import { RequestModel } from '../models/request.model';
+import { PropertyType } from '../models/propertyType.model';
+import { City } from '../models/city.model';
+import { OfferType } from '../models/offerType.model';
 
 @Injectable({
   providedIn: 'root',
@@ -164,14 +167,14 @@ export class SecurityService {
   obtenerPropiedades(offerType: string, propertyType: string) {
     return this.http
       .get<any>(
-        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}], "where":{"offerTypeId":"${offerType}", "propertyTypeId":"${propertyType},"propertyStatusId":"1""}}`
+        `${this.urlLogic}properties?filter={"include": [ {"relation":"propertyPictures"}], "where":{"offerTypeId":"${offerType}", "propertyTypeId":"${propertyType}","propertyStatusId":"1"}}`
       )
       .pipe(map((data) => data as Property[]));
   }
   obtenerPropOfer(offerType: string) {
     return this.http
       .get<any>(
-        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}],"where":{"offerTypeId":"${offerType},"propertyStatusId":"1""}}`
+        `${this.urlLogic}properties?filter={"include": [ {"relation":"propertyPictures"}],"where":{"offerTypeId":"${offerType}","propertyStatusId":"1"}}`
       )
       .pipe(map((data) => data as Property[]));
   }
@@ -179,7 +182,7 @@ export class SecurityService {
   obtenerPropType(propertyType: string) {
     return this.http
       .get<any>(
-        `${this.urlLogic}properties?filter={"include": [ {"relation": "propertyPictures"}],"where":{"propertyTypeId":"${propertyType},"propertyStatusId":"1""}}`
+        `${this.urlLogic}properties?filter={"include": [ {"relation":"propertyPictures"}],"where":{"propertyTypeId":"${propertyType}","propertyStatusId":"1"}}`
       )
       .pipe(map((data) => data as Property[]));
   }
@@ -251,6 +254,23 @@ export class SecurityService {
   return this.http.post<RequestModel>((`${this.urlLogic}customers/${newRequest.customerId}/requests`),newRequest)
   }
 
+
+
+  getPropertyTypes(): Observable<PropertyType[]> {
+    return this.http.get<PropertyType[]>(`${this.urlLogic}property-types`);
+  }
+  getListCity(): Observable<City[]> {
+    return this.http.get<City[]>(`${this.urlLogic}cities`);
+  }
+  getListOffer(): Observable<OfferType[]> {
+    return this.http.get<OfferType[]>(`${this.urlLogic}offer-types`);
+  }
+
+  createProperty(data:any, id:string): Observable<any>{
+return this.http.post<any>(`${this.urlLogic}advisors/${id}/properties`, data);
+  }
+
+ 
 
 }
 

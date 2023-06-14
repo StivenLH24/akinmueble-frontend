@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.servicioSeguridad.obtenerPropiedadesSinFiltros().subscribe((data) => {
+      console.log(data);
       this.validateSesion();
       this.propiedades = data;
       this.servicioSeguridad.getIdUserPkValidated();
@@ -86,6 +87,11 @@ asumiendo un true en el modal, vamos a seguir con la logica de creacion de la re
   }
 
   filtrarPropiedades() {
+    console.log('presiona boton');
+    console.log(this.propertyType);
+    console.log(this.offerType);
+    
+    
     if (this.offerType === '' && this.propertyType === '') {
       alert('Por favor selecciona filtros validos, gracias.');
     }
@@ -94,6 +100,8 @@ asumiendo un true en el modal, vamos a seguir con la logica de creacion de la re
       (this.propertyType === '0' || this.propertyType === '') &&
       (this.offerType === '0' || this.offerType === '')
     ) {
+      console.log();
+      
       this.servicioSeguridad
         .obtenerPropiedadesSinFiltros()
         .subscribe((data) => {

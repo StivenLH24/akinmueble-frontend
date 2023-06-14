@@ -19,6 +19,8 @@ import { ContratoComponent } from './customer/contrato/contrato.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RequestDetailComponent } from './request/request-detail/request-detail.component';
 import { PropertyListComponent } from './property/property-list/property-list.component';
+import { CreatePropertyComponent } from './property/create-property/create-property.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -37,14 +39,16 @@ import { PropertyListComponent } from './property/property-list/property-list.co
     RequestsListComponent,
     ContratoComponent,
     RequestDetailComponent,
-    PropertyListComponent
+    PropertyListComponent,
+    CreatePropertyComponent
   ],
   imports: [
     CommonModule,
     ParametersRoutingModule,
     ShareModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule
   ]
 })
 export class ParametersModule { }
