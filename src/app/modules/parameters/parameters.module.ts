@@ -22,6 +22,7 @@ import { PropertyListComponent } from './property/property-list/property-list.co
 import { CreatePropertyComponent } from './property/create-property/create-property.component';
 import { MatSelectModule } from '@angular/material/select';
 import { CommentaryModalComponent } from './request/commentary-modal/commentary-modal.component';
+import { ChargueImageComponent } from './property/chargue-image/chargue-image.component';
 
 
 @NgModule({
@@ -40,7 +41,10 @@ import { CommentaryModalComponent } from './request/commentary-modal/commentary-
     RequestsListComponent,
     ContratoComponent,
     RequestDetailComponent,
-    PropertyListComponent
+    PropertyListComponent,
+    CreatePropertyComponent,
+    ChargueImageComponent,
+    CommentaryModalComponent
   ],
   imports: [
     CommonModule,
