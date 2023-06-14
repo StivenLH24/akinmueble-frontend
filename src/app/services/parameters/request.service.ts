@@ -133,4 +133,8 @@ export class RequestService {
   getRequestReports(requestId:number):Observable<Report[]>{
     return this.http.get<Report[]>(`${this.urlLogic}requests/${requestId}/reports`);
   }
+
+  cancelRequestByCustomer(customerId:string, requestId:number):Observable<RequestModel>{
+    return this.http.patch<RequestModel>(`${this.urlLogic}/customers/${customerId}/cancel_request/${requestId}`,{});
+  }
 }
