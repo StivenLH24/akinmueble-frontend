@@ -42,10 +42,17 @@ export class RequestService {
       options
     );
   }
+  
+  downloadCodeptorDocuments(advisorId:string, requestId:number): Observable<Blob> {
+    const options = {
+      responseType: "blob" as "json", // Especifica el tipo de respuesta como blob
+    };
+    return this.http.get<Blob>(
+      `${this.urlLogic}advisors/${advisorId}/download-documents-codeptor/${requestId}`,
+      options
+    );
 
-  // downloadCodeptorDocuments(): Observable<Blob> {
-
-  // }
+  }
 
   uploadocumentsByCustomer(file:File, customerId: string, requestId:number): Observable<any> {
     const formData: FormData = new FormData();
@@ -65,6 +72,17 @@ export class RequestService {
     // headers = headers.set('Content-Type', 'form-data')
     return this.http.post(
       `http://localhost:3001/advisors/${advisorId}/upload-contract/${requestId}`,
+      formData
+    );
+  }
+
+  uploadCodeptorFormatByAdvisor(file:File, advisorId: string, requestId:number): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    // let headers = new HttpHeaders();
+    // headers = headers.set('Content-Type', 'form-data')
+    return this.http.post(
+      `http://localhost:3001/advisors/${advisorId}/upload-documents-codeptor/${requestId}`,
       formData
     );
   }

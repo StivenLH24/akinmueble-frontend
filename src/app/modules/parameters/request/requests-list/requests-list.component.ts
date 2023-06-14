@@ -153,14 +153,31 @@ export class RequestsListComponent implements AfterViewInit {
     });
   }
 
-  downLoadCodeptorDocuments() {
+  downLoadCodeptorDocuments(codeptorDocumentsSource: string, advisorId:string, requestId:number) {
     /**TODO:
      * Si el rol(this.userRole) es advisor →
      * http://localhost:3001/advisors/{advisorId}/download-documents-codeptor/{requestId}
      * Si el rol(this.userRole) es cliente →
      * http://localhost:3001/customer/{customerId}/download-document/{requestId}
      */
+    this.requestService.downloadCodeptorDocuments(advisorId, requestId).subscribe({
+      next: (body: Blob) => {
+        if (!body) {
+          /**TODO: Tratar este caso */
+          return;
+        }
+        const blob = new Blob([body], { type: "application/pdf" });
+        const downloadLink = document.createElement("a");
+        downloadLink.href = window.URL.createObjectURL(blob);
+        downloadLink.download = `${codeptorDocumentsSource}.pdf`;
+        downloadLink.click();
+      },
+      error: (err) => {
+        alert("Error leyendo la información.");
+      },
+    });
   }
+
   changeStatus(
     advisorId: string,
     requestId: number,
@@ -226,6 +243,24 @@ export class RequestsListComponent implements AfterViewInit {
 
     if(this.isAdvisor){
       this.requestService.uploadocumentsByAdvisor(file,userId, requestId).subscribe({
+        next:(data)=>{
+          this.listRequests();
+        },
+        error:(err)=>{
+          alert("Error leyendo la información.");
+        }
+      })
+      return;
+    }
+  }
+
+  uploadFormatCodeptor(event:any, requestId:number){
+    const userId = this.securityService.getIdUserPkValidated();
+    if(!userId)return;
+    const file: File = event.target.files[0];    
+
+    if(this.isAdvisor){
+      this.requestService.uploadCodeptorFormatByAdvisor(file,userId, requestId).subscribe({
         next:(data)=>{
           this.listRequests();
         },

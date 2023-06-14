@@ -80,6 +80,22 @@
             style="display: none"
             (change)="upload($event, row.id)"
           />
+          <!-- Upload codeptor format by advisor-->
+          <label
+            for="fileInputCodeptor"
+            *ngIf="(row.requestStatus?.id == 2 || row.requestStatus?.id == 12) && isAdvisor"
+          >
+            <i
+              class="action-button fa-solid fa-arrow-up-from-bracket"
+              title="Cargar formato codeudor"
+            ></i>
+          </label>
+          <input
+            id="fileInputCodeptor"
+            type="file"
+            style="display: none"
+            (change)="uploadFormatCodeptor($event, row.id)"
+          />
           <!-- Download documents codeptor -->
           <i
             *ngIf="
@@ -89,8 +105,8 @@
               isAdvisor
             "
             class="action-button fa-regular fa-circle-down"
-            title="Decargar documentos codeudor"
-            (click)="downLoadCodeptorDocuments()"
+            title="Descargar documentos codeudor"
+            (click)="downLoadCodeptorDocuments(row.codeptorDocumentsSource, row.advisorId, row.id)"
           ></i>
           <!-- Reassign request -->
           <i
