@@ -6,7 +6,6 @@ import { RequestDetailComponent } from "../request-detail/request-detail.compone
 import { modalsConfig } from "src/helpers/modals-config";
 import { SecurityService } from "src/app/services/security.service";
 import { configurationRoles } from "src/app/config/general.config";
-import { Report } from "src/app/models/report.model";
 
 @Component({
   selector: "app-requests-list",
