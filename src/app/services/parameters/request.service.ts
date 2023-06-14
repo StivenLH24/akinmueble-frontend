@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { configurationRoutesBackend } from "src/app/config/configuration.routes.backend";
@@ -44,8 +44,30 @@ export class RequestService {
   }
 
   // downloadCodeptorDocuments(): Observable<Blob> {
-    
+
   // }
+
+  uploadocumentsByCustomer(file:File, customerId: string, requestId:number): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    // let headers = new HttpHeaders();
+    // headers = headers.set('Content-Type', 'form-data')
+    return this.http.post(
+      `http://localhost:3001/customer/${customerId}/upload-document/${requestId}`,
+      formData
+    );
+  }
+
+  uploadocumentsByAdvisor(file:File, advisorId: string, requestId:number): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    // let headers = new HttpHeaders();
+    // headers = headers.set('Content-Type', 'form-data')
+    return this.http.post(
+      `http://localhost:3001/advisors/${advisorId}/upload-contract/${requestId}`,
+      formData
+    );
+  }
 
   getRequestByAdvisor(advisorId: string): Observable<RequestModel[]> {
     return this.http.get<RequestModel[]>(

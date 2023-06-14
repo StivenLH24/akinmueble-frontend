@@ -36,6 +36,30 @@
             title="Decargar contrato"
             (click)="downLoadContract(row.contractSource)"
           ></i>
+          <!-- Upload contract advisor-->
+
+          <label
+            for="fileInput"
+            *ngIf="row.requestStatus?.id == 2 || row.requestStatus?.id == 3"
+          >
+            <i
+              class="action-button fa-solid fa-file-arrow-up"
+              title="Cargar formato de contrato"
+            ></i>
+          </label>
+          <!-- Upload contract customer-->
+          <label for="fileInput"  *ngIf="row.requestStatus?.id == 7 && isCustomer">
+            <i             
+              class="action-button fa-solid fa-file-arrow-up"
+              title="Cargar contrato"
+            ></i>
+          </label>
+          <input
+            id="fileInput"
+            type="file"
+            style="display: none"
+            (change)="upload($event, row.id)"
+          />
           <!-- Download documents codeptor -->
           <i
             *ngIf="
