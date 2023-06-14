@@ -191,4 +191,37 @@ export class RequestsListComponent implements AfterViewInit {
     const modals = document.querySelectorAll(".modal");
     M.Modal.init(modals);
   }
+
+
+
+
+
+  upload(event:any, requestId:number){
+    const userId = this.securityService.getIdUserPkValidated();
+    if(!userId)return;
+    const file: File = event.target.files[0];
+    if(this.isCustomer){
+      this.requestService.uploadocumentsByCustomer(file,userId, requestId).subscribe({
+        next:(data)=>{
+          this.listRequests();
+        },
+        error:(err)=>{
+          alert("Error leyendo la información.");
+        }
+      })
+      return;
+    }
+
+    if(this.isAdvisor){
+      this.requestService.uploadocumentsByAdvisor(file,userId, requestId).subscribe({
+        next:(data)=>{
+          this.listRequests();
+        },
+        error:(err)=>{
+          alert("Error leyendo la información.");
+        }
+      })
+      return;
+    }
+  }
 }
