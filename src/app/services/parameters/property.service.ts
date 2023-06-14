@@ -23,4 +23,11 @@ export class PropertyService {
         `${this.urlLogic}advisors/${advisorId}/properties?filter={"include":[{"relation":"city"},{"relation":"propertyStatus"}]}`
       )
   }
+
+  getpropertiesByAdmin():Observable<Property[]> {
+    return this.http
+      .get<Property[]>(
+        `${this.urlLogic}/properties?filter={"include":[{"relation":"city"},{"relation":"propertyStatus"}]}`
+      )
+  }
 }
