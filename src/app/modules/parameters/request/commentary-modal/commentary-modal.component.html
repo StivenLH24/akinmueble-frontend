@@ -1,0 +1,27 @@
+<!-- Modal Trigger -->
+<!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
+<!-- <button data-target="modal1" class="btn modal-trigger">Modal</button> -->
+
+<!-- Modal Structure -->
+<div id="confirm-modal-3" class="modal">
+    <div class="modal-content">
+      <h4>{{ title }}</h4>
+      <p>{{ description }}</p>      
+      <textarea [(ngModel)]="commentary" name="commentary" id="commentary" cols="30" rows="10"></textarea>
+    </div>
+    <div class="modal-footer">
+      <div class="butons-wraper">
+        <a
+          class="btn cancel-btn modal-close waves-effect waves-green btn-flat"
+          (click)="notifyParent(false)"          
+          >Cancelar
+        </a>
+        <a
+          class="btn accept-button modal-close waves-effect waves-green btn-flat"
+          (click)="notifyParent(true)"
+          >Aceptar</a
+        >
+      </div>
+    </div>
+  </div>
+  

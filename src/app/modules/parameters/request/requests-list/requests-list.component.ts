@@ -30,6 +30,10 @@ export class RequestsListComponent implements AfterViewInit {
   isAdvisor: boolean = false;
   isCustomer: boolean = false;
 
+  advisorId!: string;
+  requestId!: number;
+  newStatusId!: number;
+
   @ViewChild("requestDetail")
   requestDetail!: RequestDetailComponent;
 
@@ -156,13 +160,22 @@ export class RequestsListComponent implements AfterViewInit {
      * http://localhost:3001/customer/{customerId}/download-document/{requestId}
      */
   }
+  changeStatus(
+    advisorId: string,
+    requestId: number,
+    newStatusId: number
+  ){
+    this.advisorId = advisorId;
+    this.requestId = requestId;
+    this.newStatusId = newStatusId;
+  }
 
   changeRequestStatus(
     advisorId: string,
     requestId: number,
-    newStatusId: number
+    newStatusId: number,
+    commentary: string
   ) {
-    const commentary: string = "";
     this.requestService
       .changeStatus(advisorId, requestId, newStatusId, commentary)
       .subscribe({
@@ -192,10 +205,6 @@ export class RequestsListComponent implements AfterViewInit {
     M.Modal.init(modals);
   }
 
-
-
-
-
   upload(event:any, requestId:number){
     const userId = this.securityService.getIdUserPkValidated();
     if(!userId)return;
@@ -223,5 +232,17 @@ export class RequestsListComponent implements AfterViewInit {
       })
       return;
     }
+  }
+
+  responseModal(response: any){
+    console.log("Response", response);
+    if(!response || !response.confirm){
+      return;
+    }
+    if(response.confirm && response.commentary == ""){
+      alert("Debe ingresar un comentario");
+      return;
+    }
+    this.changeRequestStatus(this.advisorId,this.requestId,this.newStatusId, response.commentary);
   }
 }
