@@ -25,12 +25,20 @@
             title="Ver detalles"
             (click)="viewPropertyDetails(row.propertyId)"
           ></i>
+          <!-- Download advisor -->
+          <i
+            *ngIf="row.contractSource && row.contractSource != '' && isAdvisor"
+            class="action-button fa-regular fa-circle-down"
+            title="Decargar contrato"
+            (click)="downLoadContract(row.contractSource)"
+          ></i>
           <!-- Download contract -->
           <i
             *ngIf="
               row.contractSource &&
               row.contractSource != '' &&
-              row.requestStatus?.id !== 3
+              row.requestStatus?.id == 7 &&
+              isCustomer
             "
             class="action-button fa-regular fa-circle-down"
             title="Decargar contrato"
@@ -40,7 +48,16 @@
 
           <label
             for="fileInput"
-            *ngIf="row.requestStatus?.id == 2 || row.requestStatus?.id == 3"
+            *ngIf="
+              (row.requestStatus?.id == 2 ||
+                row.requestStatus?.id == 3 ||
+                row.requestStatus?.id == 7 ||
+                row.requestStatus?.id == 4 ||
+                row.requestStatus?.id == 5 ||
+                row.requestStatus?.id == 10 ||
+                row.requestStatus?.id == 11) &&
+              isAdvisor
+            "
           >
             <i
               class="action-button fa-solid fa-file-arrow-up"
@@ -48,8 +65,11 @@
             ></i>
           </label>
           <!-- Upload contract customer-->
-          <label for="fileInput"  *ngIf="row.requestStatus?.id == 7 && isCustomer">
-            <i             
+          <label
+            for="fileInput"
+            *ngIf="row.requestStatus?.id == 7 && isCustomer"
+          >
+            <i
               class="action-button fa-solid fa-file-arrow-up"
               title="Cargar contrato"
             ></i>
