@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { configurationRoutesBackend } from "src/app/config/configuration.routes.backend";
+import { Report } from "src/app/models/report.model";
 // import { SecurityService } from "../security.service";
 import { RequestModel } from "src/app/models/request.model";
 
@@ -127,5 +128,9 @@ export class RequestService {
         commentary: commentary,
       }
     );
+  }
+
+  getRequestReports(requestId:number):Observable<Report[]>{
+    return this.http.get<Report[]>(`${this.urlLogic}requests/${requestId}/reports`);
   }
 }

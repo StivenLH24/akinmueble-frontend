@@ -6,6 +6,7 @@ import { RequestDetailComponent } from "../request-detail/request-detail.compone
 import { modalsConfig } from "src/helpers/modals-config";
 import { SecurityService } from "src/app/services/security.service";
 import { configurationRoles } from "src/app/config/general.config";
+import { Report } from "src/app/models/report.model";
 
 @Component({
   selector: "app-requests-list",
@@ -232,9 +233,17 @@ export class RequestsListComponent implements AfterViewInit {
       });
   }
 
-  viewPropertyDetails(propertyId: number) {
-    this.requestDetail.getData(propertyId);
+  viewPropertyDetails(propertyId: number, requestId:number) {
     this.propertyId = propertyId;
+    this.requestService.getRequestReports(requestId).subscribe({
+      next:(reports)=>{
+        this.requestDetail.getData(propertyId, reports);    
+        
+      },
+      error:(err)=>{
+        alert("Error leyendo la información")
+      }
+    })
   }
 
   ngAfterViewInit() {
