@@ -32,7 +32,10 @@ export class RequestsListComponent implements AfterViewInit {
 
   advisorId!: string;
   requestId!: number;
+  customerId!: string;
   newStatusId!: number;
+  withCommentary: boolean = false;
+  isCancelRequest: boolean = false;
 
   @ViewChild("requestDetail")
   requestDetail!: RequestDetailComponent;
@@ -152,22 +155,66 @@ export class RequestsListComponent implements AfterViewInit {
     });
   }
 
-  downLoadCodeptorDocuments() {
+  downLoadCodeptorDocuments(
+    codeptorDocumentsSource: string,
+    requestId: number
+  ) {
     /**TODO:
      * Si el rol(this.userRole) es advisor →
-     * http://localhost:3001/advisors/{advisorId}/download-documents-codeptor/{requestId}
+     * http://localhost:3001/advisors/{userId}/download-documents-codeptor/{requestId}
      * Si el rol(this.userRole) es cliente →
      * http://localhost:3001/customer/{customerId}/download-document/{requestId}
      */
+
+    const userId = this.securityService.getIdUserPkValidated();
+    if (!userId) return;
+    let url = "";
+    if (this.isAdvisor) {
+      url = `advisors/${userId}/download-documents-codeptor/${requestId}`;
+    }
+    if (this.isCustomer) {
+      url = `/customer/${userId}/download-document/${requestId}`;
+    }
+    this.requestService
+      .downloadCodeptorDocuments(userId, requestId, url)
+      .subscribe({
+        next: (body: Blob) => {
+          if (!body) {
+            /**TODO: Tratar este caso */
+            return;
+          }
+          const blob = new Blob([body], { type: "application/pdf" });
+          const downloadLink = document.createElement("a");
+          downloadLink.href = window.URL.createObjectURL(blob);
+          downloadLink.download = `${codeptorDocumentsSource}.pdf`;
+          downloadLink.click();
+        },
+        error: (err) => {
+          alert("Error leyendo la información.");
+        },
+      });
+
+    if (this.isCustomer) {
+    }
   }
+
+  cancelRequest(customerId: string, requestId: number) {
+    this.isCancelRequest = true;
+    this.withCommentary = false;
+    this.customerId = customerId;
+    this.requestId = requestId;
+  }
+
   changeStatus(
     advisorId: string,
     requestId: number,
-    newStatusId: number
-  ){
+    newStatusId: number,
+    withComment: boolean
+  ) {
     this.advisorId = advisorId;
     this.requestId = requestId;
     this.newStatusId = newStatusId;
+    this.withCommentary = withComment;
   }
 
   changeRequestStatus(
@@ -176,6 +223,28 @@ export class RequestsListComponent implements AfterViewInit {
     newStatusId: number,
     commentary: string
   ) {
+    if (this.isCancelRequest) {
+      this.requestService
+        .cancelRequestByCustomer(this.customerId, this.requestId)
+        .subscribe({
+          next: (data) => {
+            this.listRequests();
+          },
+          error: (err) => {
+            if (err.status == 400) {
+              alert(err.error.error.message);
+              return;
+            }
+            if (err.status == 404) {
+              alert("No se encontrró el registro");
+            }
+
+            alert("Error leyendo los datos");
+          },
+        });
+      return;
+    }
+
     this.requestService
       .changeStatus(advisorId, requestId, newStatusId, commentary)
       .subscribe({
@@ -195,9 +264,16 @@ export class RequestsListComponent implements AfterViewInit {
       });
   }
 
-  viewPropertyDetails(propertyId: number) {
-    this.requestDetail.getData(propertyId);
+  viewPropertyDetails(propertyId: number, requestId: number) {
     this.propertyId = propertyId;
+    this.requestService.getRequestReports(requestId).subscribe({
+      next: (reports) => {
+        this.requestDetail.getData(propertyId, reports);
+      },
+      error: (err) => {
+        alert("Error leyendo la información");
+      },
+    });
   }
 
   ngAfterViewInit() {
@@ -205,44 +281,87 @@ export class RequestsListComponent implements AfterViewInit {
     M.Modal.init(modals);
   }
 
-  upload(event:any, requestId:number){
+  upload(event: any, requestId: number) {
     const userId = this.securityService.getIdUserPkValidated();
-    if(!userId)return;
+    if (!userId) return;
     const file: File = event.target.files[0];
-    if(this.isCustomer){
-      this.requestService.uploadocumentsByCustomer(file,userId, requestId).subscribe({
-        next:(data)=>{
-          this.listRequests();
-        },
-        error:(err)=>{
-          alert("Error leyendo la información.");
-        }
-      })
+    if (this.isCustomer) {
+      this.requestService
+        .uploadocumentsByCustomer(file, userId, requestId)
+        .subscribe({
+          next: (data) => {
+            this.listRequests();
+          },
+          error: (err) => {
+            alert("Error leyendo la información.");
+          },
+        });
       return;
     }
 
-    if(this.isAdvisor){
-      this.requestService.uploadocumentsByAdvisor(file,userId, requestId).subscribe({
-        next:(data)=>{
-          this.listRequests();
-        },
-        error:(err)=>{
-          alert("Error leyendo la información.");
-        }
-      })
+    if (this.isAdvisor) {
+      this.requestService
+        .uploadocumentsByAdvisor(file, userId, requestId)
+        .subscribe({
+          next: (data) => {
+            this.listRequests();
+          },
+          error: (err) => {
+            alert("Error leyendo la información.");
+          },
+        });
       return;
     }
   }
 
-  responseModal(response: any){
-    console.log("Response", response);
-    if(!response || !response.confirm){
+  uploadFormatCodeptor(event: any, requestId: number) {
+    const userId = this.securityService.getIdUserPkValidated();
+    if (!userId) return;
+    const file: File = event.target.files[0];
+
+    if (this.isAdvisor) {
+      this.requestService
+        .uploadCodeptorFormatByAdvisor(file, userId, requestId)
+        .subscribe({
+          next: (data) => {
+            this.listRequests();
+          },
+          error: (err) => {
+            alert("Error leyendo la información.");
+          },
+        });
       return;
     }
-    if(response.confirm && response.commentary == ""){
+
+    if (this.isCustomer) {
+      this.requestService
+        .uploadocumentsByCustomer(file, userId, requestId)
+        .subscribe({
+          next: (data) => {
+            this.listRequests();
+          },
+          error: (err) => {
+            alert("Error leyendo la información.");
+          },
+        });
+      return;
+    }
+  }
+
+  responseModal(response: any) {
+    console.log("Response", response);
+    if (!response || !response.confirm) {
+      return;
+    }
+    if (response.confirm && this.withCommentary && response.commentary == "") {
       alert("Debe ingresar un comentario");
       return;
     }
-    this.changeRequestStatus(this.advisorId,this.requestId,this.newStatusId, response.commentary);
+    this.changeRequestStatus(
+      this.advisorId,
+      this.requestId,
+      this.newStatusId,
+      response.commentary
+    );
   }
 }

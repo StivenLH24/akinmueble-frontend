@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { configurationRoutesBackend } from "src/app/config/configuration.routes.backend";
+import { Report } from "src/app/models/report.model";
 // import { SecurityService } from "../security.service";
 import { RequestModel } from "src/app/models/request.model";
 
@@ -42,10 +43,17 @@ export class RequestService {
       options
     );
   }
+  
+  downloadCodeptorDocuments(advisorId:string, requestId:number, url:string): Observable<Blob> {
+    const options = {
+      responseType: "blob" as "json", // Especifica el tipo de respuesta como blob
+    };
+    return this.http.get<Blob>(
+      `${this.urlLogic}${url}`,
+      options
+    );
 
-  // downloadCodeptorDocuments(): Observable<Blob> {
-
-  // }
+  }
 
   uploadocumentsByCustomer(file:File, customerId: string, requestId:number): Observable<any> {
     const formData: FormData = new FormData();
@@ -65,6 +73,17 @@ export class RequestService {
     // headers = headers.set('Content-Type', 'form-data')
     return this.http.post(
       `http://localhost:3001/advisors/${advisorId}/upload-contract/${requestId}`,
+      formData
+    );
+  }
+
+  uploadCodeptorFormatByAdvisor(file:File, advisorId: string, requestId:number): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    // let headers = new HttpHeaders();
+    // headers = headers.set('Content-Type', 'form-data')
+    return this.http.post(
+      `http://localhost:3001/advisors/${advisorId}/upload-documents-codeptor/${requestId}`,
       formData
     );
   }
@@ -109,5 +128,13 @@ export class RequestService {
         commentary: commentary,
       }
     );
+  }
+
+  getRequestReports(requestId:number):Observable<Report[]>{
+    return this.http.get<Report[]>(`${this.urlLogic}requests/${requestId}/reports`);
+  }
+
+  cancelRequestByCustomer(customerId:string, requestId:number):Observable<RequestModel>{
+    return this.http.patch<RequestModel>(`${this.urlLogic}/customers/${customerId}/cancel_request/${requestId}`,{});
   }
 }

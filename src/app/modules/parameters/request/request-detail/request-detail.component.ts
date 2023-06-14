@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Property } from "src/app/models/property.model";
+import { Report } from "src/app/models/report.model";
 import { PropertyService } from "src/app/services/parameters/property.service";
 
 @Component({
@@ -11,11 +12,14 @@ export class RequestDetailComponent implements OnInit {
   constructor(private propertyService: PropertyService) {}
 
   property!: Property;
+  
+  reports:Report[]=[];
 
   ngOnInit() {
   }
 
-  getData(propertyId: number) {
+  getData(propertyId: number, reports:Report[]) {
+    this.reports = reports;
     this.propertyService.getPropertyDetail(propertyId).subscribe({
       next: (data) => [(this.property = data)],
 

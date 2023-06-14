@@ -23,7 +23,7 @@
             attr.data-target="{{ idProjectModalViewDetails }}"
             class="action-button fa-regular fa-eye modal-trigger"
             title="Ver detalles"
-            (click)="viewPropertyDetails(row.propertyId)"
+            (click)="viewPropertyDetails(row.propertyId, row.id)"
           ></i>
           <!-- Download advisor -->
           <i
@@ -80,17 +80,46 @@
             style="display: none"
             (change)="upload($event, row.id)"
           />
+          <!-- Upload codeptor format by advisor-->
+          <label
+            for="fileInputCodeptor"
+            *ngIf="
+              ((row.requestStatus?.id == 2 || row.requestStatus?.id == 12) &&
+                isAdvisor) ||
+              (row.requestStatus?.id == 3 && isCustomer)
+            "
+          >
+            <i
+              class="action-button fa-solid fa-arrow-up-from-bracket"
+              title="Cargar documento codeudor"
+            ></i>
+          </label>
+          <input
+            id="fileInputCodeptor"
+            type="file"
+            style="display: none"
+            (change)="uploadFormatCodeptor($event, row.id)"
+          />
           <!-- Download documents codeptor -->
           <i
             *ngIf="
-              row.codeptorDocumentsSource &&
-              row.codeptorDocumentsSource != '' &&
-              row.requestStatus?.id == 3 &&
-              isAdvisor
+              (row.codeptorDocumentsSource &&
+                row.codeptorDocumentsSource != '' &&
+                row.requestStatus?.id == 3 &&
+                isAdvisor) ||
+              (row.codeptorDocumentsSource &&
+                row.codeptorDocumentsSource != '' &&
+                row.requestStatus?.id == 3 &&
+                isCustomer)
             "
             class="action-button fa-regular fa-circle-down"
-            title="Decargar documentos codeudor"
-            (click)="downLoadCodeptorDocuments()"
+            title="Descargar documentos codeudor"
+            (click)="
+              downLoadCodeptorDocuments(
+                row.codeptorDocumentsSource,
+                row.id
+              )
+            "
           ></i>
           <!-- Reassign request -->
           <i
@@ -108,7 +137,7 @@
             "
             class="action-button fa-solid fa-book modal-trigger"
             title="Pasar a estudio"
-            (click)="changeStatus(row.advisorId, row.id, 2)"
+            (click)="changeStatus(row.advisorId, row.id, 2, false)"
           ></i>
           <!-- To estudio codeudor-->
           <i
@@ -119,7 +148,7 @@
             "
             class="action-button fa-regular fa-address-book modal-trigger"
             title="Pasar a estudio con codeudor"
-            (click)="changeStatus(row.advisorId, row.id, 3)"
+            (click)="changeStatus(row.advisorId, row.id, 3, false)"
           ></i>
           <!-- To pendiente contrato-->
           <i
@@ -130,7 +159,7 @@
             "
             class="action-button fa-solid fa-file-signature modal-trigger"
             title="Pasar a pendiente por contrato"
-            (click)="changeStatus(row.advisorId, row.id, 7)"
+            (click)="changeStatus(row.advisorId, row.id, 7, false)"
           ></i>
           <!-- To rechazada-->
           <i
@@ -141,7 +170,7 @@
             "
             class="action-button fa-regular fa-circle-xmark modal-trigger"
             title="Rechazar"
-            (click)="changeStatus(row.advisorId, row.id, 12)"
+            (click)="changeStatus(row.advisorId, row.id, 12, true)"
           ></i>
           <!-- To aceptada sin codeudor-->
           <i
@@ -149,7 +178,7 @@
             *ngIf="row?.requestStatus?.id == 7 && isAdvisor"
             class="action-button fa-regular fa-circle-check modal-trigger"
             title="Aceptar sin codeudor"
-            (click)="changeStatus(row.advisorId, row.id, 4)"
+            (click)="changeStatus(row.advisorId, row.id, 4, true)"
           ></i>
           <!-- To aceptada con codeudor-->
           <i
@@ -157,7 +186,7 @@
             *ngIf="row?.requestStatus?.id == 7 && isAdvisor"
             class="action-button fa-solid fa-user-check modal-trigger"
             title="Aceptar con codeudor"
-            (click)="changeStatus(row.advisorId, row.id, 5)"
+            (click)="changeStatus(row.advisorId, row.id, 5, true)"
           ></i>
           <!-- To abortada cliente-->
           <i
@@ -170,7 +199,7 @@
             "
             class="action-button fa-solid fa-ban modal-trigger modal-trigger"
             title="Abortar por cliente"
-            (click)="changeStatus(row.advisorId, row.id, 8)"
+            (click)="changeStatus(row.advisorId, row.id, 8, true)"
           ></i>
           <!-- To abortada akin-->
           <i
@@ -178,7 +207,7 @@
             *ngIf="row.requestStatus?.id == 7 && isAdvisor"
             class="action-button fa-solid fa-power-off modal-trigger"
             title="Abortar por Akin"
-            (click)="changeStatus(row.advisorId, row.id, 9)"
+            (click)="changeStatus(row.advisorId, row.id, 9, true)"
           ></i>
           <!-- To incumplimiento akin-->
           <i
@@ -186,7 +215,7 @@
             *ngIf="row.requestStatus?.id == 4 && isAdvisor"
             class="action-button fa-solid fa-skull modal-trigger"
             title="Incumplimiento por Akin"
-            (click)="changeStatus(row.advisorId, row.id, 10)"
+            (click)="changeStatus(row.advisorId, row.id, 10, true)"
           ></i>
           <!-- To incumplimiento cliente-->
           <i
@@ -194,7 +223,15 @@
             *ngIf="row.requestStatus?.id == 4 && isAdvisor"
             class="action-button fa-solid fa-face-dizzy modal-trigger"
             title="Incumplimiento por cliente"
-            (click)="changeStatus(row.advisorId, row.id, 11)"
+            (click)="changeStatus(row.advisorId, row.id, 11, true)"
+          ></i>
+          <!-- To Cancelar solicitud por cliente-->
+          <i
+            data-target="confirm-modal-3"
+            *ngIf="row.requestStatus?.id == 1 && isCustomer"
+            class="action-button fa-solid fa-square-xmark modal-trigger"
+            title="Cancelar solicitud"
+            (click)="cancelRequest(row.customerId, row.id)"
           ></i>
         </td>
       </tr>
@@ -228,7 +265,8 @@
 </app-projector-modal>
 
 <app-commentary-modal
-  [title]="'¿Cambio de estado?'"
+  [title]="'¿Esta seguro que quiere cambiar el estado de la solicitud?'"
   [description]="'Ingrese un comentario'"
+  [withComment]="withCommentary"
   (response)="responseModal($event)"
 ></app-commentary-modal>
