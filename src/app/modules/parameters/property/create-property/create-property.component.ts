@@ -6,6 +6,7 @@ import { PropertyType } from 'src/app/models/propertyType.model';
 import { MatSelectModule } from '@angular/material/select';
 import { SecurityService } from 'src/app/services/security.service';
 import { Router } from '@angular/router';
+import { DataPropertyService } from 'src/app/services/data-property.service';
 
 @Component({
   selector: 'app-create-property',
@@ -26,6 +27,7 @@ itemPropertyType: PropertyType= new PropertyType;
 constructor(
   private securityService:SecurityService,
   private router: Router,
+  private dataProperty: DataPropertyService,
   ){
     this.fgroup = new FormGroup({
       address: new FormControl('', Validators.required),
@@ -64,10 +66,13 @@ const id = this.securityService.getIdUserPkValidated();
 if (id) {
   
     this.securityService.createProperty(data,id).subscribe(response => {
-      console.log('se creo la request correctamente');
+      console.log('se creo la propiedad correctamente');
+      this.dataProperty.setIdProperty(response.id)
       this.clearForm();
-      this.router.navigate(['parameters/property/chargue-img'])
-    console.log(response);
+      this.router.navigate(['/parameters/chargue-image'])
+      // routerLink="./create-property"
+      // this.router.navigate(['parameters/property/chargue-img'])
+
     
       
    

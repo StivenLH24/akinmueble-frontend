@@ -10,6 +10,7 @@ import { RequestModel } from '../models/request.model';
 import { PropertyType } from '../models/propertyType.model';
 import { City } from '../models/city.model';
 import { OfferType } from '../models/offerType.model';
+import { ArchivoModel } from '../models/archivo.model';
 
 @Injectable({
   providedIn: 'root',
@@ -271,6 +272,15 @@ return this.http.post<any>(`${this.urlLogic}advisors/${id}/properties`, data);
   }
 
  
+
+
+
+  CargarArchivo(formData: FormData,id:string): Observable<ArchivoModel> {
+    return this.http.post<ArchivoModel>((`${this.urlLogic}property/${id}/upload-property-picture`), formData);
+  }
+  CargarArchivod(formData: FormData): Observable<ArchivoModel> {
+    return this.http.post<ArchivoModel>(`${this.urlLogic}property/4/upload-property-picture`, formData);
+  }
 
 }
 
