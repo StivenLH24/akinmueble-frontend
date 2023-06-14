@@ -44,7 +44,8 @@ import { ChargueImageComponent } from './property/chargue-image/chargue-image.co
     PropertyListComponent,
     CreatePropertyComponent,
     ChargueImageComponent,
-    CommentaryModalComponent
+    CommentaryModalComponent,
+    CreatePropertyComponent
   ],
   imports: [
     CommonModule,
