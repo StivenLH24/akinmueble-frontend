@@ -18,22 +18,174 @@
         <td>{{ row.property.propertyType.typeName }}</td>
         <td>{{ row.requestStatus.statusName }}</td>
         <td class="actions">
+          <!-- View details -->
           <i
             attr.data-target="{{ idProjectModalViewDetails }}"
             class="action-button fa-regular fa-eye modal-trigger"
+            title="Ver detalles"
             (click)="viewPropertyDetails(row.propertyId)"
           ></i>
+          <!-- Download advisor -->
           <i
-            *ngIf="row.contractSource && row.contractSource != ''"
+            *ngIf="row.contractSource && row.contractSource != '' && isAdvisor"
             class="action-button fa-regular fa-circle-down"
+            title="Decargar contrato"
             (click)="downLoadContract(row.contractSource)"
-            ></i>
+          ></i>
+          <!-- Download contract -->
+          <i
+            *ngIf="
+              row.contractSource &&
+              row.contractSource != '' &&
+              row.requestStatus?.id == 7 &&
+              isCustomer
+            "
+            class="action-button fa-regular fa-circle-down"
+            title="Decargar contrato"
+            (click)="downLoadContract(row.contractSource)"
+          ></i>
+          <!-- Upload contract advisor-->
+
+          <label
+            for="fileInput"
+            *ngIf="
+              (row.requestStatus?.id == 2 ||
+                row.requestStatus?.id == 3 ||
+                row.requestStatus?.id == 7 ||
+                row.requestStatus?.id == 4 ||
+                row.requestStatus?.id == 5 ||
+                row.requestStatus?.id == 10 ||
+                row.requestStatus?.id == 11) &&
+              isAdvisor
+            "
+          >
             <i
+              class="action-button fa-solid fa-file-arrow-up"
+              title="Cargar formato de contrato"
+            ></i>
+          </label>
+          <!-- Upload contract customer-->
+          <label
+            for="fileInput"
+            *ngIf="row.requestStatus?.id == 7 && isCustomer"
+          >
+            <i
+              class="action-button fa-solid fa-file-arrow-up"
+              title="Cargar contrato"
+            ></i>
+          </label>
+          <input
+            id="fileInput"
+            type="file"
+            style="display: none"
+            (change)="upload($event, row.id)"
+          />
+          <!-- Download documents codeptor -->
+          <i
+            *ngIf="
+              row.codeptorDocumentsSource &&
+              row.codeptorDocumentsSource != '' &&
+              row.requestStatus?.id == 3 &&
+              isAdvisor
+            "
+            class="action-button fa-regular fa-circle-down"
+            title="Decargar documentos codeudor"
+            (click)="downLoadCodeptorDocuments()"
+          ></i>
+          <!-- Reassign request -->
+          <i
             *ngIf="isAdmin"
             attr.data-target="{{ idProjectChangeAdvisor }}"
             class="action-button fa-solid fa-people-arrows modal-trigger"
+            title="Reasignar"
           ></i>
-          
+          <!-- To estudio-->
+          <i
+            *ngIf="
+              (row?.requestStatus?.id == 1 || row.requestStatus?.id == 12) &&
+              isAdvisor
+            "
+            class="action-button fa-solid fa-book"
+            title="Pasar a estudio"
+            (click)="changeRequestStatus(row.advisorId, row.id, 2)"
+          ></i>
+          <!-- To estudio codeudor-->
+          <i
+            *ngIf="
+              (row?.requestStatus?.id == 2 || row.requestStatus?.id == 12) &&
+              isAdvisor
+            "
+            class="action-button fa-regular fa-address-book"
+            title="Pasar a estudio con codeudor"
+            (click)="changeRequestStatus(row.advisorId, row.id, 3)"
+          ></i>
+          <!-- To pendiente contrato-->
+          <i
+            *ngIf="
+              (row?.requestStatus?.id == 2 || row.requestStatus?.id == 3) &&
+              isAdvisor
+            "
+            class="action-button fa-solid fa-file-signature"
+            title="Pasar a pendiente por contrato"
+            (click)="changeRequestStatus(row.advisorId, row.id, 7)"
+          ></i>
+          <!-- To rechazada-->
+          <i
+            *ngIf="
+              (row?.requestStatus?.id == 2 || row.requestStatus?.id == 3) &&
+              isAdvisor
+            "
+            class="action-button fa-regular fa-circle-xmark"
+            title="Rechazar"
+            (click)="changeRequestStatus(row.advisorId, row.id, 12)"
+          ></i>
+          <!-- To aceptada sin codeudor-->
+          <i
+            *ngIf="row?.requestStatus?.id == 7 && isAdvisor"
+            class="action-button fa-regular fa-circle-check"
+            title="Aceptar sin codeudor"
+            (click)="changeRequestStatus(row.advisorId, row.id, 4)"
+          ></i>
+          <!-- To aceptada con codeudor-->
+          <i
+            *ngIf="row?.requestStatus?.id == 7 && isAdvisor"
+            class="action-button fa-solid fa-user-check"
+            title="Aceptar con codeudor"
+            (click)="changeRequestStatus(row.advisorId, row.id, 5)"
+          ></i>
+          <!-- To abortada cliente-->
+          <i
+            *ngIf="
+              (row?.requestStatus?.id == 2 ||
+                row.requestStatus?.id == 3 ||
+                row.requestStatus?.id == 7) &&
+              isAdvisor
+            "
+            class="action-button fa-solid fa-ban"
+            title="Abortar por cliente"
+            (click)="changeRequestStatus(row.advisorId, row.id, 8)"
+          ></i>
+          <!-- To abortada akin-->
+          <i
+            *ngIf="row.requestStatus?.id == 7 && isAdvisor"
+            class="action-button fa-solid fa-power-off"
+            title="Abortar por Akin"
+            (click)="changeRequestStatus(row.advisorId, row.id, 9)"
+          ></i>
+          <!-- To incumplimiento akin-->
+          <i
+            *ngIf="row.requestStatus?.id == 4 && isAdvisor"
+            class="action-button fa-solid fa-skull"
+            title="Incumplimiento por Akin"
+            (click)="changeRequestStatus(row.advisorId, row.id, 10)"
+          ></i>
+          <!-- To incumplimiento cliente-->
+          <i
+            *ngIf="row.requestStatus?.id == 4 && isAdvisor"
+            class="action-button fa-solid fa-face-dizzy"
+            title="Incumplimiento por cliente"
+            (click)="changeRequestStatus(row.advisorId, row.id, 11)"
+          ></i>
         </td>
       </tr>
     </tbody>
@@ -55,7 +207,6 @@
     <app-request-detail #requestDetail></app-request-detail>
   </div>
 </app-projector-modal>
-
 
 <!-- TODO: Cambiar esto por un confirm modal -->
 <app-projector-modal
