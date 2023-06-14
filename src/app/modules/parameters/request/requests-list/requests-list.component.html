@@ -101,90 +101,100 @@
           ></i>
           <!-- To estudio-->
           <i
+            data-target="confirm-modal-3"
             *ngIf="
               (row?.requestStatus?.id == 1 || row.requestStatus?.id == 12) &&
               isAdvisor
             "
-            class="action-button fa-solid fa-book"
+            class="action-button fa-solid fa-book modal-trigger"
             title="Pasar a estudio"
-            (click)="changeRequestStatus(row.advisorId, row.id, 2)"
+            (click)="changeStatus(row.advisorId, row.id, 2)"
           ></i>
           <!-- To estudio codeudor-->
           <i
+            data-target="confirm-modal-3"
             *ngIf="
               (row?.requestStatus?.id == 2 || row.requestStatus?.id == 12) &&
               isAdvisor
             "
-            class="action-button fa-regular fa-address-book"
+            class="action-button fa-regular fa-address-book modal-trigger"
             title="Pasar a estudio con codeudor"
-            (click)="changeRequestStatus(row.advisorId, row.id, 3)"
+            (click)="changeStatus(row.advisorId, row.id, 3)"
           ></i>
           <!-- To pendiente contrato-->
           <i
+            data-target="confirm-modal-3"
             *ngIf="
               (row?.requestStatus?.id == 2 || row.requestStatus?.id == 3) &&
               isAdvisor
             "
-            class="action-button fa-solid fa-file-signature"
+            class="action-button fa-solid fa-file-signature modal-trigger"
             title="Pasar a pendiente por contrato"
-            (click)="changeRequestStatus(row.advisorId, row.id, 7)"
+            (click)="changeStatus(row.advisorId, row.id, 7)"
           ></i>
           <!-- To rechazada-->
           <i
+            data-target="confirm-modal-3"
             *ngIf="
               (row?.requestStatus?.id == 2 || row.requestStatus?.id == 3) &&
               isAdvisor
             "
-            class="action-button fa-regular fa-circle-xmark"
+            class="action-button fa-regular fa-circle-xmark modal-trigger"
             title="Rechazar"
-            (click)="changeRequestStatus(row.advisorId, row.id, 12)"
+            (click)="changeStatus(row.advisorId, row.id, 12)"
           ></i>
           <!-- To aceptada sin codeudor-->
           <i
+            data-target="confirm-modal-3"
             *ngIf="row?.requestStatus?.id == 7 && isAdvisor"
-            class="action-button fa-regular fa-circle-check"
+            class="action-button fa-regular fa-circle-check modal-trigger"
             title="Aceptar sin codeudor"
-            (click)="changeRequestStatus(row.advisorId, row.id, 4)"
+            (click)="changeStatus(row.advisorId, row.id, 4)"
           ></i>
           <!-- To aceptada con codeudor-->
           <i
+            data-target="confirm-modal-3"
             *ngIf="row?.requestStatus?.id == 7 && isAdvisor"
-            class="action-button fa-solid fa-user-check"
+            class="action-button fa-solid fa-user-check modal-trigger"
             title="Aceptar con codeudor"
-            (click)="changeRequestStatus(row.advisorId, row.id, 5)"
+            (click)="changeStatus(row.advisorId, row.id, 5)"
           ></i>
           <!-- To abortada cliente-->
           <i
+            data-target="confirm-modal-3"
             *ngIf="
               (row?.requestStatus?.id == 2 ||
                 row.requestStatus?.id == 3 ||
                 row.requestStatus?.id == 7) &&
               isAdvisor
             "
-            class="action-button fa-solid fa-ban"
+            class="action-button fa-solid fa-ban modal-trigger modal-trigger"
             title="Abortar por cliente"
-            (click)="changeRequestStatus(row.advisorId, row.id, 8)"
+            (click)="changeStatus(row.advisorId, row.id, 8)"
           ></i>
           <!-- To abortada akin-->
           <i
+            data-target="confirm-modal-3"
             *ngIf="row.requestStatus?.id == 7 && isAdvisor"
-            class="action-button fa-solid fa-power-off"
+            class="action-button fa-solid fa-power-off modal-trigger"
             title="Abortar por Akin"
-            (click)="changeRequestStatus(row.advisorId, row.id, 9)"
+            (click)="changeStatus(row.advisorId, row.id, 9)"
           ></i>
           <!-- To incumplimiento akin-->
           <i
+            data-target="confirm-modal-3"
             *ngIf="row.requestStatus?.id == 4 && isAdvisor"
-            class="action-button fa-solid fa-skull"
+            class="action-button fa-solid fa-skull modal-trigger"
             title="Incumplimiento por Akin"
-            (click)="changeRequestStatus(row.advisorId, row.id, 10)"
+            (click)="changeStatus(row.advisorId, row.id, 10)"
           ></i>
           <!-- To incumplimiento cliente-->
           <i
+            data-target="confirm-modal-3"
             *ngIf="row.requestStatus?.id == 4 && isAdvisor"
-            class="action-button fa-solid fa-face-dizzy"
+            class="action-button fa-solid fa-face-dizzy modal-trigger"
             title="Incumplimiento por cliente"
-            (click)="changeRequestStatus(row.advisorId, row.id, 11)"
+            (click)="changeStatus(row.advisorId, row.id, 11)"
           ></i>
         </td>
       </tr>
@@ -217,4 +227,8 @@
   <div>Este es el del advisor</div>
 </app-projector-modal>
 
-<!-- <option value="" disabled selected>Choose your option</option> -->
+<app-commentary-modal
+  [title]="'¿Cambio de estado?'"
+  [description]="'Ingrese un comentario'"
+  (response)="responseModal($event)"
+></app-commentary-modal>

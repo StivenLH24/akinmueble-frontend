@@ -21,6 +21,7 @@ import { RequestDetailComponent } from './request/request-detail/request-detail.
 import { PropertyListComponent } from './property/property-list/property-list.component';
 import { CreatePropertyComponent } from './property/create-property/create-property.component';
 import { MatSelectModule } from '@angular/material/select';
+import { CommentaryModalComponent } from './request/commentary-modal/commentary-modal.component';
 
 
 @NgModule({
@@ -39,8 +40,7 @@ import { MatSelectModule } from '@angular/material/select';
     RequestsListComponent,
     ContratoComponent,
     RequestDetailComponent,
-    PropertyListComponent,
-    CreatePropertyComponent
+    PropertyListComponent
   ],
   imports: [
     CommonModule,
