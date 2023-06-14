@@ -19,4 +19,11 @@
     <label class="label-item" for="">Tipo de propiedad:</label>
     <span class="value-item">{{ property?.propertyType?.typeName }}</span>
   </div>
+
+  <div class="reports-wraper">
+    <div *ngFor="let report of reports" class="report">
+      <h6 class="report-title">Comentario:</h6>
+      <p>{{ report.commentary }}</p>
+    </div>
+  </div>
 </div>
