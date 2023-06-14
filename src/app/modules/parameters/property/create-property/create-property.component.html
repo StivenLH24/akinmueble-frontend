@@ -1,0 +1,85 @@
+<div class="row" style="padding-top: 10px; padding-bottom: 40px">
+  <div class="col s12 m6 offset-m3">
+    <div style="border: 1px solid black; padding: 40px">
+      <div class="row">
+        <form [formGroup]="fgroup" (ngSubmit)="onSubmit()">
+          <div class="input-field">
+            <label for="address">Direccion:</label>
+            <input type="text" id="address" formControlName="address" />
+          </div>
+
+          <div class="input-field">
+            <label for="price">Precio:</label>
+            <input type="number" id="price" formControlName="price" />
+          </div>
+
+          <div class="row" >
+            <!-- select de ciudades -->
+            <div class="col s12 m12" style="padding: auto;">
+              <mat-form-field appearance="fill" style="width: 100%">
+                <mat-label>Selecciona la ciudad</mat-label>
+                <mat-select [(value)]="itemCity.id" formControlName="cityId">
+                  <mat-option
+                    *ngFor="let item of listadoCity"
+                    [value]="item.id"
+                  >
+                    {{ item.cityName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- select de tipo de oferta -->
+            <div class="col s12 m12" style="padding: auto;">
+              <mat-form-field appearance="fill" style="width: 100%">
+                <mat-label>Tipo de oferta</mat-label>
+                <mat-select
+                  [(value)]="itemOfferType.id"
+                  formControlName="offerTypeId"
+                >
+                  <mat-option
+                    *ngFor="let item of listadoOfferType"
+                    [value]="item.id"
+                  >
+                    {{ item.offerTypeName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col s12 m12" style="padding: auto;">
+              <!-- select tipo de propiedad -->
+              <mat-form-field appearance="fill"  style="width: 100%">
+                <mat-label>Selecciona el tipo de propiedad</mat-label>
+                <mat-select
+                  [(value)]="itemPropertyType.id"
+                  formControlName="propertyTypeId"
+                >
+                  <mat-option
+                    *ngFor="let item of listadoPropertyTypeId"
+                    [value]="item.id"
+                  >
+                    {{ item.typeName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="input-field">
+            <p>Id del advisor creador: {{ fgroup.get("advisorId")?.value }}</p>
+          </div>
+          <button
+          class="btn waves-effect waves-light"
+          style="width: 150px; height:50px;"
+          type="submit"
+          name="action"
+          [disabled]="!fgroup.valid"
+        >
+          Crear
+        </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
