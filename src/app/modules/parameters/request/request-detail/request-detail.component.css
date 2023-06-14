@@ -1,12 +1,14 @@
-.item {
-
-}
-
 .label-item{
     margin-right: 5px;
     font-size: 1rem;
 }
 
-.value-item{
+.reports-wraper{
+    background-color: rgb(236, 240, 240);
+    padding: 1rem;
+    margin-top: 1rem;
+}
 
+.report-title{
+    font-weight: 700;
 }

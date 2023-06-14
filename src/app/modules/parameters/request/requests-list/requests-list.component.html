@@ -23,7 +23,7 @@
             attr.data-target="{{ idProjectModalViewDetails }}"
             class="action-button fa-regular fa-eye modal-trigger"
             title="Ver detalles"
-            (click)="viewPropertyDetails(row.propertyId)"
+            (click)="viewPropertyDetails(row.propertyId, row.id)"
           ></i>
           <!-- Download advisor -->
           <i
@@ -225,6 +225,14 @@
             title="Incumplimiento por cliente"
             (click)="changeStatus(row.advisorId, row.id, 11, true)"
           ></i>
+          <!-- To Cancelar solicitud por cliente-->
+          <i
+            data-target="confirm-modal-3"
+            *ngIf="row.requestStatus?.id == 1 && isCustomer"
+            class="action-button fa-solid fa-square-xmark modal-trigger"
+            title="Cancelar solicitud"
+            (click)="cancelRequest(row.customerId, row.id)"
+          ></i>
         </td>
       </tr>
     </tbody>
@@ -257,7 +265,7 @@
 </app-projector-modal>
 
 <app-commentary-modal
-  [title]="'¿Esta seguro que quiere cambiar el estado?'"
+  [title]="'¿Esta seguro que quiere cambiar el estado de la solicitud?'"
   [description]="'Ingrese un comentario'"
   [withComment]="withCommentary"
   (response)="responseModal($event)"
